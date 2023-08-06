@@ -10,6 +10,7 @@ python = "^3.11"
 django = "4.2.4"
 pydantic = "^2.1.1"
 environs = "^9.5.0"
+django-mptt = "^0.14.0"
 
 
 [build-system]
