@@ -11,4 +11,4 @@ def test_view(request):
         }
     print(context_data["data"])
 
-    return render(request, template_name="home.html", context=context_data)
+    return render(request, template_name="homescreen_base.html", context=context_data)
