@@ -1,15 +1,18 @@
 from pathlib import Path
 from environs import Env
 
-# initialization of settings' enviromental variables
-env = Env()
-env.read_env("environs/.env.settings")
+# initialization of config's enviromental variables
+conf= Env()
+conf.read_env("environs/.env.settings")
+# initialization of database's enviromental variables
+db_config = Env()
+db_config.read_env("environs/.env.database")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("KEY")
+SECRET_KEY = conf("KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,6 +35,7 @@ INSTALLED_APPS = [
 
     # custom apps
     "invoices",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -69,8 +73,12 @@ WSGI_APPLICATION = 'moneyroam.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': db_config("NAME"),
+        'USER': db_config("USER"),
+        'PASSWORD': db_config("PASSWORD"),
+        'HOST': db_config("HOST"),
+        'PORT': db_config("PORT")
     }
 }
 
@@ -130,6 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "accounts.CustomUser"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

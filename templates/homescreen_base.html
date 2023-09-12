@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href={% static 'css/homescreen_base.css' %}>
     <link rel="stylesheet" href={% static 'css/menu_nav_bar.css' %}>
-    {% block head %}{% endblock head %}
+    {% block extra_head %}{% endblock extra_head %}
     <title>{% block page_title %}{% endblock page_title %}</title>
 </head>
 <body>
@@ -14,11 +14,17 @@
         {% include "menu_nav_bar.html" %}
         <section class="core_content">
             <article class="core_content_head">
+
                 <div class="content_title">
                     {% block core_content_title %}Title{% endblock core_content_title %}
                 </div>
-            </article> 
-            {% block core_content %}{% endblock core_content %}
+
+            </article>
+
+            <article class="core_content_main">
+                {% block core_content %}{% endblock core_content %}
+            </article>
+
         </section>
         <section class="right_section">
             <div class="profile_info">

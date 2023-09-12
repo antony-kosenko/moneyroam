@@ -27,16 +27,24 @@ body {
     width: 50%;
     margin: 0 30px;
     flex-grow: 1;
-    border: solid black 1px;
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 
 .core_content_head {
     width: calc(100% - 20px);
-    height: 60px;
+    height: calc(10% - 40px);
     font-size: 2rem;
-    padding: 30px 10px;
+    padding: 20px 10px;
+}
+
+.core_content_main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(90% - 10px);
+    gap: 10px;
 }
 
 .right_section {

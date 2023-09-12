@@ -8,16 +8,24 @@ CURRENCY_CHOICE = (
     ("€", "euro")
 )
 
+
 class Category(MPTTModel):
     """ Category model. 
-    Represents a category where money spent/earned"""
+    Represents a category where money have been spent/earned."""
 
     name = models.CharField(max_length=54, unique=True)
     parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     slug = models.SlugField(unique=True, max_length=54, blank=True)
 
+    def __str__(self):
+        return self.name
+    
     class MPTTMeta:
         order_insertion_by = ('name',)
+    
+    class Meta:
+        verbose_name_plural = "Categories"
+
 
 class Invoice(models.Model):
     """ Invoice model.
