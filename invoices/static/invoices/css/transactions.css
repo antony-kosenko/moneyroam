@@ -1,0 +1,22 @@
+.transaction_type_select {
+    width: calc(100% - 30px);
+    height: calc(15% - 30px);
+    padding: 15px;
+    display: flex;
+    background-color: aliceblue;
+    border-radius: 15px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.type_item {
+
+}
+
+.transaction_content {
+    width: calc(100% - 30px);
+    height: calc(75% - 30px);
+    padding: 15px;
+    background-color: aliceblue;
+    border-radius: 15px;
+}

@@ -1,6 +1,6 @@
 from django.urls import path
-from invoices.views import test_view
+from invoices.views import transactions_list_view
 
 urlpatterns = [
-    # path("test/", test_view)
+    path("", transactions_list_view, name="transactions_list"),
 ]
