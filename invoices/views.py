@@ -1,3 +1,4 @@
+import logging
 from typing import Any, Dict
 from django.urls import reverse_lazy,reverse
 
@@ -5,6 +6,8 @@ from django.views.generic.edit import CreateView
 
 from invoices.models import Invoice
 from invoices.forms import NewInvoiceForm
+
+logger = logging.getLogger(__name__)
 
 
 class TransactionListAndCreateView(CreateView):
@@ -20,6 +23,7 @@ class TransactionListAndCreateView(CreateView):
         queryset = Invoice.objects.all()
         # retrieving 'type' parameter requested for invoice filtering
         filter_type = self.request.GET.get("type")
+        logger.info(f"TransactionsListAndCreateView requested by {self.request.user.id}. Filter parameter = {filter_type}")
         # forming filtered queryset
         if filter_type == "outcome":
             queryset = queryset.filter(operation__startswith="-")

@@ -30,21 +30,18 @@
             <li>Title</li>
             <li>Operation</li>
             <li>Currency</li>
-            <li>Category</li>
             <li>Record Date</li>
         </ul>
         <hr>
         {% if invoice_list %}
             {% for invoice in invoice_list %}
                 <ul class="invoice_list_unit">
-                    <li>{{ invoice.title }}</li>                   
+                    <li>
+                        <div>{{ invoice.title }} </div> 
+                        <div><span>{{ invoice.category.name }}</span></div>       
+                    </li>                   
                     <li>{{ invoice.operation }}</li>
                     <li>{{ invoice.currency }}</li>
-                    {% if invoice.category.name %}
-                    <li># {{ invoice.category.name }}</li>
-                    {% else %}
-                    <li>--</li>
-                    {% endif %}
                     <li>{{ invoice.date_created }}</li>
                 </ul>
             {% endfor %}
