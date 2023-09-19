@@ -20,12 +20,36 @@
 {% comment %} Core content (middle column/section of the homepage) {% endcomment %}
 {% block core_content %}
     <section class="transaction_options">
-        <div class="type_item">Last transactions</div>
-        <div class="type_item">Income</div>
-        <div class="type_item">Outcome</div>
+        <div class="type_item"><a href="{% url 'invoices:transaction_list_and_create' %}">Last transactions</a></div>
+        <div class="type_item"><a href="{% url 'invoices:transaction_list_and_create' %}?type=income">Income</a></div>
+        <div class="type_item"><a href="{% url 'invoices:transaction_list_and_create' %}?type=outcome">Outcome</a></div>
     </section>
     
     <section class="transaction_content">
-
+        <ul class="table_header">
+            <li>Title</li>
+            <li>Operation</li>
+            <li>Currency</li>
+            <li>Category</li>
+            <li>Record Date</li>
+        </ul>
+        <hr>
+        {% if invoice_list %}
+            {% for invoice in invoice_list %}
+                <ul class="invoice_list_unit">
+                    <li>{{ invoice.title }}</li>                   
+                    <li>{{ invoice.operation }}</li>
+                    <li>{{ invoice.currency }}</li>
+                    {% if invoice.category.name %}
+                    <li># {{ invoice.category.name }}</li>
+                    {% else %}
+                    <li>--</li>
+                    {% endif %}
+                    <li>{{ invoice.date_created }}</li>
+                </ul>
+            {% endfor %}
+        {% else %}
+            <h2>No records</h2>    
+        {% endif %}
     </section>
 {% endblock core_content %}

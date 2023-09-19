@@ -1,11 +1,19 @@
 <nav class="side_nav">
     <div class="logo">Logo</div>
+    
     <div class="side_menu">
+
         <div class="side_menu_top_items">
             <div class="menu_item"><a href="*">Dashboard</a></div>
             <div class="menu_item"><a href="*">Reports</a></div>
-            <div class="menu_item"><a href="*">Transactions</a></div>
+            <div class="menu_item"><a href={% url 'invoices:transaction_list_and_create' %}>Transactions</a></div>
         </div>
+
+        <div class="new_invoice_button">
+            <button id="openModalBtn">+</button>
+            {% include 'invoices/add_invoice_button.html' %}
+        </div>
+
         <div class="side_menu_bottom_items">
             <div class="menu_item"><a href="*">Logout</a></div>
         </div>

@@ -33,10 +33,10 @@ body {
 }
 
 .core_content_head {
-    width: calc(100% - 20px);
-    height: calc(10% - 40px);
+    width: calc(100% - 30px);
+    height: calc(10% - 50px);
     font-size: 2rem;
-    padding: 20px 10px;
+    padding: 25px 15px;
 }
 
 .core_content_main {

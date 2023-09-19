@@ -1,0 +1,19 @@
+
+<!-- Button to add new Invoice object -->
+
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Введіть дані для POST запиту</h2>
+        <form id="postForm" method="post" action={% url 'invoices:transaction_list_and_create' %}>
+            {% csrf_token %}
+            {{form.as_p}}
+            <div>
+                {{field.errors}}
+                {{from.non_field_errors}}
+            </div>
+            <input type="submit" value="Create">
+        </form>
+    </div>
+</div>
