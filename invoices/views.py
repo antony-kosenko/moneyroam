@@ -1,6 +1,6 @@
 import logging
-from typing import Any, Dict
-from django.urls import reverse_lazy,reverse
+from typing import Any
+from django.urls import reverse_lazy
 
 from django.views.generic.edit import CreateView
 
@@ -11,26 +11,27 @@ logger = logging.getLogger(__name__)
 
 
 class TransactionListAndCreateView(CreateView):
+    # TODO Check later if i really need 2 in 1 view. 
     """ Lists transactions depends on filter parameters passed (by default lists all transactions).
     Handles creation of new transaction as well."""
     model = Invoice
     form_class = NewInvoiceForm
-    template_name = "invoices/transactions.html"
+    template_name = "base_page.html"
     success_url = reverse_lazy("invoices:transaction_list_and_create")
     
-    # using context data to pass a list of transactions
-    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
-        queryset = Invoice.objects.all()
+    ALLOWED_TRANSACTION_TYPES = ("expenses", "incomes")
+    
+    # using context data to pass a list of transactions 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         # retrieving 'type' parameter requested for invoice filtering
         filter_type = self.request.GET.get("type")
-        logger.info(f"TransactionsListAndCreateView requested by {self.request.user.id}. Filter parameter = {filter_type}")
+        logger.info(f"TransactionsListAndCreateView requested by {self.request.user.id}. "
+                    f"Filter parameter = {filter_type}")
         # forming filtered queryset
-        if filter_type == "outcome":
-            queryset = queryset.filter(operation__startswith="-")
-        elif filter_type == "income":
-            queryset = queryset.exclude(operation__startswith="-")
-        
-        kwargs["invoice_list"] = queryset
-    
+        if filter_type in self.ALLOWED_TRANSACTION_TYPES:
+            invoices_list = Invoice.objects.filter(operation=filter_type)            
+        else:
+            invoices_list = Invoice.objects.all()
+        # append a new data to context data
+        kwargs["invoice_list"] = invoices_list     
         return super(TransactionListAndCreateView, self).get_context_data(**kwargs)
-    

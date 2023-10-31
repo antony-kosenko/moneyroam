@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={% static "css/base_page.css" %}>
+    <link rel="stylesheet" href={% static "css/navbar.css" %}>
+    {% comment %} May be extended with additional tags in block below.{% endcomment %}
+    {% block extra_head_tags %}{% endblock extra_head_tags %}
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+
+<body>
+    {% comment %} Navbar {% endcomment %}
+    {% include "navbar.html" %}
+    <div class="page">
+
+        <section class="page_header">
+            <h1>{% block page_title %}Menu{% endblock page_title %}</h1>
+
+            <div class="page_header_interactors">
+                {% comment %} filter forms here {% endcomment %}
+                {% block page_filters %}{% endblock page_filters %}
+                
+                {% comment %} Profile dropdown menu {% endcomment %}
+                <nav class="profile_navigation_block">
+
+                    <label for="touch"><span><img src="{% static "img/base_page_icons/default_profile_image.svg" %}" alt="default_profile"></span></label>               
+                    <input type="checkbox" id="touch"> 
+                  
+                    <ul class="dropdown_list">
+                      <li><a href="#">Profile</a></li> 
+                      <li><a href="#">Settings</a></li>
+                      <hr style="margin: 0px;">
+                      <li><a href="#">Logout</a></li>
+                    </ul>
+                  
+                </nav> 
+            </div>
+
+        </section>
+    
+    {% comment %} main content of the page here {% endcomment %}
+    <section class="page_content">
+    {% block page_content %}{% endblock page_content %}
+    </section>
+    </div>    
+</body>
+
+</html>
