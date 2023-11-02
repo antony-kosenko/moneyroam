@@ -1,0 +1,49 @@
+.nav_main {
+    position: absolute;
+    width: 70px;
+    height: calc(100% - 90px);
+    margin: 25px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #1d2127;
+}
+
+.logo_pic {
+    width: 70px;
+    height: 70px;
+}
+
+.nav_menu {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0 20px 0;
+    min-width: calc(100% - 40px);
+    height: calc(100% - 140px);
+}
+
+.nav_menu a {
+    width: 50%;
+    align-self: center;
+}
+
+.nav_menu img {
+    filter: invert(100%) sepia(56%) saturate(1503%) hue-rotate(179deg) brightness(105%) contrast(102%);
+}
+
+.nav_menu_top {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    flex-basis: 80%;
+}
+
+.nav_menu_bottom {
+    display: flex;
+    flex-direction: column-reverse;
+    flex-basis: 20%;
+}
+
+.nav_menu_bottom a {
+    width: 50px;
+    height: 50px;
+}

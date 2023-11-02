@@ -1,2 +1,45 @@
-{% extends 'homescreen_base.html' %}
+{% extends "base_page.html" %}
+{% load static %}
 
+{% comment %} Head tags {% endcomment %}
+{% block extra_head_tags %}
+    <link rel="stylesheet" href={% static "invoices/css/dashboard.css" %}>
+{% endblock extra_head_tags %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% comment %} Page title {% endcomment %}
+{% block page_title %}Dashboard{% endblock page_title %}
+
+{% comment %} Page core content {% endcomment %}
+{% block page_content %}
+    <section class="summary_data">
+        <h2>Balance</h2>
+        {% comment %} Summary value for expenses/incomes in separate blocks {% endcomment %}
+        <div class="summary_block">
+            <span>$36000</span>
+            <div class="summary_data_label"></div>
+            <div class="summary_data_label"></div>
+        </div>
+    </section>
+
+    <section class="last_transactions_list_block">
+        <div class="last_transactions_header">
+            <h2>Transaction history</h2>
+            <a href="#"><span>View all</span></a>
+        </div>
+        
+        <div class="transaction_list">
+            <div class="transaction_item"></div>
+            <div class="transaction_item"></div>
+            <div class="transaction_item"></div>
+            <div class="transaction_item"></div>
+            <div class="transaction_item"></div>
+            <div class="transaction_item"></div>
+            <div class="transaction_item"></div>
+        </div>
+        {% comment %} # TODO last 10 transactions? {% endcomment %}
+    </section>
+
+
+{% endblock page_content %}

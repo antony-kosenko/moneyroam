@@ -3,9 +3,14 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 
 CURRENCY_CHOICE = (
-    ("₴", "hryvnia"),
-    ("$", "dollar"),
-    ("€", "euro")
+    ("UAH", "₴"),
+    ("USD", "$"),
+    ("EUR", "€")
+)
+
+OPERATION_TYPE = (
+    ("income", "income"),
+    ("expense", "expense")
 )
 
 
@@ -31,19 +36,22 @@ class Invoice(models.Model):
     """ Invoice model.
      Represents a basic income/outcome transaction. """
     
-    title = models.CharField(max_length=64, verbose_name="Title")
+    title = models.CharField(max_length=32, verbose_name="Title")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
-    money_transaction = models.DecimalField(max_digits=7, decimal_places=2, verbose_name="Income/Outcome")
-    currency = models.CharField(max_length=1, choices=CURRENCY_CHOICE)
+    operation = models.CharField(max_length=7, choices=OPERATION_TYPE, verbose_name="operation")
+    value = models.DecimalField(max_digits=14, decimal_places=2, verbose_name="money_value")
+    currency = models.CharField(max_length=3, choices=CURRENCY_CHOICE, verbose_name="currency")
+    # TODO add image field for bill photo feature
     date_created = models.DateField(auto_now_add=True, blank=True, null=True)
 
     class Meta:
         ordering = ("-date_created",)
         verbose_name_plural = "Invoices"
+        ordering = ["-date_created"]
 
     def __str__(self):
-        return f"[{self.date_created}] {self.title} [{self.money_transaction}]"
+        return f"[{self.date_created}] {self.title} [{self.operation}]"
         
     def __repr__(self) -> str:
-        return f"{self.money_transaction} | {self.title}"
+        return f"{self.operation} | {self.title}"
         
