@@ -16,7 +16,7 @@ class TransactionListAndCreateView(CreateView):
     Handles creation of new transaction as well."""
     model = Invoice
     form_class = NewInvoiceForm
-    template_name = "base_page.html"
+    template_name = "invoices/dashboard.html"
     success_url = reverse_lazy("invoices:transaction_list_and_create")
     
     ALLOWED_TRANSACTION_TYPES = ("expenses", "incomes")
