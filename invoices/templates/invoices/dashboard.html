@@ -17,9 +17,42 @@
         <h2>Balance</h2>
         {% comment %} Summary value for expenses/incomes in separate blocks {% endcomment %}
         <div class="summary_block">
-            <span>$36000</span>
-            <div class="summary_data_label"></div>
-            <div class="summary_data_label"></div>
+            <span class="balance_text">$36000</span>
+            <div class="summary_data_label">
+                <div class="radial_progress_bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span>10%</span></div>
+                <div class="label_content">
+                    <span>Total incomes</span>
+                    <div class="label_detail_data">
+                        <div class="label_detail_container">
+                            <span>Last month</span>
+                            <span>$4500</span>
+                        </div>
+                        <div class="label_detail_container">
+                            <span>This month</span>
+                            <span>$3400</span>
+                        </div>
+                    </div>
+                </div>
+                <a></a>
+            </div>
+
+            <div class="summary_data_label">
+                <div class="radial_progress_bar"></div>
+                <div class="label_content">
+                    <span>Total expenses</span>
+                    <div class="label_detail_data">
+                        <div class="label_detail_container">
+                            <span>Last month</span>
+                            <span>-$4500</span>
+                        </div>
+                        <div class="label_detail_container">
+                            <span>This month</span>
+                            <span>-$3400</span>
+                        </div>
+                    </div>
+                </div>
+                <a></a>
+            </div>
         </div>
     </section>
 
