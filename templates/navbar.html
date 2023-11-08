@@ -1,4 +1,7 @@
 {% load static %}
+
+{% load crispy_forms_tags %}
+
 <nav class="nav_main">
 
     <div class="logo_pic"><a href=""><img src={% static "img/navbar_icons/temp_logo.svg" %} alt="logo_pic"></a></div>
@@ -10,7 +13,21 @@
         </div>
 
         <div class="nav_menu_bottom">
-            <a href=""><img src={% static "img/navbar_icons/add_new_transaction_icon.svg" %} alt="new_transaction"></a>
+            <a id="openModalBtn"><img src={% static "img/navbar_icons/add_new_transaction_icon.svg" %} alt="new_transaction"></a>
         </div>
+
+        <!-- Modal window -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+            <span class="close" id="closeModalBtn">&times;</span>
+            <h2>Create new transaction</h2>
+                <form action={% url "invoices:create_transaction" %} method="post">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <button type="submit" class="btn btn-primary">Create</button>
+                </form>
+            </div>
+        </div>
+
     </div>
 </nav>
