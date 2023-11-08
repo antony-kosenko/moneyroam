@@ -32,6 +32,8 @@ INSTALLED_APPS = [
 
     # third party packages
     "mptt",
+    "crispy_forms",
+    "crispy_bootstrap4",
 
     # custom apps
     "invoices",
@@ -61,10 +63,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'invoices.context_processors.create_transaction_form'
             ],
         },
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = 'moneyroam.wsgi.application'
 

@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href={% static "css/base_page.css" %}>
     <link rel="stylesheet" href={% static "css/navbar.css" %}>
+    <script src={% static "invoices/js/create_new_transaction_modal.js" %} defer></script>
     {% comment %} May be extended with additional tags in block below.{% endcomment %}
     {% block extra_head_tags %}{% endblock extra_head_tags %}
     <title>{% block title %}{% endblock title %}</title>
@@ -38,7 +40,6 @@
                   
                 </nav> 
             </div>
-
         </section>
     
     {% comment %} main content of the page here {% endcomment %}

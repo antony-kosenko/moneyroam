@@ -1,8 +1,9 @@
 from django.urls import path
-from invoices.views import TransactionListAndCreateView
+from invoices.views import CreateTransactionView, DashboardView
 
 app_name = "invoices"
 
 urlpatterns = [
-    path("transactions/", TransactionListAndCreateView.as_view(), name="transaction_list_and_create"),
+    path("transactions/create", CreateTransactionView.as_view(), name="create_transaction"),
+    path("dashboard", DashboardView.as_view(), name="dashboard")
 ]
