@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from invoices.models import Invoice, Category
+from invoices.models import Transaction, Category
 
 
-admin.site.register(Invoice)
+admin.site.register(Transaction)
 admin.site.register(Category)
