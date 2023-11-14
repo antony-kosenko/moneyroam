@@ -32,6 +32,7 @@
     display: flex;
     justify-content: space-between;
     background-color: #1d2127;
+    white-space: nowrap;
     border-radius: 10px;
     flex-basis: 33%;
     padding: 10px;
@@ -40,6 +41,7 @@
 .summary_data_label a {
     background-color: #f5f6f8;
     flex-basis: 10%;
+    min-width: 39px;
     border-radius: 10px;
 }
 
@@ -53,31 +55,31 @@
 
 .summary_data_label .radial_progress_bar{
     height: 70px;
-    width: 70px;
+    min-width: 70px;
     border-radius: 50%;
     background: 
       radial-gradient(closest-side, #1d2127 79%, transparent 80% 100%),
-      conic-gradient(rgb(8, 180, 45) 75%, #3e434a 0);    
+      conic-gradient(rgb(16,168,130) 75%, #3e434a 0);    
   }
 
 .summary_data_label:nth-of-type(2n) .radial_progress_bar {
     background: 
       radial-gradient(closest-side, #1d2127 79%, transparent 80% 100%),
-      conic-gradient(rgb(180, 8, 28) 75%, #3e434a 0);
+      conic-gradient(rgb(248,63,112) 75%, #3e434a 0);
 }
 
 .radial_progress_bar span {
     display: block;
-    height: calc(100% - 40px);
-    width: fit-content;
+    height: calc(100% - 50px);
     font-size: 1.2rem;
     color: #f5f6f8;
     padding: 25px 0;
-    margin: 0 auto;
+    text-align: center;
 }
 
 .label_detail_data {
     display: flex;
+    gap: 30px;
     justify-content: space-between;
 }
 
@@ -133,15 +135,65 @@
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    flex-basis: 100%;
     border-radius: 10px;
-    gap: 20px;
+    gap: 10px;
 }
 
 .transaction_item {
     display: flex;
     background-color: #f5f6f8;
-    flex-basis: 15%;
+    justify-content: space-between;
     border-radius: 10px;
-    padding: 15px;
+    padding: 10px;
+    gap: 10px;
+}
+
+.transaction_item a {
+    flex-basis: 60px;
+    height: 60px;
+    align-self: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.transaction_item a img {
+    height: 80%;
+    width: 80%;
+    margin: 5px;
+}
+
+.transaction_item_description {
+    flex-basis: 70%;
+    padding: 10px;
+}
+
+.transaction_item_description span {
+    display: block;
+}
+
+.transaction_item_description span:first-of-type {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.transaction_item_summary {
+    flex-basis: calc(30% - 50px);
+    white-space: nowrap;
+    padding: 10px;
+    text-align: end;
+}
+
+.transaction_item_summary span {
+    display: block;
+}
+
+.transaction_item_summary span:first-of-type {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.transaction_item_description span:nth-of-type(2n), .transaction_item_summary span:last-of-type {
+    color: #c3c5ca;
 }
