@@ -1,0 +1,48 @@
+{% extends "base_page.html" %}
+{% load static %}
+
+{% block extra_head_tags %}
+    <link rel="stylesheet" href={% static "invoices/css/transactions.css" %}>
+{% endblock extra_head_tags %}
+
+{% block tab_title %}Transactions{% endblock tab_title %}
+
+{% block page_title %}Transactions{% endblock page_title %}
+
+{% block page_content %}
+    <section class="transaction_filters">
+        
+    </section>
+
+    <section class="transactions_list">
+        
+        {% for transaction in page_obj %}
+
+        <div class="transaction_item">
+            {% if transaction.operation == "expense" %}
+            <a href="#"><img src={% static "invoices/img/category_icons/expense_transaction_default_icon.svg" %} alt=""></a>
+            {% else %}
+            <a href="#"><img src={% static "invoices/img/category_icons/income_transaction_default_icon.svg" %} alt=""></a>
+            {% endif %}
+            <div class="transaction_item_description">
+                <span>{{ transaction.title }}</span>
+                {% if not transaction.category  %}
+                {% else %}
+                <span>{{ transaction.category }}</span>
+                {% endif %}
+                
+            </div>
+            <div class="transaction_item_summary">
+                {% if transaction.operation == "income" %}
+                    <span style="color: #10a882;">{{ transaction.currency }}{{ transaction.value }}</span>
+                {% else %}
+                    <span>-{{ transaction.currency }}{{ transaction.value }}</span>
+                {% endif %}
+                <span>{{ transaction.date_created }}</span>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </section>
+{% endblock page_content %}

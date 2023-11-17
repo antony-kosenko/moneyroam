@@ -8,8 +8,8 @@
 
     <div class="nav_menu">
         <div class="nav_menu_top">
-            <a href=""><img src={% static "img/navbar_icons/home_icon.svg" %} alt="home-button-icon"></a>
-            <a href=""><img src={% static "img/navbar_icons/transaction_icon.svg" %} alt="transaction-icon-button"></a>
+            <a href={% url "invoices:dashboard" %}><img src={% static "img/navbar_icons/home_icon.svg" %} alt="home-button-icon"></a>
+            <a href={% url "invoices:transactions" %}><img src={% static "img/navbar_icons/transaction_icon.svg" %} alt="transaction-icon-button"></a>
         </div>
 
         <div class="nav_menu_bottom">
