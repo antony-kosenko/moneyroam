@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: column;
     flex-basis: 35%;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
 }
 
 
@@ -52,9 +52,10 @@
 }
 
 .summary_data_label .radial_progress_bar{
-    height: 70px;
-    min-width: 70px;
+    height: 50px;
+    min-width: 50px;
     border-radius: 50%;
+    align-self: center;
     background: 
       radial-gradient(closest-side, #1d2127 79%, transparent 80% 100%),
       conic-gradient(rgb(16,168,130) 75%, #3e434a 0);    
@@ -69,9 +70,9 @@
 .radial_progress_bar span {
     display: block;
     height: calc(100% - 50px);
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     color: #f5f6f8;
-    padding: 25px 0;
+    margin: 16px 0;
     text-align: center;
 }
 
@@ -87,7 +88,7 @@
     justify-content: center;
     flex-basis: 60%;
     padding: 0 20px;
-    gap: 10px;
+    gap: 5px;
 }
 
 .label_content span:first-child {
@@ -115,7 +116,7 @@
     display: flex;
     flex-direction: column;
     flex-basis: 65%;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
 }
 
 .last_transactions_header {
@@ -143,7 +144,7 @@
     flex-direction: column;
     border-radius: 10px;
     border-radius: 10px;
-    gap: 15px;
+    gap: 14px;
 }
 
 .transaction_item {
@@ -171,7 +172,7 @@
 
 .transaction_item_description {
     flex-basis: 70%;
-    padding: 10px;
+    padding: 5px;
 }
 
 .transaction_item_description span {
@@ -187,7 +188,7 @@
 .transaction_item_summary {
     flex-basis: calc(30% - 50px);
     white-space: nowrap;
-    padding: 10px;
+    padding: 5px;
     text-align: end;
 }
 

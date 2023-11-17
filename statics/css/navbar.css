@@ -1,5 +1,5 @@
 .nav_main {
-    position: absolute;
+    position: fixed;
     width: 60px;
     height: calc(100% - 50px);
     margin: 15px;

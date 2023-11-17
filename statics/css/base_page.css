@@ -55,8 +55,7 @@ html, body {
 
 .profile_navigation_block {
   width : fit-content;
-  height: 100%;
-  padding: 5px 0;
+  height: 80%;
 }
 
 .profile_navigation_block span {
@@ -71,12 +70,12 @@ html, body {
 
 .profile_navigation_block span img {
     margin-top: auto;
-    height: 40px;
+    height: 100%;
 }
 
 .profile_navigation_block span::after {
   float: right;
-  margin: 10px 10px 10px 5px;
+  margin: 5px;
   content: "▼";
 }
 

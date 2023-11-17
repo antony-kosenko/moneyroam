@@ -23,7 +23,7 @@
     background-color: #f5f6f8;
     justify-content: space-between;
     border-radius: 10px;
-    padding: 10px 10px 10px 20px;
+    padding: 10px 10px 10px 10px;
     gap: 10px;
 }
 
@@ -43,7 +43,7 @@
 
 .transaction_item_description {
     flex-basis: 70%;
-    padding: 10px;
+    padding: 5px 10px;
 }
 
 .transaction_item_description span {
@@ -51,7 +51,7 @@
 }
 
 .transaction_item_description span:first-of-type {
-    font-size: 20px;
+    font-size: 1rem;
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -59,7 +59,7 @@
 .transaction_item_summary {
     flex-basis: calc(30% - 50px);
     white-space: nowrap;
-    padding: 10px;
+    padding: 5px;
     text-align: end;
 }
 
@@ -68,11 +68,11 @@
 }
 
 .transaction_item_summary span:first-of-type {
-    font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 .transaction_item_description span:nth-of-type(2n), .transaction_item_summary span:last-of-type {
     color: #c3c5ca;
+    font-size: 0.8rem;
 }
