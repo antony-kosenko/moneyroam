@@ -1,12 +1,8 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 
+from preferences.models import CURRENCY_CHOICE
 
-CURRENCY_CHOICE = (
-    ("₴", "₴"),
-    ("$", "$"),
-    ("€", "€")
-)
 
 OPERATION_TYPE = (
     ("income", "income"),
