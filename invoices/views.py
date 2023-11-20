@@ -57,12 +57,18 @@ class DashboardView(ListView):
             month=last_month.month
             ).aggregate(Sum("value"))
         
+        # balance
+        total_expenses = Transaction.objects.filter(operation="expense").aggregate(Sum("value"))
+        total_incomes = Transaction.objects.filter(operation="income").aggregate(Sum("value"))
+        balance_summary  = total_incomes["value__sum"] - total_expenses["value__sum"]
+        
         # updating context with new variables
         data_to_context = {
             "this_month_incomes_total": incomes_this_month["value__sum"],
             "this_month_expenses_total": expenses_this_month["value__sum"],
             "last_month_incomes_total": incomes_last_month["value__sum"],
-            "last_month_expenses_total": expenses_last_month["value__sum"]
+            "last_month_expenses_total": expenses_last_month["value__sum"],
+            "balance_summary": balance_summary
         }
         
         logger.info(f"Context data providing along with DashboardView: {data_to_context}.")
@@ -70,4 +76,10 @@ class DashboardView(ListView):
         return data
     
     
+class TransactionsListView(ListView):
+    """ Lists all transactions """
+    logger.debug("DashboardView requested.")
     
+    model = Transaction
+    template_name = "invoices/transactions.html"
+    paginate_by = 7

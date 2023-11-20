@@ -1,28 +1,35 @@
 .nav_main {
-    position: absolute;
-    width: 70px;
-    height: calc(100% - 90px);
-    margin: 25px;
-    padding: 20px;
+    position: fixed;
+    width: 60px;
+    height: calc(100% - 50px);
+    margin: 15px;
+    padding: 10px;
     border-radius: 15px;
     background-color: #1d2127;
 }
 
 .logo_pic {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+}
+
+.logo_pic a, .logo_pic img {
+    display:block;
+    height: 100%;
+    width: 100%;
 }
 
 .nav_menu {
     display: flex;
     flex-direction: column;
-    padding: 40px 0 20px 0;
+    padding: 20px 0 20px 0;
     min-width: calc(100% - 40px);
-    height: calc(100% - 140px);
+    height: calc(100% - 110px);
 }
 
 .nav_menu a {
-    width: 50%;
+    width: 70%;
     align-self: center;
 }
 
@@ -40,12 +47,12 @@
 .nav_menu_bottom {
     display: flex;
     flex-direction: column-reverse;
-    flex-basis: 20%;
+    flex-basis: 30%;
 }
 
 .nav_menu_bottom a {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
 }
 
