@@ -38,7 +38,7 @@ class Transaction(models.Model):
     value = models.DecimalField(max_digits=14, decimal_places=2, verbose_name="value")
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICE, verbose_name="currency")
     # TODO add image field for bill photo feature
-    # TODO add comment field to store miscellanious comments for transaction
+    comment = models.CharField(max_length=255, null=True, blank=True)
     date_created = models.DateField(auto_now_add=True, blank=True, null=True)
 
     class Meta:

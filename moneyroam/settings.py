@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # custom apps
     "invoices",
     "accounts",
+    "preferences",
 ]
 
 MIDDLEWARE = [
@@ -63,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'moneyroam.context_processors.current_date_context',
                 'invoices.context_processors.create_transaction_form'
             ],
         },

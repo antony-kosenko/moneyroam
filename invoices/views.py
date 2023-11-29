@@ -7,23 +7,40 @@ from django.db.models import Sum
 
 from invoices.models import Transaction
 from invoices.services import TransactionServices
+from invoices.forms import NewInvoiceForm
 
 logger = logging.getLogger(__name__)
 
 transaction_service = TransactionServices()
 
-class CreateTransactionView(CreateView):
-    """ Creates a new Transaction object."""
-    logger.debug("CreateTransactionView requested.")
+
+# class CreateTransactionView(CreateView):
+#     """ Creates a new Transaction object."""
+#     logger.debug("CreateTransactionView requested.")
     
-    model = Transaction
-    template_name = "blank_page.html"
-    fields = "__all__"
+#     model = Transaction
+#     template_name = "blank_page.html"
+#     fields = "__all__"
     
-    def get_success_url(self) -> str:
-        """ Returns a same page where the view calles from. """
-        logger.info("Invoice creation form submitted succesfully.")
-        return self.request.META.get('HTTP_REFERER', "/")
+#     def get_success_url(self) -> str:
+#         """ Returns a same page where the view calles from. """
+#         logger.info("Invoice creation form submitted succesfully.")
+#         return self.request.META.get('HTTP_REFERER', "/")
+
+def create_transaction_view(request):
+    if request.method == "POST":
+        form = NewInvoiceForm(request.POST)
+        if form.is_valid():
+            new_invoice = Transaction(**form.cleaned_data)
+            
+            user_currency = request.user.config.currency
+            
+            # if user_currency != new_invoice.currency:
+            #     match # TODO Continue here. Implement currency exchange
+            
+            
+
+        
 
 
 class DashboardView(ListView):
@@ -60,7 +77,10 @@ class DashboardView(ListView):
         # balance
         total_expenses = Transaction.objects.filter(operation="expense").aggregate(Sum("value"))
         total_incomes = Transaction.objects.filter(operation="income").aggregate(Sum("value"))
-        balance_summary  = total_incomes["value__sum"] - total_expenses["value__sum"]
+        try:
+            balance_summary  = total_incomes["value__sum"] - total_expenses["value__sum"]
+        except TypeError:
+            balance_summary = 0
         
         # updating context with new variables
         data_to_context = {

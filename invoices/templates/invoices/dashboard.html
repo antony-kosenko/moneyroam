@@ -31,11 +31,19 @@
                     <div class="label_detail_data">
                         <div class="label_detail_container">
                             <span>Last month</span>
-                            <span>${{ last_month_incomes_total }}</span>
+                            {% if last_month_incomes_total is None %}
+                                <span>₴ 0</span>
+                            {% else %}
+                                <span>$ {{ last_month_incomes_total }}</span>
+                            {% endif %}
                         </div>
                         <div class="label_detail_container">
                             <span>This month</span>
-                            <span>₴{{ this_month_incomes_total }}</span>
+                            {% if this_month_incomes_total is None %}
+                                <span>₴ 0</span>
+                            {% else %}
+                                <span>$ {{ this_month_incomes_total }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -49,11 +57,19 @@
                     <div class="label_detail_data">
                         <div class="label_detail_container">
                             <span>Last month</span>
-                            <span>${{ last_month_expenses_total }}</span>
+                            {% if last_month_expenses_total is None %}
+                                <span>₴ 0</span>
+                            {% else %}
+                            <span>$ {{ last_month_expenses_total }}</span>
+                            {% endif %}
                         </div>
                         <div class="label_detail_container">
                             <span>This month</span>
-                            <span>₴{{ this_month_expenses_total }}</span>
+                            {% if this_month_expenses_total is None %}
+                                <span>₴ 0</span>
+                            {% else %}
+                                <span>₴ {{ this_month_expenses_total }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

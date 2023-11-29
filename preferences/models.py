@@ -1,7 +1,6 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 
-from accounts.models import Profile
+from accounts.models import CustomUser
 
 DEFAULT_SETTINGS = {
     "currency": "$",
@@ -9,27 +8,27 @@ DEFAULT_SETTINGS = {
 }
 
 CURRENCY_CHOICE = (
-    ("₴", "₴"),
-    ("$", "$"),
-    ("€", "€")
+    ("UAH", "₴"),
+    ("USD", "$"),
+    ("EUR", "€")
 )
 
 LANGUAGE_CHOICE = (
-    ("En", _("English")),
-    ("Ua", _("Ukrainian"))
+    ("EN", "English"),
+    ("UA", "Ukrainian")
 )
 
 class Config(models.Model):
     """ Represents user's preferences. """
     
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUser, related_name="config", on_delete=models.CASCADE)
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICE, default=DEFAULT_SETTINGS["currency"])
     language = models.CharField(max_length=56, choices=LANGUAGE_CHOICE, default=DEFAULT_SETTINGS["language"])
     
 
     class Meta:
-        verbose_name = _("config")
-        verbose_name_plural = _("configs")
+        verbose_name = ("config")
+        verbose_name_plural = ("configs")
 
     def __str__(self):
-        return f"Config[{self.pk}] for Profile[{self.profile.pk}]"
+        return f"Config[{self.pk}] for Profile[{self.user.pk}]"
