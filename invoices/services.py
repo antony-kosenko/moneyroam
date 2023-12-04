@@ -11,7 +11,6 @@ class TransactionServices:
     
     __ALLOWED_TRANSACTIONS = ["expense", "income"]
 
-
     def get_transaction_by_date(
         self, 
         operation: str | None = None,
@@ -31,7 +30,7 @@ class TransactionServices:
         if operation not in self.__ALLOWED_TRANSACTIONS:
             logger.exception(f"ValueError risen. Invalid type '{operation}'. Allowed types: {self.__ALLOWED_TRANSACTIONS}.")
             raise ValueError(f"Invalid operation type '{operation}'. Allowed types: {self.__ALLOWED_TRANSACTIONS}.")
-        # applying a filter class method to get a parameters for futher filtering
+        # applying a filter class method to get a parameters for further filtering
         transaction_by_date_filter_parameters = TransactionsFilter.transaction_by_date_filter(
             year=year,
             month=month,

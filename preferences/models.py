@@ -18,6 +18,7 @@ LANGUAGE_CHOICE = (
     ("UA", "Ukrainian")
 )
 
+
 class Config(models.Model):
     """ Represents user's preferences. """
     

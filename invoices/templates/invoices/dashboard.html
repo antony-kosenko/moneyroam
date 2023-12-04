@@ -19,9 +19,9 @@
         {% comment %} Summary value for expenses/incomes in separate blocks {% endcomment %}
         <div class="summary_block">
             {% if balance_summary < 0 %}
-            <span class="balance_text" style="color: #fe3f70">{{ balance_summary }}</span>
+            <span class="balance_text" style="color: #fe3f70">{{ balance_summary }} {{ user.config.currency}}</span>
             {% else %}
-            <span class="balance_text">{{ balance_summary }}</span>
+            <span class="balance_text">{{ balance_summary }} {{ user.config.currency}}</span>
             {% endif %}
             
             <div class="summary_data_label">
@@ -32,17 +32,17 @@
                         <div class="label_detail_container">
                             <span>Last month</span>
                             {% if last_month_incomes_total is None %}
-                                <span>₴ 0</span>
+                                <span>{{ user.config.currency}} 0</span>
                             {% else %}
-                                <span>$ {{ last_month_incomes_total }}</span>
+                                <span>{{ user.config.currency}} {{ last_month_incomes_total }}</span>
                             {% endif %}
                         </div>
                         <div class="label_detail_container">
                             <span>This month</span>
                             {% if this_month_incomes_total is None %}
-                                <span>₴ 0</span>
+                                <span>{{ user.config.currency}} 0</span>
                             {% else %}
-                                <span>$ {{ this_month_incomes_total }}</span>
+                                <span>{{ user.config.currency}} {{ this_month_incomes_total }}</span>
                             {% endif %}
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         <div class="label_detail_container">
                             <span>Last month</span>
                             {% if last_month_expenses_total is None %}
-                                <span>₴ 0</span>
+                                <span>{{ user.config.currency}} 0</span>
                             {% else %}
                             <span>$ {{ last_month_expenses_total }}</span>
                             {% endif %}
@@ -66,9 +66,9 @@
                         <div class="label_detail_container">
                             <span>This month</span>
                             {% if this_month_expenses_total is None %}
-                                <span>₴ 0</span>
+                                <span>{{ user.config.currency}} 0</span>
                             {% else %}
-                                <span>₴ {{ this_month_expenses_total }}</span>
+                                <span>{{ user.config.currency}} {{ this_month_expenses_total }}</span>
                             {% endif %}
                         </div>
                     </div>
@@ -102,9 +102,9 @@
                 </div>
                 <div class="transaction_item_summary">
                     {% if transaction.operation == "income" %}
-                        <span style="color: #10a882;">{{ transaction.currency }}{{ transaction.value }}</span>
+                        <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
                     {% else %}
-                        <span>-{{ transaction.currency }}{{ transaction.value }}</span>
+                        <span>- {{ transaction.value }} {{ transaction.currency }}</span>
                     {% endif %}
                     <span>{{ transaction.date_created }}</span>
                 </div>
