@@ -85,12 +85,13 @@ class DashboardView(ListView):
         try:
             balance_summary = total_incomes["value__sum"] - total_expenses["value__sum"]
         except TypeError:
-            if total_incomes["value__sum"] is None:
+            if (total_incomes["value__sum"] is None) and (total_expenses["value__sum"] is None):
+                balance_summary = 0
+            elif total_incomes["value__sum"] is None:
                 balance_summary = -total_expenses["value__sum"]
             elif total_expenses["value__sum"] is None:
                 balance_summary = total_incomes["value__sum"]
-            else:
-                balance_summary = 0
+
         # updating context with new variables
         data_to_context = {
             "this_month_incomes_total": incomes_this_month["value__sum"],
@@ -99,7 +100,6 @@ class DashboardView(ListView):
             "last_month_expenses_total": expenses_last_month["value__sum"],
             "balance_summary": balance_summary
         }
-        print(data_to_context["balance_summary"])
         logger.info(f"Context data providing along with DashboardView: {data_to_context}.")
         data.update(data_to_context)
         return data

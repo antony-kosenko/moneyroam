@@ -20,31 +20,38 @@ class CurrencyExchangeManager:
     APP_ID = utils_env_var("CURRENCY_MANAGER_API_TOKEN")
 
     @classmethod
-    def get_last_exchange_rates(cls, base: str = "USD", currency_to_exchange: str | None = None) -> dict:
-        """ Returns latest exchange rates between base currency and currency to exchange. 
-        If currency_to_exchange is not provided returns all currencies exchange raters for base currency.
-        By default, base currency is 'USD'."""
-        logger.debug(f"Method 'get_last_exchange_rates' requested with parameters: {base:} and {currency_to_exchange:}")
+    def get_last_exchange_rates(cls, currency_to_exchange: str, base: str = "USD") -> dict:
+        """ Returns latest exchange rates between 'base' currency and 'currency_to_exchange'."""
+        logger.debug(f"Method 'get_last_exchange_rates' requested with parameters: {base:}, {currency_to_exchange:}")
 
-        response = requests.get(cls.BASE_API_ENDPOINT + f"latest.json", params={"app_id": cls.APP_ID, "base": base})
-        # retrieving latest currencies' latest exchange rates
+        response = requests.get(cls.BASE_API_ENDPOINT + f"latest.json", params={"app_id": cls.APP_ID})
+        # retrieving latest currencies' exchange rates for USD
         currency_latest_exchange_rates = response.json().get("rates")
-        if currency_to_exchange is None:
-            return currency_latest_exchange_rates
-        # retrieving currency exchange rate for the currency specified (if so)
-        else:
-            return {
-                "currency_to_exchange": currency_to_exchange,
-                "rate": currency_latest_exchange_rates.get(currency_to_exchange.upper())
-            }
+        match base:
+            case "USD":
+                # returns exchange rate of 'currency_to_exchange' relative to USD
+                exchange_rate = currency_latest_exchange_rates.get(currency_to_exchange.upper())
+            case _:
+                # performing conversion between 'base' and 'currency_to_exchange' through USD as intermediate currency
+                base_currency_to_usd_rate = currency_latest_exchange_rates.get(base)
+                income_currency_to_usd_rate = currency_latest_exchange_rates.get(currency_to_exchange)
+                exchange_rate = income_currency_to_usd_rate / base_currency_to_usd_rate
+
+        # retrieving currency exchange rate for the currency specified
+        return {
+            "base": base,
+            "currency_to_exchange": currency_to_exchange,
+            "rate": exchange_rate
+        }
 
     @classmethod
     def currency_converter(cls, value: int, exchange_to: str, base: str = "USD") -> int:
         """ Converts two currencies.
-         Where 'base' value is a value converted from and 'exchange_to' is a result currency."""
+         Where 'value' parameter is an amount to be converted from 'base' currency to 'exchange_to' currency."""
         logger.debug(f"Method 'currency_converter' requested with parameters: {value:}, {exchange_to}, {base:}")
+
         # retrieving latest currencies' exchange rates
-        exchange_rate = cls.get_last_exchange_rates(base=base, currency_to_exchange=exchange_to).get("rate")
+        exchange_rate = cls.get_last_exchange_rates(currency_to_exchange=exchange_to, base=base).get("rate")
         # converting 'base' currency's value to 'exchange_to' currency's value:
         converted_value = float(value) * exchange_rate
         return converted_value

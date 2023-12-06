@@ -32,17 +32,17 @@
                         <div class="label_detail_container">
                             <span>Last month</span>
                             {% if last_month_incomes_total is None %}
-                                <span>{{ user.config.currency}} 0</span>
+                                <span>0 {{ user.config.currency}}</span>
                             {% else %}
-                                <span>{{ user.config.currency}} {{ last_month_incomes_total }}</span>
+                                <span>{{ last_month_incomes_total }} {{ user.config.currency}}</span>
                             {% endif %}
                         </div>
                         <div class="label_detail_container">
                             <span>This month</span>
                             {% if this_month_incomes_total is None %}
-                                <span>{{ user.config.currency}} 0</span>
+                                <span>0 {{ user.config.currency}}</span>
                             {% else %}
-                                <span>{{ user.config.currency}} {{ this_month_incomes_total }}</span>
+                                <span>{{ this_month_incomes_total }} {{ user.config.currency}}</span>
                             {% endif %}
                         </div>
                     </div>
@@ -58,17 +58,17 @@
                         <div class="label_detail_container">
                             <span>Last month</span>
                             {% if last_month_expenses_total is None %}
-                                <span>{{ user.config.currency}} 0</span>
+                                <span>0 {{ user.config.currency}}</span>
                             {% else %}
-                            <span>$ {{ last_month_expenses_total }}</span>
+                            <span>$ {{ last_month_expenses_total }} {{ user.config.currency}}</span>
                             {% endif %}
                         </div>
                         <div class="label_detail_container">
                             <span>This month</span>
                             {% if this_month_expenses_total is None %}
-                                <span>{{ user.config.currency}} 0</span>
+                                <span>0 {{ user.config.currency}}</span>
                             {% else %}
-                                <span>{{ user.config.currency}} {{ this_month_expenses_total }}</span>
+                                <span>{{ this_month_expenses_total }} {{ user.config.currency}}</span>
                             {% endif %}
                         </div>
                     </div>

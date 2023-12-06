@@ -50,16 +50,14 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to=f"uploads/{username}/profile_photos/", blank=True, null=True)
     create_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     update_date = models.DateTimeField(auto_now=True, blank=True, null=True)
-    
-    
 
     class Meta:
         verbose_name = "Profile"
         verbose_name_plural = "Profiles"
 
     def __str__(self):
-        return self.name
+        return self.username
 
     def get_absolute_url(self):
-        return reverse("_detail", kwargs={"pk": self.pk})
+        return reverse("_detail", kwargs={"username": self.username})
     
