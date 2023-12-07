@@ -39,6 +39,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
+def profile_image_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/<username>/
+    return f"uploads/{instance.username}/profile_image/{filename}"
+
+
 class Profile(models.Model):
     
     """ Profile model. Contains user's extra data. """
@@ -47,7 +52,7 @@ class Profile(models.Model):
     username = models.CharField(max_length=30, unique=True)
     first_name = models.CharField(max_length=150, blank=True, null=True)
     last_name = models.CharField(max_length=150, blank=True, null=True)
-    avatar = models.ImageField(upload_to=f"uploads/{username}/profile_photos/", blank=True, null=True)
+    avatar = models.ImageField(upload_to=profile_image_path, blank=True, null=True)  # TODO add default
     create_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     update_date = models.DateTimeField(auto_now=True, blank=True, null=True)
 
@@ -60,4 +65,3 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"username": self.username})
-    
