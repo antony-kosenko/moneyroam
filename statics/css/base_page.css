@@ -36,10 +36,10 @@ html, body {
 }
 
 .current_time b {
-    background-color: #1d2127;
-    color: #d3d4d5;
+    color: #1d2127;
     padding: 10px;
     border-radius: 10px;
+    border: 1px solid #1d2127;
 }
 
 .page_content h2 {

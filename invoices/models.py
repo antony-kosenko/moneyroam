@@ -15,6 +15,7 @@ class Category(MPTTModel):
     Represents a category where money have been spent/earned."""
 
     name = models.CharField(max_length=54, unique=True)
+    # TODO add category image
     parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     slug = models.SlugField(unique=True, max_length=54, blank=True)
 
@@ -33,7 +34,7 @@ class Transaction(models.Model):
      Represents a basic income/outcome transaction. """
     
     title = models.CharField(max_length=32, verbose_name="Title")
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    category = models.ForeignKey(Category, related_name="transactions", on_delete=models.CASCADE, null=True, blank=True)
     operation = models.CharField(max_length=7, choices=OPERATION_TYPE, verbose_name="operation")
     value = models.DecimalField(max_digits=14, decimal_places=2, verbose_name="value")
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICE, verbose_name="currency")
@@ -42,7 +43,6 @@ class Transaction(models.Model):
     date_created = models.DateField(auto_now_add=True, blank=True, null=True)
 
     class Meta:
-        ordering = ("-date_created",)
         verbose_name_plural = "Transactions"
         ordering = ["-date_created"]
 

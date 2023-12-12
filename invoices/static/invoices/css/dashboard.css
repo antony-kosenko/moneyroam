@@ -67,6 +67,11 @@
       conic-gradient(rgb(248,63,112) 75%, #3e434a 0);
 }
 
+.transactions_list_button img {
+    width: 30%;
+    margin: 50% 0 0 35%;
+}
+
 .radial_progress_bar span {
     display: block;
     height: calc(100% - 50px);
@@ -144,7 +149,7 @@
     flex-direction: column;
     border-radius: 10px;
     border-radius: 10px;
-    gap: 14px;
+    gap: 10px;
 }
 
 .transaction_item {
@@ -204,5 +209,35 @@
 
 .transaction_item_description span:nth-of-type(2n), .transaction_item_summary span:last-of-type {
     color: #c3c5ca;
+    font-size: 0.8rem;
+}
+
+/* Dashboard bottom content */
+
+.page_bottom_content {
+    display: flex;
+    gap: 20px;
+    height: 100%;
+    padding: 20px;
+}
+
+.category_stats {
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    flex: 1 1 0;
+    background-color: #f5f6f8;
+    border-radius: 10px;
+    justify-content: space-evenly;
+
+}
+
+.category_stats > * {
+    flex: 1 1 0;
+}
+
+.category_stats :first-child {
     font-size: 0.8rem;
 }
