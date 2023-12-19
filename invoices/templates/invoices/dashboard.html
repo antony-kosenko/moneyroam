@@ -47,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-                <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?transaction=income">
+                <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?transaction=incomes">
                     <img src={% static "invoices/img/arrow-right-icon.svg" %} alt="arrow_right_icon">
                 </a>
             </div>
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?transaction=expense">
+                <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?transaction=expenses">
                     <img src={% static "invoices/img/arrow-right-icon.svg" %} alt="arrow_right_icon">
                 </a>
             </div>
@@ -91,7 +91,7 @@
         <div class="transaction_list">
             {% for transaction in object_list|slice:":3" %}
             <div class="transaction_item">
-                {% if transaction.operation == "expense" %}
+                {% if transaction.operation == "expenses" %}
                 <a href="#"><img src={% static "invoices/img/category_icons/expense_transaction_default_icon.svg" %} alt=""></a>
                 {% else %}
                 <a href="#"><img src={% static "invoices/img/category_icons/income_transaction_default_icon.svg" %} alt=""></a>
@@ -105,7 +105,7 @@
                     
                 </div>
                 <div class="transaction_item_summary">
-                    {% if transaction.operation == "income" %}
+                    {% if transaction.operation == "incomes" %}
                         <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
                     {% else %}
                         <span>- {{ transaction.value }} {{ transaction.currency }}</span>

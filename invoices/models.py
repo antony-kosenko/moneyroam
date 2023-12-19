@@ -5,8 +5,8 @@ from preferences.models import CURRENCY_CHOICE
 
 
 OPERATION_TYPE = (
-    ("income", "income"),
-    ("expense", "expense")
+    ("incomes", "incomes"),
+    ("expenses", "expenses")
 )
 
 
@@ -35,7 +35,7 @@ class Transaction(models.Model):
     
     title = models.CharField(max_length=32, verbose_name="Title")
     category = models.ForeignKey(Category, related_name="transactions", on_delete=models.CASCADE, null=True, blank=True)
-    operation = models.CharField(max_length=7, choices=OPERATION_TYPE, verbose_name="operation")
+    operation = models.CharField(max_length=8, choices=OPERATION_TYPE, verbose_name="operation")
     value = models.DecimalField(max_digits=14, decimal_places=2, verbose_name="value")
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICE, verbose_name="currency")
     # TODO add image field for bill photo feature
