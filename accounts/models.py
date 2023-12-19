@@ -40,7 +40,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
 def profile_image_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/<username>/
+    # uploading file to dynamic PATH
     return f"uploads/{instance.username}/profile_image/{filename}"
 
 

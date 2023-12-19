@@ -47,7 +47,9 @@
                         </div>
                     </div>
                 </div>
-                <a></a>
+                <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?transaction=incomes">
+                    <img src={% static "invoices/img/arrow-right-icon.svg" %} alt="arrow_right_icon">
+                </a>
             </div>
 
             <div class="summary_data_label">
@@ -73,7 +75,9 @@
                         </div>
                     </div>
                 </div>
-                <a></a>
+                <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?transaction=expenses">
+                    <img src={% static "invoices/img/arrow-right-icon.svg" %} alt="arrow_right_icon">
+                </a>
             </div>
         </div>
     </section>
@@ -87,7 +91,7 @@
         <div class="transaction_list">
             {% for transaction in object_list|slice:":3" %}
             <div class="transaction_item">
-                {% if transaction.operation == "expense" %}
+                {% if transaction.operation == "expenses" %}
                 <a href="#"><img src={% static "invoices/img/category_icons/expense_transaction_default_icon.svg" %} alt=""></a>
                 {% else %}
                 <a href="#"><img src={% static "invoices/img/category_icons/income_transaction_default_icon.svg" %} alt=""></a>
@@ -101,7 +105,7 @@
                     
                 </div>
                 <div class="transaction_item_summary">
-                    {% if transaction.operation == "income" %}
+                    {% if transaction.operation == "incomes" %}
                         <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
                     {% else %}
                         <span>- {{ transaction.value }} {{ transaction.currency }}</span>
@@ -113,6 +117,36 @@
             {% endfor %}
         </div>
     </section>
+</section>
+<section class="page_bottom_content">
+    <div class="category_stats">
+        <span>Top spends this month</span>
+        <span>{{ top_expenses_category_this_month.name }}</span>
+        <img>
+        <span>{{ top_expenses_category_this_month.percentage }} %</span>
+        <span>{{ top_expenses_category_this_month.expenses_sum }} {{ user.config.currency }}</span> 
+    </div>
+    <div class="category_stats">
+        <span>Less spends this month</span>
+        <span>{{ less_expenses_category_this_month.name }}</span>
+        <img>
+        <span>{{ less_expenses_category_this_month.percentage }} %</span>
+        <span>{{ less_expenses_category_this_month.expenses_sum }} {{ user.config.currency }}</span> 
+    </div>
+    <div class="category_stats">
+        <span>Most expensive purchase</span>
+        <span>{{ most_expensive_transaction.category }}</span>
+        <img>
+        <span>{{ most_expensive_transaction.title }}</span>
+        <span>{{ most_expensive_transaction.value }} {{ user.config.currency }}</span> 
+    </div>
+    <div class="category_stats">
+        <span>Highest income</span>
+        <span>{{ highest_income_transaction.category }}</span>
+        <img>
+        <span>{{ highest_income_transaction.title }}</span>
+        <span>{{ highest_income_transaction.value }} {{ user.config.currency }}</span> 
+    </div>
 </section>
 
 {% endblock page_content %}
