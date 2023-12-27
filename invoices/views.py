@@ -77,6 +77,7 @@ class DashboardView(ListView):
             .order_by("-value")
             .first()
         )
+        print(less_expense_category.parent, less_expense_category.name)
         # updating context with new variables
         data_to_context = {
             "this_month_incomes_total": incomes_this_month,

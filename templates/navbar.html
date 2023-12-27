@@ -12,8 +12,10 @@
             <a href={% url "invoices:transactions" %}><img src={% static "img/navbar_icons/transaction_icon.svg" %} alt="transaction-icon-button"></a>
         </div>
 
+        <a id="openModalBtn"><img src={% static "img/navbar_icons/add_new_transaction_icon.svg" %} alt="new_transaction"></a>
+
         <div class="nav_menu_bottom">
-            <a id="openModalBtn"><img src={% static "img/navbar_icons/add_new_transaction_icon.svg" %} alt="new_transaction"></a>
+
         </div>
 
         <!-- Modal window -->
@@ -22,9 +24,9 @@
             <span class="close" id="closeModalBtn">&times;</span>
             <h2>Create new transaction</h2>
                 <form action={% url "invoices:create_transaction" %} method="post">
-                {% csrf_token %}
-                {{ form | crispy }}
-                <button type="submit" class="btn btn-primary">Create</button>
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </form>
             </div>
         </div>

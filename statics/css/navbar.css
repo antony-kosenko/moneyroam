@@ -1,35 +1,35 @@
 .nav_main {
     position: fixed;
-    width: 60px;
-    height: calc(100% - 50px);
+    width: 80px;
+    height: calc(100% - 30px);
     margin: 15px;
-    padding: 10px;
-    border-radius: 15px;
-    background-color: #1d2127;
 }
 
 .logo_pic {
     width: 60px;
     height: 60px;
-    margin-bottom: 20px;
+    margin: 10px;
 }
 
 .logo_pic a, .logo_pic img {
     display:block;
     height: 100%;
     width: 100%;
+    background-color: #1d2127;
 }
 
 .nav_menu {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
     padding: 20px 0 20px 0;
     min-width: calc(100% - 40px);
     height: calc(100% - 110px);
 }
 
 .nav_menu a {
-    width: 70%;
+    width: 60%;
     align-self: center;
 }
 
@@ -41,19 +41,28 @@
     display: flex;
     gap: 20px;
     flex-direction: column;
-    flex-basis: 80%;
+    justify-content: start;
+    padding: 15px 10px;
+    border-radius: 10px;
+    flex-basis: 44%;
+    background-color: #1d2127;
 }
 
 .nav_menu_bottom {
     display: flex;
     flex-direction: column-reverse;
-    flex-basis: 30%;
+    flex-basis: 50%;
+    justify-content: start;
+    border-radius: 10px;
+    background-color: #1d2127;
+    padding: 15px 10px;
 }
 
 .nav_menu_bottom a {
     width: 40px;
     height: 40px;
     cursor: pointer;
+    flex-basis: 10%;
 }
 
 .modal {
@@ -64,9 +73,9 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-  }
+}
   
-  .modal-content {
+.modal-content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -75,13 +84,26 @@
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Стилі для кнопки закриття */
-  .close {
+}
+
+.close {
     position: absolute;
     top: 10px;
     right: 10px;
     font-size: 20px;
     cursor: pointer;
-  }
+}
+
+#openModalBtn {
+    width: 40px;
+    height: 40px;
+    background-color: #1d2127;
+    border-radius: 10px;
+    padding: 6px;
+    cursor: pointer;
+}
+
+#openModalBtn img {
+    width: 40px;
+    margin: auto 0;
+}
