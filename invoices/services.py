@@ -61,7 +61,6 @@ class TransactionServices:
             self.get_all_transactions(operation=operation)
             .filter(transaction_filter.transaction_date_filter(month="previous"))
         )
-
         if summary:
             return transactions.aggregate(Sum("value")).get("value__sum")
         else:

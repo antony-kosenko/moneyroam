@@ -77,17 +77,22 @@ class DashboardView(ListView):
             .order_by("-value")
             .first()
         )
-        print(less_expense_category.parent, less_expense_category.name)
         # updating context with new variables
         data_to_context = {
             "this_month_incomes_total": incomes_this_month,
             "this_month_expenses_total": expenses_this_month,
             "last_month_incomes_total": incomes_previous_month,
             "last_month_expenses_total": expenses_previous_month,
-            "top_expenses_category_this_month": top_expense_category,
-            "less_expenses_category_this_month": less_expense_category,
-            "most_expensive_transaction": most_expensive_purchase_this_month,
-            "highest_income_transaction": highest_income_this_month,
+            "categories_summary_stats": [
+                {"stats_header": "Top expends this month", "stats": top_expense_category},
+                {"stats_header": "Less spends this month", "stats": less_expense_category},
+                {"stats_header": "Most expensive purchase", "stats": most_expensive_purchase_this_month},
+                {"stats_header": "Highest income", "stats": highest_income_this_month}
+            ],
+            # "top_expenses_category_this_month": top_expense_category,
+            # "less_expenses_category_this_month": less_expense_category,
+            # "most_expensive_transaction": most_expensive_purchase_this_month,
+            # "highest_income_transaction": highest_income_this_month,
             "balance_summary": balance
         }
         logger.info(f"Context data providing along with DashboardView: {data_to_context}.")

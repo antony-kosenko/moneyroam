@@ -35,9 +35,8 @@
     border-radius: 10px;
 }
 
-.transaction_item a img {
-    height: 80%;
-    width: 80%;
+.transaction_item img {
+    width: 40px;
     margin: 5px;
 }
 
