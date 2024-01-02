@@ -164,6 +164,7 @@
 .transaction_item a {
     flex-basis: 60px;
     height: 60px;
+    min-width: 60px;
     align-self: center;
     background-color: #ffffff;
     border-radius: 10px;
@@ -231,13 +232,22 @@
     background-color: #f5f6f8;
     border-radius: 10px;
     justify-content: space-evenly;
+}
 
+.category_stats img {
+    width: 100px;
+    margin: 0 auto;
 }
 
 .category_stats > * {
     flex: 1 1 0;
 }
 
-.category_stats :first-child {
+.category_stats > *:first-child {
     font-size: 0.8rem;
+}
+
+.stats_category_name :nth-of-type(2n) {
+    font-size: 0.8rem;
+    font-weight: bold;
 }

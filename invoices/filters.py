@@ -49,5 +49,5 @@ class TransactionsFilter:
         # getting previous month data
         current_month_first_day = datetime.datetime.today().replace(day=1)
         previous_month = current_month_first_day - datetime.timedelta(days=1)
-        return {"date_created": previous_month}
+        return {"date_created__month": previous_month.month, "date_created__year": previous_month.year}
 

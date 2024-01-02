@@ -1,10 +1,10 @@
 from pathlib import Path
 from environs import Env
 
-# initialization of config's enviromental variables
+# initialization of config's environmental variables
 conf= Env()
 conf.read_env("environs/.env.settings")
-# initialization of database's enviromental variables
+# initialization of database's environmental variables
 db_config = Env()
 db_config.read_env("environs/.env.database")
 
@@ -119,7 +119,7 @@ LOGGING = {
     # loggers:
 
     "loggers": {
-        "standart": {
+        "standard": {
             "handlers": ["file"],
             "level": "WARNING",
             "propagate": True
@@ -163,9 +163,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "statics",
-]
+STATICFILES_DIRS = [BASE_DIR / "statics"]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

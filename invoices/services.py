@@ -61,7 +61,6 @@ class TransactionServices:
             self.get_all_transactions(operation=operation)
             .filter(transaction_filter.transaction_date_filter(month="previous"))
         )
-
         if summary:
             return transactions.aggregate(Sum("value")).get("value__sum")
         else:
@@ -100,6 +99,7 @@ class CategoryServices:
 
         # calculating category stats with annotated 'expenses_sum' (calculates spends sum in every category) and
         # 'percentage' (calculates spends in category as percentage of total spends in current month)
+        # TODO Make to display root category for summary data instead of child category
         expenses_category_this_month = (
             Category.objects.filter(transactions__operation="expenses")
             .annotate(
@@ -107,7 +107,6 @@ class CategoryServices:
                     transactions__date_created__month=datetime.date.today().month) & Q(
                     transactions__date_created__year=datetime.date.today().year)),
             )
-            # FIXME escape zero division error
             .annotate(
                 percentage=ExpressionWrapper(
                     Cast(

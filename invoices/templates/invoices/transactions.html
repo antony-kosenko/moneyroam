@@ -19,24 +19,26 @@
         {% for transaction in page_obj %}
 
         <div class="transaction_item">
-            {% if transaction.operation == "expenses" %}
-            <a href="#"><img src={% static "invoices/img/category_icons/expense_transaction_default_icon.svg" %} alt=""></a>
-            {% else %}
-            <a href="#"><img src={% static "invoices/img/category_icons/income_transaction_default_icon.svg" %} alt=""></a>
-            {% endif %}
+            <img src={{ transaction.category.image.url }}>
             <div class="transaction_item_description">
                 <span>{{ transaction.title }}</span>
                 {% if not transaction.category  %}
                 {% else %}
-                <span>{{ transaction.category }}</span>
+                <span>{{ transaction.category }}
+                    {% if transaction.category.parent.name is not None  %}
+                        / {{ transaction.category.parent.name }}
+                    {% endif %}
+                </span>
                 {% endif %}
                 
             </div>
             <div class="transaction_item_summary">
                 {% if transaction.operation == "incomes" %}
                     <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
+                {% elif transaction.operation == "expenses" %}
+                    <span style="color: #B90E0A;">- {{ transaction.value }} {{ transaction.currency }}</span>
                 {% else %}
-                    <span>-{{ transaction.value }} {{ transaction.currency }}</span>
+                    <span>{{ transaction.value }} {{ transaction.currency }}</span>
                 {% endif %}
                 <span>{{ transaction.date_created }}</span>
             </div>

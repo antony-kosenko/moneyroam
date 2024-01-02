@@ -10,12 +10,22 @@ OPERATION_TYPE = (
 )
 
 
+def category_image_path(instance, filename):
+    # uploading file to dynamic PATH
+    return f"invoices/category/category_custom_img/{instance.name.lower()}/{filename}"
+
+
 class Category(MPTTModel):
     """ Category model. 
     Represents a category where money have been spent/earned."""
 
     name = models.CharField(max_length=54, unique=True)
-    # TODO add category image
+    image = models.ImageField(
+        upload_to=category_image_path,
+        default="invoices/category/default_category_img.svg",
+        blank=True,
+        null=True
+    )
     parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     slug = models.SlugField(unique=True, max_length=54, blank=True)
 
@@ -26,6 +36,7 @@ class Category(MPTTModel):
         order_insertion_by = ('name',)
     
     class Meta:
+        unique_together = ("name", "slug")
         verbose_name_plural = "Categories"
 
 

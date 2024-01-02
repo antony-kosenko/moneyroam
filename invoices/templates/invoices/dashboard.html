@@ -62,7 +62,7 @@
                             {% if last_month_expenses_total is None %}
                                 <span>0 {{ user.config.currency}}</span>
                             {% else %}
-                            <span>$ {{ last_month_expenses_total }} {{ user.config.currency}}</span>
+                            <span>{{ last_month_expenses_total }} {{ user.config.currency}}</span>
                             {% endif %}
                         </div>
                         <div class="label_detail_container">
@@ -92,9 +92,9 @@
             {% for transaction in object_list|slice:":3" %}
             <div class="transaction_item">
                 {% if transaction.operation == "expenses" %}
-                <a href="#"><img src={% static "invoices/img/category_icons/expense_transaction_default_icon.svg" %} alt=""></a>
+                <a href="#"><img src={% static "invoices/img/category/base_category_icons/expense_transaction_default_icon.svg" %} alt=""></a>
                 {% else %}
-                <a href="#"><img src={% static "invoices/img/category_icons/income_transaction_default_icon.svg" %} alt=""></a>
+                <a href="#"><img src={% static "invoices/img/category/base_category_icons/income_transaction_default_icon.svg" %} alt=""></a>
                 {% endif %}
                 <div class="transaction_item_description">
                     <span>{{ transaction.title }}</span>
@@ -119,34 +119,36 @@
     </section>
 </section>
 <section class="page_bottom_content">
-    <div class="category_stats">
-        <span>Top spends this month</span>
-        <span>{{ top_expenses_category_this_month.name }}</span>
-        <img>
-        <span>{{ top_expenses_category_this_month.percentage }} %</span>
-        <span>{{ top_expenses_category_this_month.expenses_sum }} {{ user.config.currency }}</span> 
-    </div>
-    <div class="category_stats">
-        <span>Less spends this month</span>
-        <span>{{ less_expenses_category_this_month.name }}</span>
-        <img>
-        <span>{{ less_expenses_category_this_month.percentage }} %</span>
-        <span>{{ less_expenses_category_this_month.expenses_sum }} {{ user.config.currency }}</span> 
-    </div>
-    <div class="category_stats">
-        <span>Most expensive purchase</span>
-        <span>{{ most_expensive_transaction.category }}</span>
-        <img>
-        <span>{{ most_expensive_transaction.title }}</span>
-        <span>{{ most_expensive_transaction.value }} {{ user.config.currency }}</span> 
-    </div>
-    <div class="category_stats">
-        <span>Highest income</span>
-        <span>{{ highest_income_transaction.category }}</span>
-        <img>
-        <span>{{ highest_income_transaction.title }}</span>
-        <span>{{ highest_income_transaction.value }} {{ user.config.currency }}</span> 
-    </div>
+    {% for category in categories_summary_stats %}
+        {% if category.stats.percentage is not None or category.stats.value is not None %}
+            <div class="category_stats">
+                <span> {{ category.stats_header }}</span>
+
+                {% if category.stats_header == "Top expends this month" or category.stats_header == "Less spends this month" %}
+                    <div class="stats_category_name">
+                        <span>{{ category.stats.name }}</span>
+                        {% if category.stats.parent.name is not None %}
+                            <br><span>{{ category.stats.parent.name }}</span>
+                        {% endif %}
+                    </div>
+                    <img src={{ category.stats.image.url }}>
+                    <span>{{ category.stats.percentage }} %</span>
+                    <span>{{ category.stats.expenses_sum }} {{ user.config.currency }}</span>
+                {% else %}
+                    <div class="stats_category_name">
+                        <span>{{ category.stats.category.name }}</span>
+                        {% if category.stats.category.parent.name is not None %}
+                            <br><span>{{ category.stats.category.parent.name }}</span>
+                        {% endif %}
+                    </div>
+                    <img src={{ category.stats.category.image.url }}>
+                    <span>{{ category.stats.title }}</span>
+                    <span>{{ category.stats.value }} {{ user.config.currency }}</span>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
 </section>
 
 {% endblock page_content %}
