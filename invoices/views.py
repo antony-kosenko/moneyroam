@@ -89,10 +89,6 @@ class DashboardView(ListView):
                 {"stats_header": "Most expensive purchase", "stats": most_expensive_purchase_this_month},
                 {"stats_header": "Highest income", "stats": highest_income_this_month}
             ],
-            # "top_expenses_category_this_month": top_expense_category,
-            # "less_expenses_category_this_month": less_expense_category,
-            # "most_expensive_transaction": most_expensive_purchase_this_month,
-            # "highest_income_transaction": highest_income_this_month,
             "balance_summary": balance
         }
         logger.info(f"Context data providing along with DashboardView: {data_to_context}.")
@@ -105,9 +101,10 @@ class TransactionsListView(django_filters.views.FilterView):
     logger.debug("DashboardView requested.")
 
     model = Transaction
+    ordering = "date_created"
     template_name = "invoices/transactions.html"
     context_object_name = "transactions"
-    paginate_by = 7
+    paginate_by = 20
     filterset_class = TransactionsListFilter
 
     def get_queryset(self):
