@@ -20,35 +20,39 @@
     </section>
 
     <section class="transactions_list">
-        
-        {% for transaction in page_obj %}
 
-        <div class="transaction_item">
-            <img src={{ transaction.category.image.url }}>
-            <div class="transaction_item_description">
-                <span>{{ transaction.title }}</span>
-                {% if not transaction.category  %}
-                {% else %}
-                <span>{{ transaction.category }}
-                    {% if transaction.category.parent.name is not None  %}
-                        / {{ transaction.category.parent.name }}
-                    {% endif %}
-                </span>
-                {% endif %}
-                
-            </div>
-            <div class="transaction_item_summary">
-                {% if transaction.operation == "incomes" %}
-                    <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
-                {% elif transaction.operation == "expenses" %}
-                    <span style="color: #B90E0A;">- {{ transaction.value }} {{ transaction.currency }}</span>
-                {% else %}
-                    <span>{{ transaction.value }} {{ transaction.currency }}</span>
-                {% endif %}
-                <span>{{ transaction.date_created }}</span>
-            </div>
+        {% regroup transactions by date_created as transactions_date %}
 
-        </div>
+        {% for date in transactions_date %}
+        <h5>{{ date.grouper }}</h5>
+            {% for transaction in date.list %}
+                <div class="transaction_item">
+                    <img src={{ transaction.category.image.url }}>
+                    <div class="transaction_item_description">
+                        <span>{{ transaction.title }}</span>
+                        {% if not transaction.category  %}
+                        {% else %}
+                        <span>{{ transaction.category }}
+                            {% if transaction.category.parent.name is not None  %}
+                                / {{ transaction.category.parent.name }}
+                            {% endif %}
+                        </span>
+                        {% endif %}
+
+                    </div>
+                    <div class="transaction_item_summary">
+                        {% if transaction.operation == "incomes" %}
+                            <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
+                        {% elif transaction.operation == "expenses" %}
+                            <span style="color: #B90E0A;">- {{ transaction.value }} {{ transaction.currency }}</span>
+                        {% else %}
+                            <span>{{ transaction.value }} {{ transaction.currency }}</span>
+                        {% endif %}
+                        <span>{{ transaction.date_created }}</span>
+                    </div>
+
+                </div>
+            {% endfor %}
         {% endfor %}
         <div class="pagination">
     <span class="step-links">
