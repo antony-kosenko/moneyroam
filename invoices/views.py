@@ -106,12 +106,3 @@ class TransactionsListView(django_filters.views.FilterView):
     context_object_name = "transactions"
     paginate_by = 20
     filterset_class = TransactionsListFilter
-
-    def get_queryset(self):
-        if self.request.GET.get("transaction") == "incomes":
-            qs = super().get_queryset().filter(operation="incomes")
-        elif self.request.GET.get("transaction") == "expenses":
-            qs = super().get_queryset().filter(operation="expenses")
-        else:
-            qs = super().get_queryset()
-        return qs
