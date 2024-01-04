@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "mptt",
     "crispy_forms",
     "crispy_bootstrap4",
+    "django_filters",
 
     # custom apps
     "invoices",

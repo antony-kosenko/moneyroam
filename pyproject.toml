@@ -17,6 +17,7 @@ pillow = "^10.0.0"
 django-crispy-forms = "^2.1"
 crispy-bootstrap4 = "^2023.1"
 requests = "^2.31.0"
+django-filter = "^23.5"
 
 
 [build-system]

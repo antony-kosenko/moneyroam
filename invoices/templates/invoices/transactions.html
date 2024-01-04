@@ -3,6 +3,8 @@
 
 {% block extra_head_tags %}
     <link rel="stylesheet" href={% static "invoices/css/transactions.css" %}>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {% endblock extra_head_tags %}
 
 {% block tab_title %}Transactions{% endblock tab_title %}
@@ -11,7 +13,10 @@
 
 {% block page_content %}
     <section class="transaction_filters">
-        
+        <form action="" method="get">
+            {{ filter.form.as_p }}
+            <input type="submit" value="Apply"/>
+        </form>
     </section>
 
     <section class="transactions_list">

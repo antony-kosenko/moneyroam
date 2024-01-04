@@ -1,6 +1,11 @@
 import datetime
 from django.db.models import Q
 
+import django_filters
+from django_filters.widgets import DateRangeWidget
+from mptt.forms import TreeNodeChoiceField
+
+from invoices.models import Transaction, Category
 from moneyroam.utils import clear_none_values
 
 
@@ -51,3 +56,18 @@ class TransactionsFilter:
         previous_month = current_month_first_day - datetime.timedelta(days=1)
         return {"date_created__month": previous_month.month, "date_created__year": previous_month.year}
 
+
+class TransactionsListFilter(django_filters.FilterSet):
+    """ Filters for Transaction list. """
+
+    title = django_filters.CharFilter(lookup_expr="icontains", label="Transaction title")
+    date_created = django_filters.DateFromToRangeFilter(
+        widget=DateRangeWidget(attrs={'type': 'date'}),
+        label="Date range"
+    )
+    # TODO find out how to build a MPTT tree choice field
+    category = TreeNodeChoiceField(queryset=Category.objects.all())
+
+    class Meta:
+        model = Transaction
+        fields = ["title", "category", "operation", "date_created"]

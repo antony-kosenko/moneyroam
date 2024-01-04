@@ -1,10 +1,25 @@
 .transaction_filters {
     margin: 20px 0 0 20px;
-    width: calc(100% - 20px);
+    width: calc(100% - 40px);
     height: 52px;
     display: flex;
     background-color: #f5f6f8;
     border-radius: 10px;
+    padding: 10px;
+}
+
+.transaction_filters form {
+    display: flex;
+    width: 100%;
+    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.transaction_filters form p {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .transactions_list {

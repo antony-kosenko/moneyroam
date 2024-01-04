@@ -1,13 +1,13 @@
 import logging
 from typing import Any
-import datetime
 
+import django_filters.views
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView
 
 from invoices.models import Transaction
 from invoices.services import TransactionServices, CategoryServices
-from invoices.filters import TransactionsFilter
+from invoices.filters import TransactionsFilter, TransactionsListFilter
 from invoices.forms import NewInvoiceForm
 
 from utils.currency_manager import CurrencyExchangeManager
@@ -100,13 +100,15 @@ class DashboardView(ListView):
         return data
 
 
-class TransactionsListView(ListView):
+class TransactionsListView(django_filters.views.FilterView):
     """ Lists all transactions """
     logger.debug("DashboardView requested.")
 
     model = Transaction
     template_name = "invoices/transactions.html"
+    context_object_name = "transactions"
     paginate_by = 7
+    filterset_class = TransactionsListFilter
 
     def get_queryset(self):
         if self.request.GET.get("transaction") == "incomes":
