@@ -3,8 +3,12 @@
 
 {% block extra_head_tags %}
     <link rel="stylesheet" href={% static "invoices/css/transactions.css" %}>
+    <script src={% static "js/toggle_filter_form.js" %} defer></script>
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 {% endblock extra_head_tags %}
 
 {% block tab_title %}Transactions{% endblock tab_title %}
@@ -13,9 +17,15 @@
 
 {% block page_content %}
     <section class="transaction_filters">
-        <form action="" method="get">
+        <img src="{% static 'img/filter_icon.svg' %}" alt="filter_img" id="filter-icon">
+        <form action="" method="get" id="filter-form">
             {{ filter.form.as_p }}
-            <input type="submit" value="Apply"/>
+            <!-- Date picker -->
+            <div class="date_picker">
+                <label for="datePicker">Date Range: </label>
+                <input type="text" id="datePicker" name="dates" class="form-control">
+            </div>
+            <input class="transaction_filter_apply_button" type="submit" value="Apply"/>
         </form>
     </section>
 

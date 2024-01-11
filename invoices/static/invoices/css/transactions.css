@@ -6,20 +6,71 @@
     background-color: #f5f6f8;
     border-radius: 10px;
     padding: 10px;
+    gap: 15px;
 }
 
-.transaction_filters form {
-    display: flex;
+.transaction_filters img {
+    width: 40px;
+    height: 40px;
+    align-self: center;
+    cursor: pointer;
+}
+
+#filter-form {
+    display: none;
     width: 100%;
-    gap: 15px;
-    justify-content: space-between;
+    gap: 30px;
+    justify-content: space-evenly;
     align-items: center;
 }
 
-.transaction_filters form p {
+#filter-form p {
     margin: 0;
     display: flex;
     flex-direction: column;
+    gap: 3px;
+}
+
+#filter-form p:last-of-type {
+    display: none;
+}
+
+#filter-form .date_picker {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+#filter-form .transaction_filter_apply_button {
+    background-color: #f5f6f8;
+    border-radius: 8px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    width: 80px;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    outline: none;
+    padding: 10px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+#filter-form .transaction_filter_apply_button:hover,
+#filter-form .transaction_filter_apply_button:focus {
+  background-color: #1d2127;
+  color: white;
 }
 
 .transactions_list {
