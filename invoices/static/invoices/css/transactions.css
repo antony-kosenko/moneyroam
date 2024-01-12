@@ -31,6 +31,10 @@
     gap: 3px;
 }
 
+#filter-form label {
+    font-size: 0.9rem;
+}
+
 #filter-form p:last-of-type {
     display: none;
 }
@@ -44,9 +48,10 @@
 #filter-form .transaction_filter_apply_button {
     background-color: #f5f6f8;
     border-radius: 8px;
-    border: 1px solid black;
+    border: 2px solid black;
     box-sizing: border-box;
-    color: black;
+    background-color: #1d2127;
+    color: #f5f6f8;
     cursor: pointer;
     display: inline-block;
     font-size: 14px;
@@ -69,8 +74,8 @@
 
 #filter-form .transaction_filter_apply_button:hover,
 #filter-form .transaction_filter_apply_button:focus {
-  background-color: #1d2127;
-  color: white;
+  background-color: #f5f6f8;
+  color: #1d2127;
 }
 
 .transactions_list {
