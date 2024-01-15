@@ -22,7 +22,7 @@
         <div id="myModal" class="modal">
             <div class="modal-content">
             <span class="close" id="closeModalBtn">&times;</span>
-            <h2>Create new transaction</h2>
+            <h2>New transaction</h2>
                 <form action={% url "invoices:create_transaction" %} method="post">
                     {% csrf_token %}
                     {{ form | crispy }}

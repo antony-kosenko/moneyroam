@@ -20,6 +20,8 @@ transaction_filter = TransactionsFilter()
 
 
 def create_transaction_view(request):
+    """ View to handle creation of new Transaction object. """
+    # ! Form for transaction creation (GET) initials in context processor to be available globally.
     if request.method == "POST":
         form = NewInvoiceForm(request.POST)
         if form.is_valid():
@@ -36,7 +38,7 @@ def create_transaction_view(request):
                 new_invoice.value = transaction_converted_value
                 new_invoice.currency = user_currency
             new_invoice.save()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', "/"))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', "/"))
 
 
 class DashboardView(ListView):
@@ -101,7 +103,7 @@ class TransactionsListView(django_filters.views.FilterView):
     logger.debug("DashboardView requested.")
 
     model = Transaction
-    ordering = "date_created"
+    ordering = "-date_created"
     template_name = "invoices/transactions.html"
     context_object_name = "transactions"
     paginate_by = 20
