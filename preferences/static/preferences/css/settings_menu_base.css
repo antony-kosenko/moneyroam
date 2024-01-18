@@ -1,18 +1,62 @@
 .page_content {
     display: flex;
     padding: 15px;
+    margin-left: 10px;
     margin-top: 25px;
-    background-color: #f5f6f8;
+    background-color: white;
     border-radius: 10px;
     flex: 1 1 0;
+    gap: 5px;
 }
 
 .preferences_options {
-    flex-basis: 30%;
+    flex-basis: 25%;
     min-width: 200px;
     flex-shrink: 2;
+    padding: 15px;
+    border-radius: 10px 0 0 10px;
+    background-color: #f5f6f8;
 }
 
 .preferences_details {
     flex-basis: 70%;
+    padding: 15px;
+    background-color: #f5f6f8;
+    border-radius: 0 10px 10px 0;
+}
+
+.preferences_details form {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+    position: static;
+}
+
+.preferences_details form input, select {
+    min-width: 100px;
+    max-width: 100%;
+    width: fit-content;
+}
+
+.preferences_details form button {
+    margin-top: auto;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #1d2127;
+    color: white;
+    cursor: pointer;
+}
+
+.preferences_details form button:hover {
+    background-color: white;
+    color: #1d2127;
+}
+
+.preferences_details p {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 }

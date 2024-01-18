@@ -7,12 +7,17 @@ from preferences.models import Config
 
 def preference_general_view(request):
     """ Handles general preferences configuration. """
+    # retrieving config related to user sends request.
+    try:
+        config_to_update = Config.objects.get(user_id=request.user.id)
+    except Config.DoesNotExist:
+        config_to_update = None
+
     if request.method == "POST":
-        form = PreferencesGeneral(instance=request.user)
-        if form.is_valid:
-            updated_config = Config(**form.cleaned_data)
-            updated_config.save()
+        form = PreferencesGeneral(request.POST, instance=config_to_update)
+        if form.is_valid(): 
+            form.save()
             HttpResponseRedirect(request.META.get('HTTP_REFERER', "/"))
     else:
-        form = PreferencesGeneral(instance=request.user)
+        form = PreferencesGeneral(instance=config_to_update)
     return render(request, template_name="preferences/settings_menu_base.html", context={"base_config_form": form})
