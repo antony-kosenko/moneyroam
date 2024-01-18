@@ -1,0 +1,28 @@
+{% extends "base_page.html" %}
+{% load static %}
+
+{% comment %} Extra head lines {% endcomment %}
+{% block extra_head_tags %}
+    <link rel="stylesheet" href={% static "preferences/css/settings_menu_base.css" %}>
+{% endblock extra_head_tags %}
+
+{% comment %} Tab title {% endcomment %}
+{% block tab_title %}Preferences{% endblock tab_title %}
+
+{% comment %} Page title {% endcomment %}
+{% block page_title %}Preferences{% endblock page_title %}
+
+{% comment %} Page core content {% endcomment %}
+{% block page_content %}
+    <div class="preferences_options">
+        <a>General</a>
+    </div>
+
+    <div class="preferences_details">
+        <form action={% url "preferences:preferences_general" %} method="post">
+            {% csrf_token %}
+            {{ base_config_form.as_p }}
+            <button type="submit">Apply</button>
+        </form>
+    </div>
+{% endblock page_content %}

@@ -21,7 +21,7 @@ transaction_filter = TransactionsFilter()
 
 def create_transaction_view(request):
     """ View to handle creation of new Transaction object. """
-    # ! Form for transaction creation (GET) initials in context processor to be available globally.
+    # !!! Form for transaction creation (GET) initials in context processor to be available globally.
     if request.method == "POST":
         form = NewInvoiceForm(request.POST)
         if form.is_valid():

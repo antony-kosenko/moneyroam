@@ -25,7 +25,7 @@
             <h2>New transaction</h2>
                 <form action={% url "invoices:create_transaction" %} method="post">
                     {% csrf_token %}
-                    {{ form | crispy }}
+                    {{ transaction_creation_form | crispy }}
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>
             </div>
