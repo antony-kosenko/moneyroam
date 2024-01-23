@@ -1,0 +1,85 @@
+{% extends "base_page.html" %}
+{% load static %}
+
+{% block extra_head_tags %}
+    <link rel="stylesheet" href={% static "invoices/css/transactions.css" %}>
+    <script src={% static "js/toggle_filter_form.js" %} defer></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+{% endblock extra_head_tags %}
+
+{% block tab_title %}Transactions{% endblock tab_title %}
+
+{% block page_title %}Transactions{% endblock page_title %}
+
+{% block page_content %}
+    <section class="transaction_filters">
+        <img src="{% static 'img/filter_icon.svg' %}" alt="filter_img" id="filter-icon">
+        <form action="" method="get" id="filter-form">
+            {{ filter.form.as_p }}
+            <!-- Date picker -->
+            <div class="date_picker">
+                <label for="datePicker">Date Range: </label>
+                <input type="text" id="datePicker" name="dates" class="form-control">
+            </div>
+            <input class="transaction_filter_apply_button" type="submit" value="Apply"/>
+        </form>
+    </section>
+
+    <section class="transactions_list">
+
+        {% regroup transactions by date_created as transactions_date %}
+
+        {% for date in transactions_date %}
+        <h5>{{ date.grouper }}</h5>
+            {% for transaction in date.list %}
+                <div class="transaction_item">
+                    <img src={{ transaction.category.image.url }}>
+                    <div class="transaction_item_description">
+                        <span>{{ transaction.title }}</span>
+                        {% if not transaction.category  %}
+                        {% else %}
+                        <span>{{ transaction.category }}
+                            {% if transaction.category.parent.name is not None  %}
+                                / {{ transaction.category.parent.name }}
+                            {% endif %}
+                        </span>
+                        {% endif %}
+
+                    </div>
+                    <div class="transaction_item_summary">
+                        {% if transaction.operation == "incomes" %}
+                            <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
+                        {% elif transaction.operation == "expenses" %}
+                            <span style="color: #B90E0A;">- {{ transaction.value }} {{ transaction.currency }}</span>
+                        {% else %}
+                            <span>{{ transaction.value }} {{ transaction.currency }}</span>
+                        {% endif %}
+                        <span>{{ transaction.date_created }}</span>
+                    </div>
+
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+    </section>
+{% endblock page_content %}

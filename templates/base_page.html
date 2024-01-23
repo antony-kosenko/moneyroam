@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={% static "css/base_page.css" %}>
+    <link rel="stylesheet" href={% static "css/navbar.css" %}>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <script src={% static "invoices/js/create_new_transaction_modal.js" %} defer></script>
+    {% comment %} May be extended with additional tags in block below.{% endcomment %}
+    {% block extra_head_tags %}{% endblock extra_head_tags %}
+    <title>{% block tab_title %}{% endblock tab_title %}</title>
+</head>
+
+<body>
+    {% comment %} Navbar {% endcomment %}
+    {% include "navbar.html" %}
+    <div class="page">
+
+        <section class="page_header">
+            <h1>{% block page_title %}{% endblock page_title %}</h1>
+            <span class="current_time"><b>{{ current_date }}</b></span>
+
+            <div class="page_header_interactors">                
+                {% comment %} Profile dropdown menu {% endcomment %}
+                <nav class="profile_navigation_block">
+
+                    <label for="touch"><span><img src="{% static "img/base_page_icons/default_profile_image.svg" %}" alt="default_profile"></span></label>               
+                    <input type="checkbox" id="touch"> 
+                  
+                    <ul class="dropdown_list">
+                      <li><a href="#">Profile</a></li> 
+                      <li><a href={% url "preferences:preferences_general" %}>Settings</a></li>
+                      <hr style="margin: 0px;">
+                      <li><a href="#">Logout</a></li>
+                    </ul>
+                  
+                </nav> 
+            </div>
+        </section>
+    
+    {% comment %} main content of the page here {% endcomment %}
+    <section class="page_content">
+    {% block page_content %}{% endblock page_content %}
+    </section>
+    </div>    
+</body>
+
+</html>

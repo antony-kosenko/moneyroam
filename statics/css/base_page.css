@@ -1,0 +1,119 @@
+html, body {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.page {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 25px 25px 100px;
+    height: calc(100% - 55px);
+    width: calc(100% - 125px);
+}
+
+.page_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 20px;
+    width: 100%;
+    height: 40px;
+}
+
+.page_header h1 {
+    margin: 0;
+    flex-basis: 40%;
+    font-size: 1.8rem;
+}
+
+.current_time {
+    flex-basis: 30%;
+}
+
+.current_time b {
+    color: #1d2127;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #1d2127;
+}
+
+.page_content h2 {
+    font-size: 1.2rem;
+}
+
+.page_header_interactors {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    height: 100%;
+    flex-basis: 30%;
+}
+
+.settings_profile {
+    display: flex;
+    height: 100%;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.settings_profile img {
+    height: 100%;
+}
+
+/* Dropdown menu */
+
+.profile_navigation_block {
+  width : fit-content;
+  height: 80%;
+  align-self: center;
+}
+
+.profile_navigation_block span {
+  height: 100%;
+  width: fit-content;
+  border-radius: 10px;
+  background : #e4e6e9; 
+  font-size : 1.2em;
+  cursor : pointer;
+  display: block;
+}
+
+.profile_navigation_block span img {
+    margin-top: auto;
+    height: 100%;
+}
+
+.profile_navigation_block span::after {
+  float: right;
+  margin: 5px;
+  content: "▼";
+}
+
+.dropdown_list {
+    position: relative;
+    clear:both;
+    background-color: #e4e6e9;
+    border-radius: 10px;
+    width:max-content;
+    height:0px;
+    overflow: hidden;
+    text-align: center;
+    transition: height .4s ease;
+    list-style-type: none;
+    padding: 0 20px;
+}
+
+.dropdown_list li {
+    padding : 15px 0;
+}
+
+.dropdown_list li a {text-decoration : none; color : black;}
+
+#touch {position: absolute; opacity: 0; height: 0px;}    
+
+#touch:checked + .dropdown_list {height: max-content;} 
