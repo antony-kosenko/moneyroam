@@ -12,9 +12,16 @@ body {
     flex-direction: column;
 }
 
+.starting_page_content {
+    margin-top: 70px;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    gap: 20px;
+}
+
 .start_page_nav {
     position: fixed;
-
     width: 100%;
     padding: 10px 30px;
     box-sizing: border-box;

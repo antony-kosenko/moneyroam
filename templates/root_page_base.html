@@ -10,23 +10,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href={% static "css/root_page_base.css" %}>
     {% block root_page_head %}{% endblock root_page_head %}
-    <title>Moneyroam | Home</title>
+
+    {% comment %} Tab title {% endcomment %}
+    <title>Moneyroam | {% block tab_title %}{% endblock tab_title %}</title>
 </head>
 <body>
-
+    {% comment %} Navbar {% endcomment %}
     <nav class="start_page_nav">
         <div class="login_registr_block">
-            <a href={% url "accounts:login_page" %}>Login</a>
+            <a href={% url "accounts:login" %}>Login</a>
             <hr>
-            <a href={% url "accounts:registration_page" %}>Registration</a>
+            <a href={% url "accounts:registration" %}>Registration</a>
         </div>
         <a href="">About</a>
         <a href="">En</a>
     </nav>
 
 {% comment %} Content of root page (shared between starting_page, Login, Registration) {% endcomment %}
-{% block root_content %}
-{% endblock root_content %}
+<article class="starting_page_content">
+    {% block root_content %}
+    {% endblock root_content %}
+</article>
+
     
 </body>
 </html>

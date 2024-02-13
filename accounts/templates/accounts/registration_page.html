@@ -1,0 +1,27 @@
+{% extends "root_page_base.html" %}
+{% load static %}
+
+{% comment %} Head tags {% endcomment %}
+{% block root_page_head %}
+    <link rel="stylesheet" href={% static "accounts/css/registration_page.css" %}>
+{% endblock root_page_head %}
+
+{% block tab_title %}Registration{% endblock tab_title %}
+
+{% comment %} Core content {% endcomment %}
+{% block root_content %}
+
+    <section class="info_block">
+
+    </section>
+
+    <section class="registration_block">
+        <form class="reg_form" action={% url "accounts:registration" %} method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <button type="submit" class="btn btn-primary">Sign up</button>
+        </form>
+    </section>
+
+{% endblock root_content %}
