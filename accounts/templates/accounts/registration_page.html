@@ -20,8 +20,12 @@
             {% csrf_token %}
             {{ user_form.as_p }}
             {{ profile_form.as_p }}
-            <button type="submit" class="btn btn-primary">Sign up</button>
+            <button type="submit">Sign up</button>
         </form>
+
+        <div class="extra_links">
+            <span>Already have an account? <a href={% url "accounts:login" %}>Sign in</a></span>
+        </div>
     </section>
 
 {% endblock root_content %}

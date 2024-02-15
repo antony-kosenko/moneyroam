@@ -10,6 +10,10 @@
     flex-basis: 50%;
 }
 
+.registration_block .extra_links {
+    margin-top: 10px;
+}
+
 .reg_form {
     padding: 20px;
     width: 70%;
@@ -45,6 +49,6 @@
 }
 
 .reg_form button:hover {
-    background-color: #d3d4d560;
+    background-color: white;
     color: #1d2127;
 }

@@ -1,6 +1,6 @@
-.core_image {
-    height: 100%;
-    object-fit: cover;
+body {
+    background-image: url("../img/starting_page_image.jpg");
+    background-size: cover;
 }
 
 .quote_text {
@@ -22,5 +22,4 @@ footer {
     width: 100%;
     color: white;
     text-align: center;
-    
 }

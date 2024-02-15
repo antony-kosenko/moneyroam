@@ -1,12 +1,16 @@
 {% extends "root_page_base.html" %}
 {% load static %}
 
+{% comment %} Extra headers {% endcomment %}
     {% block root_page_head %}
         <link rel="stylesheet" href={% static "css/starting_page.css" %}>
     {% endblock root_page_head %}
 
+    {% comment %} Tab title {% endcomment %}
+    {% block tab_title %}Start{% endblock tab_title %}
+
+    {% comment %} Core content section {% endcomment %}
     {% block root_content %}
-        <img class="core_image" src={% static "img/starting_page_image.jpg" %} alt="core_image">
         <div class="quote_text">
             <span>Control your money roam</span>
         </div>
