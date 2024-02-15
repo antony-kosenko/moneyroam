@@ -107,6 +107,10 @@
 
 }
 
+.modal-content form label {
+    font-weight: bold;
+}
+
 .modal-content form button {
     margin-top: auto;
     height: 30px;

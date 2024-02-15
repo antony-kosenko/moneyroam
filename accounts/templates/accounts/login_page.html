@@ -1,0 +1,30 @@
+{% extends "root_page_base.html" %}
+{% load static %}
+
+{% comment %} Extra heads {% endcomment %}
+{% block root_page_head %}
+    <link rel="stylesheet" href={% static "accounts/css/login_page.css" %}>
+{% endblock root_page_head %}
+
+{% comment %} Tab_title {% endcomment %}
+{% block tab_title %}Login{% endblock tab_title %}
+
+{% comment %} Core content {% endcomment %}
+{% block root_content %}
+
+    <section class="login_block">
+        
+        <form class="reg_form" action={% url "accounts:login" %} method="post">
+            {% comment %} <h2>Log in into account.</h2> {% endcomment %}
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            <button type="submit">Log in</button>
+        </form>
+
+        <div class="extra_links">
+            <span>Don't have an account? <a href={% url "accounts:registration" %}>Sign up</a></span>
+        </div>
+
+    </section>
+
+{% endblock root_content %}

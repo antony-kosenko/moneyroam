@@ -41,7 +41,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 def profile_image_path(instance, filename):
     # uploading file to dynamic PATH
-    return f"uploads/{instance.username}/profile_image/{filename}"
+    return f"uploads/accounts/{instance.username}/profile_image/{filename}"
 
 
 class Profile(models.Model):
