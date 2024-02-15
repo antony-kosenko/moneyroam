@@ -1,16 +1,22 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
 from accounts.models import CustomUser, Profile
 
 
-class CustomUserForm(forms.ModelForm):
+class CustomUserCreationForm(UserCreationForm):
     """ Form to create CustomUser. """
+
+    email = forms.EmailField(widget=forms.EmailInput())
+
     class Meta:
         model = CustomUser
-        fields = ("email", "password")
+        fields = ("email",)
 
-class ProfileForm(forms.ModelForm):
+
+class ProfileCreationForm(forms.ModelForm):
     """ Form to create Profile. """
+
     username = forms.CharField(max_length=250)
     first_name = forms.CharField(max_length=250, required=False)
     last_name = forms.CharField(max_length=250, required=False)
@@ -18,3 +24,9 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ("username", "first_name", "last_name")
+
+class UserLoginForm(forms.Form):
+    """ Form to login User. """
+
+    email = forms.EmailField(widget=forms.EmailInput())
+    password = forms.CharField(widget=forms.PasswordInput())
