@@ -7,7 +7,12 @@ from accounts.forms import CustomUserForm, ProfileForm
 
 def login_view(request):
     """ Login view for existing user. """
-    return render(request, "accounts/login_page.html")
+
+    if request.method == "POST":
+        user_form = CustomUserForm(request.POST)
+    else:
+        user_form = CustomUserForm()
+        return render(request, "accounts/login_page.html", context={"user_form": user_form})
 
 def registration_view(request):
     """ View to create new user. """

@@ -8,7 +8,7 @@ html, body {
     font-family: 'Montserrat', sans-serif;
 }
 
-.starting_page_content {
+.root_page_content {
     margin-top: 70px;
     display: flex;
     height: 100%;
