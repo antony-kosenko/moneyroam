@@ -7,6 +7,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100%;
     width: 25%;
     max-width: 300px;
     min-width: 250px;
@@ -25,7 +26,8 @@
 .reg_form {
     padding: 40px 20px 20px 20px;
     width: 100%;
-    height: 40%;
+    min-height: fit-content;
+    height: 50%;
     background-color: #d3d4d560;
     display: flex;
     flex-direction: column;
@@ -53,7 +55,6 @@
 
 .reg_form input {
     height: 25px;
-    border: 0px solid ;
     border-radius: 5px;
 }
 

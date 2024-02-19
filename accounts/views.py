@@ -1,11 +1,10 @@
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.db import transaction
 from django.urls import reverse
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 from accounts.forms import CustomUserCreationForm, ProfileCreationForm, UserLoginForm
-from accounts.models import CustomUser, Profile
 
 
 def login_view(request):
@@ -45,13 +44,17 @@ def registration_view(request):
                 new_profile.user = new_user
                 new_profile.save()
             # TODO messages for success/fail of registration
+            messages.success(request, message="Registration succeed. You can use your credentials now to log in.")
             return redirect(reverse("accounts:login"))
         # TODO Create and style errors sections in case if form not valid
+        else:
+            messages.error(request, message="Please, enter a valid data.")
+            return render(
+                request, "accounts/registration_page.html",
+                context={"user_form": user_form, "profile_form": profile_form}
+                )
     else:
         user_form = CustomUserCreationForm()
         profile_form = ProfileCreationForm()
-        return render(
-            request, 
-            "accounts/registration_page.html",
-            context={"user_form": user_form, "profile_form": profile_form}
-        )
+        context = {"user_form": user_form, "profile_form": profile_form}
+        return render(request, "accounts/registration_page.html", context=context)

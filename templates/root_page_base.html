@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <script src={% static "js/error_container_display.js" %}></script>
     <link rel="stylesheet" href={% static "css/root_page_base.css" %}>
     {% block root_page_head %}{% endblock root_page_head %}
 
@@ -26,11 +27,21 @@
         <a href="">En</a>
     </nav>
 
-{% comment %} Content of root page (shared between starting_page, Login, Registration) {% endcomment %}
-<article class="root_page_content">
-    {% block root_content %}
-    {% endblock root_content %}
-</article>
+    {% if messages %}
+    <div id="messages" class="messages">
+        {% for message in messages %}
+            <span class="message {{ message.tags }}">
+                {{ message | safe }}
+            </span>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% comment %} Content of root page (shared between starting_page, Login, Registration) {% endcomment %}
+    <article class="root_page_content">
+        {% block root_content %}
+        {% endblock root_content %}
+    </article>
 
     
 </body>

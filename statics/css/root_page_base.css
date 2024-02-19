@@ -8,12 +8,36 @@ html, body {
     font-family: 'Montserrat', sans-serif;
 }
 
+
+.messages {
+    position: fixed;
+    width: 100%;
+    top: 70px;
+    height: 50px;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.error-background {
+    background-color: rgba(255, 0, 0, 0.35);
+}
+
+.success-background {
+    background-color: rgba(0, 255, 0, 0.35);
+}
+
+.default-background {
+    background-color: rgba(253, 253, 3, 0.35);
+}
+
 .root_page_content {
-    margin-top: 70px;
+    margin-top: 130px;
     display: flex;
     height: 100%;
     width: 100%;
     gap: 20px;
+    flex: 1 1 0;
 }
 
 .start_page_nav {
@@ -51,3 +75,5 @@ html, body {
 .login_registr_block a {
     color: white!important;
 }
+
+
