@@ -6,7 +6,7 @@ from accounts.models import CustomUser, Profile
 
 class CustomUserCreationForm(UserCreationForm):
     """ Form to create CustomUser. """
-
+    required_css_class = "required"
     email = forms.EmailField(widget=forms.EmailInput())
 
     class Meta:
@@ -16,7 +16,7 @@ class CustomUserCreationForm(UserCreationForm):
 
 class ProfileCreationForm(forms.ModelForm):
     """ Form to create Profile. """
-
+    required_css_class = "required"
     username = forms.CharField(max_length=250)
     first_name = forms.CharField(max_length=250, required=False)
     last_name = forms.CharField(max_length=250, required=False)

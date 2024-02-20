@@ -1,13 +1,48 @@
-from django.http import HttpResponse
+from hmac import new
 from django.shortcuts import redirect, render
 from django.db import transaction
 from django.urls import reverse
 from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
+from django.contrib import messages
 
 from accounts.forms import CustomUserCreationForm, ProfileCreationForm, UserLoginForm
-from accounts.models import CustomUser, Profile
+from preferences.models import Config
 
 
+def registration_view(request):
+    """ View to create new user. """
+
+    if request.method == "POST":
+        user_form = CustomUserCreationForm(request.POST)
+        profile_form = ProfileCreationForm(request.POST)
+        if all([user_form.is_valid(), profile_form.is_valid()]):
+            with transaction.atomic():
+                # creating new user
+                new_user = user_form.save()
+                
+                # creating new profile
+                new_profile = profile_form.save(commit=False)
+                new_profile.user = new_user
+                new_profile.save()
+
+                # creating config instance
+                Config.objects.create(user=new_user)
+
+            messages.success(request, message="Registration succeed. You can use your credentials now to log in.")
+            return redirect(reverse("accounts:login"))
+        else:
+            messages.error(request, message="Please, enter a valid data.")
+            return render(
+                request, "accounts/registration_page.html",
+                context={"user_form": user_form, "profile_form": profile_form}
+                )
+    else:
+        user_form = CustomUserCreationForm()
+        profile_form = ProfileCreationForm()
+        context = {"user_form": user_form, "profile_form": profile_form}
+        return render(request, "accounts/registration_page.html", context=context)
+    
 def login_view(request):
     """ Login view for existing user. """
 
@@ -29,29 +64,8 @@ def login_view(request):
         user_form = UserLoginForm()
         return render(request, "accounts/login_page.html", context={"user_form": user_form})
 
-def registration_view(request):
-    """ View to create new user. """
 
-    if request.method == "POST":
-        user_form = CustomUserCreationForm(request.POST)
-        profile_form = ProfileCreationForm(request.POST)
-        if all([user_form.is_valid(), profile_form.is_valid()]):
-            with transaction.atomic():
-                # creating new user
-                new_user = user_form.save()
-                
-                # creating new profile
-                new_profile = profile_form.save(commit=False)
-                new_profile.user = new_user
-                new_profile.save()
-            # TODO messages for success/fail of registration
-            return redirect(reverse("accounts:login"))
-        # TODO Create and style errors sections in case if form not valid
-    else:
-        user_form = CustomUserCreationForm()
-        profile_form = ProfileCreationForm()
-        return render(
-            request, 
-            "accounts/registration_page.html",
-            context={"user_form": user_form, "profile_form": profile_form}
-        )
+def logout_view(request):
+    """ Performs logout of logged in user. """
+    logout(request)
+    return redirect(reverse("accounts:login"))
