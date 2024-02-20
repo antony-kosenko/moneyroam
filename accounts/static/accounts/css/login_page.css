@@ -47,6 +47,10 @@
     margin: 0;
 }
 
+.reg_form h4 {
+    margin: 10px 0;
+}
+
 .reg_form label {
     font-size: 0.9rem;
     font-weight: bold;
