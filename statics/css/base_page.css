@@ -52,6 +52,7 @@ html, body {
     justify-content: space-between;
     height: 100%;
     flex-basis: 30%;
+    padding-right: 20px;
 }
 
 .settings_profile {
@@ -67,53 +68,106 @@ html, body {
 
 /* Dropdown menu */
 
-.profile_navigation_block {
-  width : fit-content;
-  height: 80%;
-  align-self: center;
+.select-menu .select-btn {
+    display: flex;
+    height: 40px;
+    width: fit-content;
+    max-width: 60%;
+    min-width: 120px;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+  }
+
+.select-menu .options {
+    position: absolute;
+    overflow-y: visible;
+    height: fit-content;
+    margin-top: 10px;
+    padding: 10px;
+    right: 55px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation-name: fadeInDown;
+    -webkit-animation-name: fadeInDown;
+    animation-duration: 0.35s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 0.35s;
+    -webkit-animation-fill-mode: both;
+    display: none;
+  }
+
+.select-menu .options .option {
+    display: flex;
+    height: 30px;
+    cursor: pointer;
+    padding: 0 10px;
+    border-radius: 8px;
+    align-items: center;
+    background: #fff;
+  }
+
+.select-menu.active .options {
+    display: block;
 }
 
-.profile_navigation_block span {
-  height: 100%;
-  width: fit-content;
-  border-radius: 10px;
-  background : #e4e6e9; 
-  font-size : 1.2em;
-  cursor : pointer;
-  display: block;
+.select-menu.active .options.show {
+    display: block;
 }
 
-.profile_navigation_block span img {
-    margin-top: auto;
-    height: 100%;
-}
+.select-menu .options .option:hover {
+    background: #f2f2f2;
+  }
 
-.profile_navigation_block span::after {
-  float: right;
-  margin: 5px;
-  content: "▼";
-}
+.select-menu .options .option i {
+    font-size: 25px;
+    margin-right: 12px;
+  }
 
-.dropdown_list {
-    position: relative;
-    clear:both;
-    background-color: #e4e6e9;
-    border-radius: 10px;
-    width:max-content;
-    height:0px;
-    overflow: hidden;
-    text-align: center;
-    transition: height .4s ease;
-    list-style-type: none;
-    padding: 0 20px;
-}
+.select-menu .options .option .option-text {
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+  }
+  
+.select-btn i {
+    font-size: 25px;
+    transition: 0.3s;
+  }
+  
+.select-menu.active .select-btn i {
+    transform: rotate(-180deg);
+  }
 
-.dropdown_list li {
-    padding : 15px 0;
-}
-
-.dropdown_list li a {text-decoration : none; color : black;}
-
-#touch {position: absolute; opacity: 0; height: 0px;}    
-
-#touch:checked + .dropdown_list {height: max-content;} 
+.select-menu.active .options {
+    display: block;
+    opacity: 0;
+    z-index: 10;
+    animation-name: fadeInUp;
+    -webkit-animation-name: fadeInUp;
+    animation-duration: 0.4s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 0.4s;
+    -webkit-animation-fill-mode: both;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      transform: translate3d(0, 30px, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+  @keyframes fadeInDown {
+    from {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+    to {
+      transform: translate3d(0, 20px, 0);
+      opacity: 0;
+    }
+  }

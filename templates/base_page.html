@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <script src={% static "invoices/js/create_new_transaction_modal.js" %} defer></script>
+    <script src={% static "js/profile_dropdown_menu.js" %} defer></script>
     {% comment %} May be extended with additional tags in block below.{% endcomment %}
     {% block extra_head_tags %}{% endblock extra_head_tags %}
     <title>{% block tab_title %}{% endblock tab_title %}</title>
@@ -26,20 +27,22 @@
             <span class="current_time"><b>{{ current_date }}</b></span>
 
             <div class="page_header_interactors">                
-                {% comment %} Profile dropdown menu {% endcomment %}
-                <nav class="profile_navigation_block">
-
-                    <label for="touch"><span><img src="{% static "img/base_page_icons/default_profile_image.svg" %}" alt="default_profile"></span></label>               
-                    <input type="checkbox" id="touch"> 
-                  
-                    <ul class="dropdown_list">
-                      <li><a href="#">Profile</a></li> 
-                      <li><a href={% url "preferences:preferences_general" %}>Settings</a></li>
-                      <hr style="margin: 0px;">
-                      <li><a href={% url "accounts:logout" %}>Logout</a></li>
+                {% comment %} Profile bar {% endcomment %}
+                <div class="select-menu active">
+                    <div class="select-btn">
+                      <span class="sBtn-text">{{user.profile.username}}</span>
+                    </div>
+                    <ul class="options">
+                      <li class="option">
+                        <a class="option-text">Profile</a>
+                      </li>
+                      <hr>
+                      <li class="option">
+                        <a class="option-text" href={% url "accounts:logout" %} >Log out</a>
+                      </li>
                     </ul>
-                  
-                </nav> 
+                </div>
+
             </div>
         </section>
     
