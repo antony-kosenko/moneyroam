@@ -7,11 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href={% static "css/base_page.css" %}>
     <link rel="stylesheet" href={% static "css/navbar.css" %}>
+    <link rel="stylesheet" href={% static "preferences/css/settings_menu_base.css" %}>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <script src={% static "invoices/js/create_new_transaction_modal.js" %} defer></script>
     <script src={% static "js/profile_dropdown_menu.js" %} defer></script>
+    <script src={% static "preferences/js/open_preference_modal.js" %} defer></script>
     {% comment %} May be extended with additional tags in block below.{% endcomment %}
     {% block extra_head_tags %}{% endblock extra_head_tags %}
     <title>{% block tab_title %}{% endblock tab_title %}</title>
@@ -34,7 +36,7 @@
                     </div>
                     <ul class="options">
                       <li class="option">
-                        <a class="option-text">Profile</a>
+                        <a class="option-text" id="openPreferencesModal" href={% url "preferences:preferences_update" %}>Settings</a>
                       </li>
                       <hr>
                       <li class="option">
@@ -42,7 +44,7 @@
                       </li>
                     </ul>
                 </div>
-
+                {% include "preferences/settings_menu_base.html" %}
             </div>
         </section>
     

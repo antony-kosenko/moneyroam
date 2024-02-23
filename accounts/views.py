@@ -1,4 +1,5 @@
-from hmac import new
+from urllib import request
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.db import transaction
 from django.urls import reverse
@@ -6,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib import messages
 
-from accounts.forms import CustomUserCreationForm, ProfileCreationForm, UserLoginForm
+from accounts.forms import CustomUserCreationForm, ProfileCreationForm, UserLoginForm, ProfileUpdateForm
 from preferences.models import Config
 
 
@@ -69,3 +70,16 @@ def logout_view(request):
     """ Performs logout of logged in user. """
     logout(request)
     return redirect(reverse("accounts:login"))
+
+
+def profile_update_view(request):
+    """ Updates current Profile instance."""
+    # Note: forms for a GET request are passed in preferences' app context processor for global acces.
+    if request.method == "POST":
+        current_profile = request.user.profile
+        profile_form = ProfileUpdateForm(request.POST, instance=current_profile)
+        if profile_form.is_valid():
+            profile_form.save()
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', "/"))
+    return render(request, "accounts/profile_settings.html")
+    

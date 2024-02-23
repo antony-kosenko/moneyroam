@@ -1,0 +1,7 @@
+<form action={% url "accounts:profile_update" %} method="post">
+
+    {% csrf_token %}
+    {{ profile_form }}
+
+    <button type="submit">Apply</button>
+</form>

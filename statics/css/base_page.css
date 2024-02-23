@@ -55,17 +55,6 @@ html, body {
     padding-right: 20px;
 }
 
-.settings_profile {
-    display: flex;
-    height: 100%;
-    width: fit-content;
-    cursor: pointer;
-}
-
-.settings_profile img {
-    height: 100%;
-}
-
 /* Dropdown menu */
 
 .select-menu .select-btn {

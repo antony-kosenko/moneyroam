@@ -66,7 +66,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'moneyroam.context_processors.current_date_context',
-                'invoices.context_processors.create_transaction_form'
+                'accounts.context_processors.profile_update_form',
+                'invoices.context_processors.create_transaction_form',
+                'preferences.context_processors.preferences_form'
             ],
         },
     },
