@@ -1,4 +1,3 @@
-from urllib import request
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.db import transaction
@@ -57,12 +56,14 @@ def login_view(request):
                 login(request, user)
                 return redirect("invoices:dashboard")
             else:
+                messages.error(request, "User with given credentials not exist. Please try again.")
                 return render(request, "accounts/login_page.html", context={"user_form": user_form})
         else:
             return render(request, "accounts/login_page.html", context={"user_form": user_form})
 
     else:
         user_form = UserLoginForm()
+        print("here3")
         return render(request, "accounts/login_page.html", context={"user_form": user_form})
 
 
@@ -74,12 +75,18 @@ def logout_view(request):
 
 def profile_update_view(request):
     """ Updates current Profile instance."""
-    # Note: forms for a GET request are passed in preferences' app context processor for global acces.
     if request.method == "POST":
         current_profile = request.user.profile
-        profile_form = ProfileUpdateForm(request.POST, instance=current_profile)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=current_profile)
         if profile_form.is_valid():
-            profile_form.save()
+            instance = profile_form.save(commit=False)
+            instance.avatar_thumbnail = profile_form.cleaned_data.get("avatar")
+            instance.save()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', "/"))
-    return render(request, "accounts/profile_settings.html")
+        else:
+            profile_form = ProfileUpdateForm()
+            return render(request, "accounts/profile_settings.html", {'profile_form': profile_form})
+    else:
+        profile_form = ProfileUpdateForm()
+        return render(request, "accounts/profile_settings.html", {'profile_form': profile_form})
     

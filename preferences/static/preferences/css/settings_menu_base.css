@@ -49,6 +49,7 @@
   width: 60%;
   max-width: 130px;
   flex-basis: 35%;
+  border-radius: 50%;
 }
 
 .base_info {

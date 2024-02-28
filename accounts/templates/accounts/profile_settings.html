@@ -1,7 +1,7 @@
-<form action={% url "accounts:profile_update" %} method="post">
+<form id="profileUpdateForm" action={% url "accounts:profile_update" %} method="post" enctype="multipart/form-data">
 
     {% csrf_token %}
     {{ profile_form }}
 
-    <button type="submit">Apply</button>
+    <button type="submit" id="applyProfileUpdated">Apply</button>
 </form>

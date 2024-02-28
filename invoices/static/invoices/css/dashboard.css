@@ -232,6 +232,7 @@
     background-color: #f5f6f8;
     border-radius: 10px;
     justify-content: space-evenly;
+    background: repeating-linear-gradient(45deg, #f5f6f8, #f5f6f8 10px, #f5f6f8 10px, #eaebeb 20px);
 }
 
 .category_stats img {

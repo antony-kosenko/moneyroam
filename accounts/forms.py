@@ -1,4 +1,5 @@
 from dataclasses import fields
+from typing import Any
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
@@ -35,8 +36,11 @@ class ProfileCreationForm(forms.ModelForm):
 
 class ProfileUpdateForm(forms.ModelForm):
     " Form to update existing Profile instance."
+
     first_name = forms.CharField(max_length=250, required=False)
     last_name = forms.CharField(max_length=250, required=False)
+
     class Meta:
         model = Profile
         fields = ("first_name", "last_name", "avatar")
+        

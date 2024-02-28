@@ -18,28 +18,30 @@ html, body {
 
 .page_header {
     display: flex;
+    gap: 5px;
     justify-content: space-between;
     align-items: center;
-    margin-left: 20px;
     width: 100%;
     height: 40px;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .page_header h1 {
     margin: 0;
-    flex-basis: 40%;
+    flex-basis: 44%;
     font-size: 1.8rem;
 }
 
 .current_time {
-    flex-basis: 30%;
-}
-
-.current_time b {
-    color: #1d2127;
+    flex-basis: 12%;
+    height: 100%;
+    box-sizing: border-box;
     padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #1d2127;
+    min-width: 110px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
 }
 
 .page_content h2 {
@@ -51,8 +53,7 @@ html, body {
     flex-direction: row-reverse;
     justify-content: space-between;
     height: 100%;
-    flex-basis: 30%;
-    padding-right: 20px;
+    flex-basis: 44%;
 }
 
 /* Dropdown menu */
@@ -61,11 +62,11 @@ html, body {
     display: flex;
     height: 40px;
     width: fit-content;
-    max-width: 60%;
     min-width: 120px;
     align-items: center;
     cursor: pointer;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 10px;
   }
 
 .select-menu .options {
@@ -119,7 +120,16 @@ html, body {
     color: #333;
     text-decoration: none;
   }
-  
+
+.select-btn img {
+  height: 100%;
+  border-radius: 10px;
+} 
+
+.select-btn span {
+  font-weight: bold;
+}
+
 .select-btn i {
     font-size: 25px;
     transition: 0.3s;

@@ -25,6 +25,17 @@
                 <div class="form_field">
                     {{ user_form.email.label_tag }}
                     {{ user_form.email }}
+
+                    {% if user_form.email.errors %}
+                        <ul class="field_error_list">
+                            {% for error in user_form.email.errors %}                
+                                <li class="field_error_element">
+                                    {{ error }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
                 </div>
                 <div class="form_field">
                     {{ user_form.password1.label_tag }}

@@ -1,13 +1,40 @@
+from io import BytesIO
+import os
 import uuid
+
+from django_resized import ResizedImageField
+
+from PIL import Image
 
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.urls import reverse
+from django.core.files.storage import get_storage_class
 from django.utils.translation import gettext_lazy as _
 
 from accounts.managers import CustomUserManager
 
+
+class OverwriteStorage(get_storage_class()):
+    """ Overwrites an existing file if file provided in request has a same name. """
+    def _save(self, name, content):
+        self.delete(name)
+        return super(OverwriteStorage, self)._save(name, content)
+
+    def get_available_name(self, name, max_length=None):
+        return name
+
+
+def profile_avatar_path(instance, filename):
+    # uploading avatar to dynamic PATH
+    extension = filename.split(".")[-1]
+    return f"accounts/{instance.username}/profile_image/{instance.username}_avatar.{extension}"
+
+def profile_avatar_thumbnail_path(instance, filename):
+    # uploading avatar to dynamic PATH
+    extension = filename.split(".")[-1]
+    return f"accounts/{instance.username}/profile_image/{instance.username}_thumbnail.{extension}"
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
 
@@ -39,11 +66,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-def profile_image_path(instance, filename):
-    # uploading file to dynamic PATH
-    return f"uploads/accounts/{instance.username}/profile_image/{filename}"
-
-
 class Profile(models.Model):
     
     """ Profile model. Contains user's extra data. """
@@ -52,7 +74,27 @@ class Profile(models.Model):
     username = models.CharField(max_length=30, unique=True)
     first_name = models.CharField(max_length=150, blank=True, null=True)
     last_name = models.CharField(max_length=150, blank=True, null=True)
-    avatar = models.ImageField(upload_to=profile_image_path, blank=True, null=True)  # TODO add default
+    avatar = ResizedImageField(
+        force_format="WEBP",
+        size=[500, 500],
+        crop=["middle", "center"],
+        upload_to=profile_avatar_path,
+        default="accounts/default_profile_avatar.svg",
+        blank=True,
+        null=True,
+        max_length=500,
+        storage=OverwriteStorage()
+        )
+    avatar_thumbnail = ResizedImageField(
+        force_format="WEBP",
+        size=[100, 100],
+        crop=["middle", "center"],
+        upload_to=profile_avatar_thumbnail_path,
+        default="accounts/default_profile_avatar.svg",
+        blank=True,
+        null=True,
+        storage=OverwriteStorage()
+        )
     create_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     update_date = models.DateTimeField(auto_now=True, blank=True, null=True)
 
@@ -65,3 +107,4 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"username": self.username})
+    
