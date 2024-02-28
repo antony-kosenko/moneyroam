@@ -38,6 +38,7 @@ def create_transaction_view(request):
                 new_invoice.value = transaction_converted_value
                 new_invoice.currency = user_currency
             new_invoice.save()
+            # TODO Add succes/error messages
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', "/"))
 
 

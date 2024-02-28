@@ -1,3 +1,7 @@
+.page_content {
+    flex-direction: column;
+}
+
 .transaction_filters {
     margin: 20px 0 0 20px;
     width: calc(100% - 40px);
@@ -86,6 +90,10 @@
     border-radius: 10px;
     border-radius: 10px;
     gap: 10px;
+}
+
+.transactions_list h5 {
+    text-align: center;
 }
 
 .transaction_item {

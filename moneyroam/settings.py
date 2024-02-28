@@ -66,7 +66,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'moneyroam.context_processors.current_date_context',
-                'invoices.context_processors.create_transaction_form'
+                'accounts.context_processors.profile_update_form',
+                'invoices.context_processors.create_transaction_form',
             ],
         },
     },
@@ -174,3 +175,13 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Image resizing 
+
+DJANGORESIZED_DEFAULT_SIZE = [500, 500]
+DJANGORESIZED_DEFAULT_SCALE = 0.5
+DJANGORESIZED_DEFAULT_QUALITY = 95
+DJANGORESIZED_DEFAULT_KEEP_META = True
+DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
+DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg", "WEBP": ".webp"}
+DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True

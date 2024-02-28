@@ -31,4 +31,4 @@ class Config(models.Model):
         verbose_name_plural = "configs"
 
     def __str__(self):
-        return f"Config[userID#{self.user.id}]"
+        return f"ConfigID#{self.id}[userID#{self.user.id}]"
