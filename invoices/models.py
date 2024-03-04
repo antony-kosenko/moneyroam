@@ -1,5 +1,6 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
+from accounts.models import CustomUser
 
 from preferences.models import CURRENCY_CHOICE
 
@@ -44,14 +45,15 @@ class Transaction(models.Model):
     """ Invoice model.
      Represents a basic income/outcome transaction. """
     
+    user = models.ForeignKey(CustomUser, related_name="transactions", on_delete=models.CASCADE)
     title = models.CharField(max_length=32, verbose_name="Title")
     category = models.ForeignKey(Category, related_name="transactions", on_delete=models.CASCADE, null=True, blank=True)
     operation = models.CharField(max_length=8, choices=OPERATION_TYPE, verbose_name="operation")
     value = models.DecimalField(max_digits=14, decimal_places=2, verbose_name="value")
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICE, verbose_name="currency")
     # TODO add image field for bill photo feature
-    comment = models.CharField(max_length=255, null=True, blank=True)
-    date_created = models.DateField(auto_now_add=True, blank=True, null=True)
+    comment = models.CharField(max_length=255, null=True, blank=True) # TODO Add to creation form
+    date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Transactions"

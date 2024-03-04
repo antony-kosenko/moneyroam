@@ -39,6 +39,10 @@
     font-size: 0.9rem;
 }
 
+#filter-form select,input {
+    border-radius: 5px;
+}
+
 #filter-form p:last-of-type {
     display: none;
 }
@@ -55,18 +59,16 @@
     border: 2px solid black;
     box-sizing: border-box;
     background-color: #1d2127;
-    color: #f5f6f8;
+    color: #d3d4d5;
     cursor: pointer;
     display: inline-block;
-    font-size: 14px;
-    font-weight: 500;
-    height: 40px;
-    width: 80px;
+    font-size: 0.8rem;
+    height: 30px;
+    width: 78px;
     line-height: 20px;
     list-style: none;
     margin: 0;
     outline: none;
-    padding: 10px 16px;
     position: relative;
     text-align: center;
     text-decoration: none;
@@ -74,6 +76,7 @@
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #filter-form .transaction_filter_apply_button:hover,
@@ -153,4 +156,21 @@
 .transaction_item_description span:nth-of-type(2n), .transaction_item_summary span:last-of-type {
     color: #c3c5ca;
     font-size: 0.8rem;
+}
+
+.no_content {
+    position: relative;
+    height: 100%;
+    border-radius: 10px;
+    margin: 15px 0 0 20px;
+    box-sizing: border-box;
+    background: #f5f6f8;
+    z-index: -1;
+}
+
+.no_content span {
+    top: calc(50% - 20px);
+    left: calc(50% - 150px);
+    position: absolute;
+    font-size: 1.3rem;
 }
