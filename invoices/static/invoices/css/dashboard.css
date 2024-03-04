@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .page_top_content {
@@ -127,29 +129,29 @@
 .last_transactions_header {
     display: flex;
     justify-content: space-between;
+    gap: 10px;
 }
 
 .last_transactions_header a {
     background-color: #1d2127;
     border-radius: 7px;
     align-self: center;
-    margin-right: 10px;
     height: calc(35px - 20px);
+    min-width: fit-content;
     flex-basis: 80px;
     text-decoration: none;
     color: #d3d4d5;
     font-size: 0.8rem;
     padding: 8px;
     text-align: center;
-
 }
 
 .transaction_list {
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    border-radius: 10px;
     gap: 10px;
+    flex: 1;
 }
 
 .transaction_item {
@@ -159,6 +161,7 @@
     border-radius: 10px;
     padding: 10px;
     gap: 10px;
+    flex: 1;
 }
 
 .transaction_item a {
@@ -229,7 +232,6 @@
     gap: 10px;
     flex-direction: column;
     flex: 1 1 0;
-    background-color: #f5f6f8;
     border-radius: 10px;
     justify-content: space-evenly;
     background: repeating-linear-gradient(45deg, #f5f6f8, #f5f6f8 10px, #f5f6f8 10px, #eaebeb 20px);
@@ -248,7 +250,27 @@
     font-size: 0.8rem;
 }
 
+.stats_category_name :first-of-type {
+    font-weight: bold;
+}
+
 .stats_category_name :nth-of-type(2n) {
     font-size: 0.8rem;
-    font-weight: bold;
+}
+
+.no_content {
+    position: relative;
+    flex-basis: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background: #f5f6f8;
+    z-index: -1;
+}
+
+.no_content span {
+    top: calc(50% - 20px);
+    left: calc(50% - 130px);
+    position: absolute;
+    font-size: 1.3rem;
 }

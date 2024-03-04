@@ -12,5 +12,5 @@ class NewInvoiceForm(forms.ModelForm):
         model = Transaction
         fields = ("title", "category", "operation", "value", "currency")
         help_texts = {
-            "operation": _("Money spent/received. For expenses use a negative value.")
+            "operation": _("Money operation type (Incomes/Expenses).")
         }

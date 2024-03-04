@@ -29,60 +29,69 @@
         </form>
     </section>
 
-    <section class="transactions_list">
+    {% if transactions %}
+    
+        <section class="transactions_list">
 
-        {% regroup transactions by date_created as transactions_date %}
+            {% regroup transactions by date_created|date as transactions_date %}
 
-        {% for date in transactions_date %}
-        <h5>{{ date.grouper }}</h5>
-            {% for transaction in date.list %}
-                <div class="transaction_item">
-                    <img src={{ transaction.category.image.url }}>
-                    <div class="transaction_item_description">
-                        <span>{{ transaction.title }}</span>
-                        {% if not transaction.category  %}
-                        {% else %}
-                        <span>{{ transaction.category }}
-                            {% if transaction.category.parent.name is not None  %}
-                                / {{ transaction.category.parent.name }}
+            {% for date in transactions_date %}
+            <h5>{{ date.grouper }}</h5>
+                {% for transaction in date.list %}
+                    <div class="transaction_item">
+                        <img src={{ transaction.category.image.url }}>
+                        <div class="transaction_item_description">
+
+                            <span>{{ transaction.title }}</span>
+                            {% if not transaction.category  %}
+                            {% else %}
+                            <span>{{ transaction.category }}
+                                {% if transaction.category.parent.name is not None  %}
+                                    / {{ transaction.category.parent.name }}
+                                {% endif %}
+                            </span>
                             {% endif %}
-                        </span>
-                        {% endif %}
+
+                        </div>
+                        <div class="transaction_item_summary">
+                            {% if transaction.operation == "incomes" %}
+                                <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
+                            {% elif transaction.operation == "expenses" %}
+                                <span style="color: #B90E0A;">- {{ transaction.value }} {{ transaction.currency }}</span>
+                            {% else %}
+                                <span>{{ transaction.value }} {{ transaction.currency }}</span>
+                            {% endif %}
+                            <span>{{ transaction.date_created | date }}</span>
+                        </div>
 
                     </div>
-                    <div class="transaction_item_summary">
-                        {% if transaction.operation == "incomes" %}
-                            <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
-                        {% elif transaction.operation == "expenses" %}
-                            <span style="color: #B90E0A;">- {{ transaction.value }} {{ transaction.currency }}</span>
-                        {% else %}
-                            <span>{{ transaction.value }} {{ transaction.currency }}</span>
-                        {% endif %}
-                        <span>{{ transaction.date_created }}</span>
-                    </div>
-
-                </div>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
-        <div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
 
-        {% if page_obj > 1 %}
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
+                    {% if page_obj > 1 %}
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
 
-            {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
-            {% endif %}
-        {% endif %}
-          
-    </span>
-</div>
-    </section>
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                        {% endif %}
+                    {% endif %}
+                    
+                </span>
+            </div>
+        </section>
+    {% else %}
+        <section class="no_content">
+            <span>No data for this month.</span>
+        </section>
+    {% endif %}
+    
 {% endblock page_content %}
