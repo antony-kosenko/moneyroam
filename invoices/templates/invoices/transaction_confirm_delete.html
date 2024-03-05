@@ -1,0 +1,9 @@
+<form id="deleteForm" method="post" action="{% url "invoices:delete_transaction" transaction.pk %}" class="edit_card">
+    {% csrf_token %}
+    <h2>Delete Transaction</h2>
+    <p>Are you sure that you want to transaction "{{ transaction.title }}" ?</p>
+    <div class="form-buttons">
+        <input type="submit" value="Delete">
+        <a href="">Cancel</a>
+    </div>
+</form>

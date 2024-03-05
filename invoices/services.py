@@ -112,7 +112,7 @@ class CategoryServices:
         if expenses_this_month_sum > 0 :
             # calculating category stats with annotated 'expenses_sum' (calculates spends sum in every category) and
             # 'percentage' (calculates spends in category as percentage of total spends in current month)
-            # TODO Make to display root category for summary data instead of child category
+
             expenses_category_this_month = (
                 Category.objects.filter(
                     Q(transactions__date_created__month=datetime.date.today().month) & Q(
