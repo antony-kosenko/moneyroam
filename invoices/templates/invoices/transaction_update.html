@@ -1,0 +1,12 @@
+<form method="post" class="edit_instance_form">{% csrf_token %}
+    
+    <h2>Transaction Update.</h2>
+
+    {{ form.as_p }}
+
+    <div class="form-buttons">
+        <input type="submit" value="Update">
+        <a href="">Cancel</a>
+    </div>
+    
+</form>

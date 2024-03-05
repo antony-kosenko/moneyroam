@@ -39,10 +39,6 @@
     font-size: 0.9rem;
 }
 
-#filter-form select,input {
-    border-radius: 5px;
-}
-
 #filter-form p:last-of-type {
     display: none;
 }
@@ -109,7 +105,7 @@
     gap: 10px;
 }
 
-.transaction_item a {
+.transaction_item > a {
     flex-basis: 60px;
     height: 60px;
     align-self: center;
@@ -117,9 +113,33 @@
     border-radius: 10px;
 }
 
-.transaction_item img {
+.transaction_item > img {
     width: 40px;
     margin: 5px;
+}
+
+.transaction_item .edit_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 30px;
+    gap: 5px;
+    box-sizing: border-box;
+}
+
+.transaction_item .edit_block > a {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.transaction_item .edit_block .edit-object-button:first-of-type {
+    border: 1px solid #D11A2A;
 }
 
 .transaction_item_description {

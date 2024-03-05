@@ -1,11 +1,11 @@
 import logging
 from typing import Any
-from urllib import request
 from django.db.models.query import QuerySet
+from django.urls import reverse_lazy
 
 from django_filters.views import FilterView
-from django.http import HttpResponseRedirect
-from django.views.generic import ListView
+from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic import ListView, DeleteView, UpdateView
 
 from invoices.models import Transaction
 from invoices.services import TransactionServices, CategoryServices
@@ -126,8 +126,6 @@ class DashboardView(ListView):
         
         category_summary_stats = [stats for stats in category_summary_stats if stats["stats"] is not None]
 
-        #FIXME From where additinal expenses (mixed from another user)? Remove tag if solved.
-
         # updating context with new variables
         data_to_context = {
             "this_month_incomes_total": incomes_this_month,
@@ -156,3 +154,25 @@ class TransactionsListView(FilterView):
     def get_queryset(self) -> QuerySet[Any]:
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
+
+
+class TransactionDeleteView(DeleteView):
+    model = Transaction
+    template_name = 'invoices/transaction_confirm_delete.html'
+    context_object_name = "transaction"
+
+    def get_success_url(self):
+        if 'HTTP_REFERER' in self.request.META:
+            return self.request.META['HTTP_REFERER']
+
+
+class TransactionUpdateView(UpdateView):
+    """ Updates an existing model. """
+    model = Transaction
+    context_object_name = "transaction"
+    fields = ["title", "value", "category"]
+    template_name = "invoices/transaction_update.html"
+
+    def get_success_url(self):
+        if 'HTTP_REFERER' in self.request.META:
+            return self.request.META['HTTP_REFERER']

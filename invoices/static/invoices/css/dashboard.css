@@ -51,6 +51,7 @@
     flex-basis: 10%;
     min-width: 39px;
     border-radius: 10px;
+    height: 100%;
 }
 
 .summary_data_label .radial_progress_bar{
@@ -136,7 +137,7 @@
     background-color: #1d2127;
     border-radius: 7px;
     align-self: center;
-    height: calc(35px - 20px);
+    height: 30px;
     min-width: fit-content;
     flex-basis: 80px;
     text-decoration: none;
@@ -151,7 +152,7 @@
     flex-direction: column;
     border-radius: 10px;
     gap: 10px;
-    flex: 1;
+    justify-content: start;
 }
 
 .transaction_item {
@@ -161,10 +162,9 @@
     border-radius: 10px;
     padding: 10px;
     gap: 10px;
-    flex: 1;
 }
 
-.transaction_item a {
+.transaction_item .category_image {
     flex-basis: 60px;
     height: 60px;
     min-width: 60px;
@@ -173,10 +173,33 @@
     border-radius: 10px;
 }
 
-.transaction_item a img {
-    height: 80%;
-    width: 80%;
-    margin: 5px;
+.transaction_item .edit_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 30px;
+    gap: 5px;
+    box-sizing: border-box;
+}
+
+.transaction_item .edit_block .edit-object-button {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.transaction_item .edit_block .edit-object-button:first-of-type {
+    border: 1px solid #D11A2A;
+}
+
+.transaction_item .edit_block img {
+    width: 20px;
+    margin-top: 1px;
 }
 
 .transaction_item_description {
@@ -222,7 +245,7 @@
     display: flex;
     gap: 20px;
     height: 100%;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
 }
 
 .category_stats {

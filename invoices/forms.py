@@ -10,7 +10,7 @@ class NewInvoiceForm(forms.ModelForm):
 
     class Meta:
         model = Transaction
-        fields = ("title", "category", "operation", "value", "currency")
+        fields = ("operation", "title", "category", "value", "currency")
         help_texts = {
             "operation": _("Money operation type (Incomes/Expenses).")
         }

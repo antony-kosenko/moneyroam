@@ -29,11 +29,13 @@
 }
 
 .nav_menu a {
+    height: 35px;
     width: 60%;
     align-self: center;
 }
 
 .nav_menu img {
+    height: 100%;
     filter: invert(100%) sepia(56%) saturate(1503%) hue-rotate(179deg) brightness(105%) contrast(102%);
 }
 
@@ -82,11 +84,11 @@
     top: 50%;
     left: 50%;
     width: 25%;
-    min-width: 250px;
+    min-width: 350px;
     height: 60%;
     transform: translate(-50%, -50%);
     background-color: #fff;
-    padding: 20px;
+    padding: 30px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
@@ -154,15 +156,15 @@
 }
 
 #openModalBtn {
-    width: 40px;
-    height: 40px;
+    width: 52px;
+    height: 52px;
     background-color: #1d2127;
     border-radius: 10px;
     padding: 6px;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 #openModalBtn img {
-    width: 40px;
-    margin: auto 0;
+    width: 100%;
 }

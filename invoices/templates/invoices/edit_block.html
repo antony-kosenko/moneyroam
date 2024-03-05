@@ -1,0 +1,22 @@
+{% load static %}
+
+<div class="edit_block">
+    {% comment %} Delete transaction {% endcomment %}
+    <a href="#" id="deleteModalButton" class="edit-object-button" data-url="{% url "invoices:delete_transaction" transaction.pk %}" data-target="deleteModal">
+        <img src={% static "img/delete_icon.svg" %} alt="delete">
+    </a>
+    
+    <div id="deleteModal" class="modal">
+        <div class="confirm_modal" id="deleteModalContent"></div>
+    </div>
+
+    {% comment %} Update transaction {% endcomment %}
+    <a href="#" id="updateModalButton" class="edit-object-button" data-url="{% url "invoices:update_transaction" transaction.pk %}" data-target="updateModal">
+        <img src={% static "img/edit_icon.svg" %} alt="edit">
+    </a>
+    
+    <div id="updateModal" class="modal">
+        <div class="edit_modal" id="updateModalContent"></div>
+    </div>
+
+</div>
