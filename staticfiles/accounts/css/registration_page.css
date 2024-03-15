@@ -1,0 +1,101 @@
+.info_block {
+    flex-basis: 50%;
+}
+
+.registration_block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 50%;
+}
+
+.registration_block .extra_links {
+    margin: 20px 0;
+    font-size: 0.8rem;
+}
+
+.extra_links a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.user_creation_form_section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form_field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field_error_list, .errorlist {
+    font-size: 0.8rem;
+    color: #dc0606;
+}
+
+.reg_form {
+    padding: 20px;
+    width: 60%;
+    height: fit-content;
+    background-color: #d3d4d560;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: start;
+    align-self: center;
+    border-radius: 10px;
+    -webkit-box-shadow: 1px 1px 7px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 1px 7px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 1px 7px 0px rgba(0,0,0,0.5);
+}
+
+.reg_form p {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.reg_form label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.reg_form input {
+    height: 25px;
+    border: 0px solid ;
+    border-radius: 5px;
+}
+
+.reg_form p:last-of-type {
+    margin-bottom: 60px;
+}
+
+.reg_form button {
+    margin-top: auto;
+    height: 40px;
+    width: 50%;
+    align-self: center;
+    border-radius: 10px;
+    background-color: #1d2127;
+    color: white;
+    cursor: pointer;
+}
+
+.reg_form button:hover {
+    background-color: white;
+    color: #1d2127;
+}
+
+.reg_form h2 {
+    margin: 5px 0 10px 0;
+    font-size: 1.2rem;
+}
+
+.reg_form label.required::after {
+    content: " *";
+    color: #9b0f0f;
+}
