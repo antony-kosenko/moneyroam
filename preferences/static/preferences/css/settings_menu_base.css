@@ -74,6 +74,7 @@
   font-size: 0.8rem;
   padding-top: 7px;
   box-sizing: border-box;
+  align-self: center;
 }
 
 .preferences_data {
@@ -98,6 +99,7 @@
 }
 
 .preferences_tabs .tab {
+  height: 100%;
   flex: 1 1 0;
   text-decoration: none;
   background-color: white;
