@@ -134,7 +134,7 @@
     </section>
 
     <section class="page_bottom_content">
-        {% if categories_summary_stats %} 
+        {% if categories_summary_stats and categories_summary_stats|length > 1 %} 
                 {% for category in categories_summary_stats %}
                     <div class="category_stats">
                         <span> {{ category.stats_header }}</span>
