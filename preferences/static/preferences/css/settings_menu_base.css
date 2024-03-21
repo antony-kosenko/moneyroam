@@ -46,8 +46,10 @@
 }
 
 .profile_info img {
-  width: 60%;
+  width: auto;
+  height: auto;
   max-width: 130px;
+  max-height: 130px;
   flex-basis: 35%;
   border-radius: 50%;
 }

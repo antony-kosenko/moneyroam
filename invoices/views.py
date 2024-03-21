@@ -1,10 +1,9 @@
 import logging
 from typing import Any
 from django.db.models.query import QuerySet
-from django.urls import reverse_lazy
 
 from django_filters.views import FilterView
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DeleteView, UpdateView
 
 from invoices.models import Transaction
@@ -12,7 +11,6 @@ from invoices.services import TransactionServices, CategoryServices
 from invoices.filters import TransactionsFilter, TransactionsListFilter
 from invoices.forms import NewInvoiceForm
 
-from utils.currency_manager import CurrencyExchangeManager
 
 logger = logging.getLogger(__name__)
 
@@ -28,21 +26,10 @@ def create_transaction_view(request):
         form = NewInvoiceForm(request.POST)
         if form.is_valid():
             new_invoice = Transaction(**form.cleaned_data)
-            # retrieving user's currency preference for further converting if income is different from base currency
-            user_currency = request.user.config.currency
-            # performing currency conversion to maintain consistent data for statistic and analyse
-            if user_currency != new_invoice.currency:
-                transaction_converted_value = CurrencyExchangeManager.currency_converter(
-                    value=new_invoice.value,
-                    exchange_to=user_currency,
-                    base=new_invoice.currency
-                )
-                new_invoice.value = transaction_converted_value
-                new_invoice.currency = user_currency
-                new_invoice.user = request.user
+            # retrieving user's currency preference for further converting if income is different from base currency          
             new_invoice.user = request.user
             new_invoice.save()
-            # TODO Add succes/error messages
+            # TODO Add success/error messages
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', "/"))
 
 
