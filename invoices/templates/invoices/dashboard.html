@@ -50,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?transaction=incomes">
+                    <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?operation=incomes">
                         <img src={% static "invoices/img/arrow-right-icon.svg" %} alt="arrow_right_icon">
                     </a>
                 </div>
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                     </div>
-                    <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?transaction=expenses">
+                    <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?operation=expenses">
                         <img src={% static "invoices/img/arrow-right-icon.svg" %} alt="arrow_right_icon">
                     </a>
                 </div>
