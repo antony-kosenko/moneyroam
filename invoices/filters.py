@@ -63,7 +63,7 @@ class TransactionsListFilter(django_filters.FilterSet):
     title = django_filters.CharFilter(lookup_expr="icontains", label="Transaction title")
     date_created = django_filters.DateFromToRangeFilter()
     # TODO find out how to build a MPTT tree choice field
-    category = TreeNodeChoiceField(queryset=Category.objects.all())
+    category = TreeNodeChoiceField(queryset=Category.objects.all().select_related("parent"))
 
     class Meta:
         model = Transaction

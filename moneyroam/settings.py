@@ -19,6 +19,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# TODO for test purpose
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 # Application definition
 
@@ -35,8 +39,9 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap4",
     "django_filters",
+    "debug_toolbar",
 
-    # custom apps
+    # project apps
     "invoices",
     "accounts",
     "preferences",
@@ -50,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'moneyroam.urls'

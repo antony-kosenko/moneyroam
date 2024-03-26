@@ -1,10 +1,6 @@
-from io import BytesIO
-import os
 import uuid
 
 from django_resized import ResizedImageField
-
-from PIL import Image
 
 from django.db import models
 from django.conf import settings
