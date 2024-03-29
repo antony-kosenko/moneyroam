@@ -1,7 +1,7 @@
 import logging
 from typing import Any
 from django.db.models.query import QuerySet
-from django.db.models import Sum, Min, Max
+from django.db.models import Sum
 
 from django_filters.views import FilterView
 from django.http import HttpResponseRedirect
@@ -49,45 +49,38 @@ class DashboardView(ListView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         data = super().get_context_data(**kwargs)
-
-        # retrieving all transactons
-        transactions_all = self.get_queryset()
+        user = self.request.user
 
         # retrieving incomes/expenses summary for current month
-        incomes_this_month = transactions_all.filter(
-            transaction_filter.transaction_date_filter(
-                month="current"
-                ),
-                operation="incomes"
-                )
+        incomes_this_month = transaction_service.transactions_this_month(
+            user=user,
+            operation="incomes"
+            )
+        
         incomes_this_month_sum = incomes_this_month.aggregate(
             Sum("value")
             ).get("value__sum")
 
-        expenses_this_month = transactions_all.filter(
-            transaction_filter.transaction_date_filter(month="current"),
-                operation="expenses"
-                )                       
+        expenses_this_month = transaction_service.transactions_this_month(
+            user=user,
+            operation="expenses"
+            )       
         expenses_this_month_sum = expenses_this_month.aggregate(
             Sum("value")
-            ).get("value__sum")
+            ).get("value__sum", 0)
         
         # retrieving incomes/expenses summary for previous month      
-        incomes_previous_month = transactions_all.filter(
-            transaction_filter.transaction_date_filter(month="previous"),
-            operation="incomes"
+        incomes_previous_month_sum = transaction_service.transactions_previous_month(
+            user=user,
+            operation="incomes",
+            sum=True
             )
-        incomes_previous_month_sum = incomes_previous_month.aggregate(
-            Sum("value")
-            ).get("value__sum", 0)
 
-        expenses_previous_month = transactions_all.filter(
-            transaction_filter.transaction_date_filter(month="previous"),
-            operation="expenses"
+        expenses_previous_month_sum = transaction_service.transactions_previous_month(
+            user=user,
+            operation="expenses",
+            sum=True
             )
-        expenses_previous_month_sum = expenses_previous_month.aggregate(
-            Sum("value")
-            ).get("value__sum", 0)
 
         # retrieving final balance
         balance = transaction_service.get_final_balance(
@@ -109,15 +102,17 @@ class DashboardView(ListView):
 
         # getting most expensive purchase this month
         most_expensive_purchase_this_month = (
-                expenses_this_month
-                .order_by("-value")
-                .first()
+            expenses_this_month
+            .order_by("-value")
+            .first()
         )
 
-        highest_income_this_month = incomes_this_month.aggregate(
-                                        Max("value")
-                                    ).get("value__max")
-
+        # getting teh highest income
+        highest_income_this_month = (
+            incomes_this_month
+            .order_by("-value")
+            .first()
+        )
 
         category_summary_stats = [
                 {"stats_header": "Top spends this month", "stats": top_expense_category},
@@ -125,7 +120,7 @@ class DashboardView(ListView):
                 {"stats_header": "Most expensive purchase", "stats": most_expensive_purchase_this_month},
                 {"stats_header": "Highest income", "stats": highest_income_this_month}
             ]
-        
+        # filtering None value data
         category_summary_stats = [stats for stats in category_summary_stats if stats["stats"] is not None]
 
         # updating context with new variables
@@ -137,7 +132,7 @@ class DashboardView(ListView):
             "categories_summary_stats": category_summary_stats,
             "balance_summary": balance
         }
-        logger.info(f"Context data providing along with DashboardView: {data_to_context}.")
+        logger.debug(f"Context data providing along with DashboardView: {data_to_context}.")
         data.update(data_to_context)
         return data
 
@@ -155,7 +150,8 @@ class TransactionsListView(FilterView):
 
     def get_queryset(self) -> QuerySet[Any]:
         queryset = super().get_queryset()
-        return queryset.filter(user=self.request.user).select_related("category__parent")
+        return (queryset.filter(user=self.request.user)
+                        .select_related("category__parent"))
 
 
 class TransactionDeleteView(DeleteView):

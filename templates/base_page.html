@@ -32,7 +32,11 @@
                 {% comment %} Profile bar {% endcomment %}
                 <div class="select-menu active">
                     <div class="select-btn">
-                      <img src={{user.profile.avatar_thumbnail.url}} alt="avatar">
+                      {% if user.profile.avatar_thumbnail.url %}
+                        <img src={{user.profile.avatar_thumbnail.url}} alt="avatar">
+                      {% else %}
+                        <img src={% static "accounts/img/default_profile_avatar.svg" %} alt="user_avatar">
+                      {% endif %}
                       <span class="sBtn-text">{{user.profile.username}}</span>
                     </div>
                     <ul class="options">

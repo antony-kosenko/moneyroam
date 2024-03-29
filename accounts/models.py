@@ -75,7 +75,7 @@ class Profile(models.Model):
         size=[500, 500],
         crop=["middle", "center"],
         upload_to=profile_avatar_path,
-        default="accounts/default_profile_avatar.svg",
+        default="accounts/img/default_profile_avatar.svg",
         blank=True,
         null=True,
         max_length=500,
@@ -86,7 +86,7 @@ class Profile(models.Model):
         size=[100, 100],
         crop=["middle", "center"],
         upload_to=profile_avatar_thumbnail_path,
-        default="accounts/default_profile_avatar.svg",
+        default="accounts/img/default_profile_avatar.svg",
         blank=True,
         null=True,
         storage=OverwriteStorage()
