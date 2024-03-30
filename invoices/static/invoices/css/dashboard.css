@@ -175,7 +175,7 @@
 .transaction_item .edit_block {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     height: 100%;
     width: 30px;
     gap: 5px;
@@ -214,6 +214,16 @@
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+.transaction_extra_data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.transaction_extra_data .envoice_extra {
+    width: 20px;
 }
 
 .transaction_item_summary {

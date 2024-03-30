@@ -1,5 +1,8 @@
 from django.db import models
+
 from mptt.models import MPTTModel, TreeForeignKey
+from django_resized import ResizedImageField
+
 from accounts.models import CustomUser
 
 from preferences.models import CURRENCY_CHOICE
@@ -14,6 +17,13 @@ OPERATION_TYPE = (
 def category_image_path(instance, filename):
     # uploading file to dynamic PATH
     return f"invoices/category/category_custom_img/{instance.name.lower()}/{filename}"
+
+def receipt_image_path(instance, filename):
+    # uploading receipt img to dynamic PATH
+    extension = filename.split(".")[-1]
+    print("Here is instance-", instance)
+    profile_name = f"transactions/{instance.user.pk}"
+    return f"{profile_name}/receipts/{instance.date_created.year}/{instance.date_created.month}/{instance.date_created.day}_{instance.title}.{extension}"
 
 
 class Category(MPTTModel):
@@ -51,9 +61,16 @@ class Transaction(models.Model):
     operation = models.CharField(max_length=8, choices=OPERATION_TYPE, verbose_name="operation")
     value = models.DecimalField(max_digits=14, decimal_places=2, verbose_name="value")
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICE, verbose_name="currency")
-    # TODO add image field for bill photo feature
-    comment = models.CharField(max_length=255, null=True, blank=True) # TODO Add to creation form
+    comment = models.CharField(max_length=255, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    receipt = ResizedImageField(
+        force_format="WEBP",
+        size=[None, 800],
+        upload_to=receipt_image_path,
+        blank=True,
+        null=True,
+        max_length=500,
+        )
 
     class Meta:
         verbose_name_plural = "Transactions"
@@ -64,4 +81,7 @@ class Transaction(models.Model):
         
     def __repr__(self) -> str:
         return f"{self.operation} | {self.title}"
-        
+    
+    def delete(self, using=None, keep_parents=False):
+        self.receipt.delete()
+        return super().delete(using, keep_parents)

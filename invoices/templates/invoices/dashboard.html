@@ -109,6 +109,20 @@
                             {% endif %}
                             
                         </div>
+
+                        <div class="transaction_extra_data">
+                            {% if transaction.comment %}
+                            <div class="envoice_extra">
+                                <img id="comment-icon" src={% static "invoices/img/transaction/comment-icon.svg" %} alt="comment-icon">
+                            </div>
+                            {% endif %}
+                            {% if  transaction.receipt %}
+                            <div class="envoice_extra">
+                                <img id="invoice-icon" src={% static "invoices/img/transaction/invoice-icon.svg" %} alt="invoice-icon">
+                            </div>
+                            {% endif %}
+                        </div>
+
                         <div class="transaction_item_summary">
                             {% if transaction.operation == "incomes" %}
                                 <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>

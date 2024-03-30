@@ -4,7 +4,7 @@ from django.db.models.query import QuerySet
 from django.db.models import Sum
 
 from django_filters.views import FilterView
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DeleteView, UpdateView
 
 from invoices.models import Transaction
@@ -24,10 +24,9 @@ def create_transaction_view(request):
     """ View to handle creation of new Transaction object. """
     # !!! Form for transaction creation (GET) initials in context processor to be available globally.
     if request.method == "POST":
-        form = NewInvoiceForm(request.POST)
+        form = NewInvoiceForm(request.POST, request.FILES)
         if form.is_valid():
-            new_invoice = Transaction(**form.cleaned_data)
-            # retrieving user's currency preference for further converting if income is different from base currency          
+            new_invoice = Transaction(**form.cleaned_data)      
             new_invoice.user = request.user
             new_invoice.save()
             # TODO Add success/error messages
@@ -155,6 +154,7 @@ class TransactionsListView(FilterView):
 
 
 class TransactionDeleteView(DeleteView):
+    """ Deletes an existing instance. """
     model = Transaction
     template_name = 'invoices/transaction_confirm_delete.html'
     context_object_name = "transaction"
@@ -168,7 +168,7 @@ class TransactionUpdateView(UpdateView):
     """ Updates an existing model. """
     model = Transaction
     context_object_name = "transaction"
-    fields = ["title", "value", "category"]
+    fields = ["title", "value", "category", "comment", "receipt"]
     template_name = "invoices/transaction_update.html"
 
     def get_success_url(self):
