@@ -6,6 +6,7 @@
     <link rel="stylesheet" href={% static "invoices/css/dashboard.css" %}>
     <link rel="stylesheet" href={% static "invoices/css/edit_delete_buttons.css" %}>
     <script src={% static "invoices/js/transaction_edit_update_modal.js" %} defer></script>
+    <script src={% static "invoices/js/data_expand_on_hover.js" %} defer></script>
 {% endblock extra_head_tags %}
 
 {% comment %} Tab title {% endcomment %}
@@ -112,8 +113,9 @@
 
                         <div class="transaction_extra_data">
                             {% if transaction.comment %}
-                            <div class="envoice_extra">
-                                <img id="comment-icon" src={% static "invoices/img/transaction/comment-icon.svg" %} alt="comment-icon">
+                            <div class="envoice_extra" id="commentSection">
+                                <img id="commentIcon" src={% static "invoices/img/transaction/comment-icon.svg" %} alt="comment-icon">
+                                <span id="transactionComment" style="display:none;">{{ transaction.comment }}</span>
                             </div>
                             {% endif %}
                             {% if  transaction.receipt %}
