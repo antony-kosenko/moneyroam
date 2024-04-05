@@ -21,6 +21,3 @@ class InvoiceUpdateForm(forms.ModelForm):
     class Meta:
         model = Transaction
         fields = ("title", "value", "category", "comment", "receipt")
-        widgets = {
-            "receipt"
-        }
