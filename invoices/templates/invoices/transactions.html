@@ -6,6 +6,8 @@
     <link rel="stylesheet" href={% static "invoices/css/edit_delete_buttons.css" %}>
     <script src={% static "js/toggle_filter_form.js" %} defer></script>
     <script src={% static "invoices/js/transaction_edit_update_modal.js" %} defer></script>
+    <script src={% static "invoices/js/comment_expand_on_hover.js" %} defer></script>
+    <script src={% static "invoices/js/receipt_expand_on_hover.js" %} defer></script>
     <!-- jQuery -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -55,6 +57,7 @@
                             {% endif %}
 
                         </div>
+                        {% include "invoices/extra_data_block.html" %}
                         <div class="transaction_item_summary">
                             {% if transaction.operation == "incomes" %}
                                 <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
@@ -65,7 +68,6 @@
                             {% endif %}
                             <span>{{ transaction.date_created | date }}</span>
                         </div>
-                        
                         {% comment %} Div container with Delete / Edit buttons. {% endcomment %}
                         {% include "invoices/edit_block.html" %}
 

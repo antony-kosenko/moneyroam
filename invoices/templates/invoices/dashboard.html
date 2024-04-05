@@ -4,8 +4,11 @@
 {% comment %} Head tags {% endcomment %}
 {% block extra_head_tags %}
     <link rel="stylesheet" href={% static "invoices/css/dashboard.css" %}>
+    <link rel="stylesheet" href={% static "invoices/css/transactions.css" %}>
     <link rel="stylesheet" href={% static "invoices/css/edit_delete_buttons.css" %}>
     <script src={% static "invoices/js/transaction_edit_update_modal.js" %} defer></script>
+    <script src={% static "invoices/js/comment_expand_on_hover.js" %} defer></script>
+    <script src={% static "invoices/js/receipt_expand_on_hover.js" %} defer></script>
 {% endblock extra_head_tags %}
 
 {% comment %} Tab title {% endcomment %}
@@ -28,7 +31,7 @@
                 {% endif %}
                 
                 <div class="summary_data_label">
-                    <div class="radial_progress_bar"><span>100%</span></div>
+                    <div class="transactions_marker" id="incomes_marker"></div>
                     <div class="label_content">
                         <span>Total incomes</span>
                         <div class="label_detail_data">
@@ -56,7 +59,7 @@
                 </div>
 
                 <div class="summary_data_label">
-                    <div class="radial_progress_bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"><span>40%</span></div>
+                    <div class="transactions_marker" id="expenses_marker"></div>
                     <div class="label_content">
                         <span>Total expenses</span>
                         <div class="label_detail_data">
@@ -109,6 +112,9 @@
                             {% endif %}
                             
                         </div>
+
+                        {% include "invoices/extra_data_block.html" %}
+
                         <div class="transaction_item_summary">
                             {% if transaction.operation == "incomes" %}
                                 <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>

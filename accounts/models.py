@@ -104,3 +104,9 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"username": self.username})
     
+    def delete(self, using=None, keep_parents=False):
+        fields_to_cleanup = (self.avatar, self.avatar_thumbnail)
+        map(lambda field: field.delete(), fields_to_cleanup)
+        # TODO To test bulk fields delete
+        return super().delete(using, keep_parents)
+    
