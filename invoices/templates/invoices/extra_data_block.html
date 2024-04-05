@@ -1,0 +1,15 @@
+{% load static %}
+<div class="transaction_extra_data">
+    {% if transaction.comment %}
+    <div class="invoice_extra" class="comment-section">
+        <img class="comment-icon" src={% static "invoices/img/transaction/comment-icon.svg" %} alt="comment-icon">
+        <span class="transaction-comment" style="display:none;">{{ transaction.comment }}</span>
+    </div>
+    {% endif %}
+    {% if  transaction.receipt %}
+    <div class="invoice_extra">
+        <img class="receipt-icon" src={% static "invoices/img/transaction/invoice-icon.svg" %} alt="invoice-icon">
+        <img class="receipt-img" src={{ transaction.receipt.url }} alt="" loading="lazy">
+    </div>
+    {% endif %}
+</div>

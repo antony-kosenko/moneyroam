@@ -4,13 +4,13 @@ from django.db.models.query import QuerySet
 from django.db.models import Sum
 
 from django_filters.views import FilterView
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DeleteView, UpdateView
 
 from invoices.models import Transaction
 from invoices.services import TransactionServices, CategoryServices
 from invoices.filters import TransactionsFilter, TransactionsListFilter
-from invoices.forms import NewInvoiceForm
+from invoices.forms import NewInvoiceForm, InvoiceUpdateForm
 
 
 logger = logging.getLogger(__name__)
@@ -167,8 +167,8 @@ class TransactionDeleteView(DeleteView):
 class TransactionUpdateView(UpdateView):
     """ Updates an existing model. """
     model = Transaction
+    form_class = InvoiceUpdateForm
     context_object_name = "transaction"
-    fields = ["title", "value", "category", "comment", "receipt"]
     template_name = "invoices/transaction_update.html"
 
     def get_success_url(self):

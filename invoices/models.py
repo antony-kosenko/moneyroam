@@ -65,7 +65,7 @@ class Transaction(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     receipt = ResizedImageField(
         force_format="WEBP",
-        size=[None, 800],
+        size=[None, 500],
         upload_to=receipt_image_path,
         blank=True,
         null=True,

@@ -157,6 +157,29 @@
     margin-bottom: 10px;
 }
 
+.transaction_extra_data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.transaction_extra_data .invoice_extra {
+    width: 20px;
+    height: 20px;
+}
+
+.comment-icon {
+    cursor: help;
+}
+
+.receipt-img {
+    position: fixed;
+    display: none;
+    top: 15vh;
+    left: 35vw;
+    border-radius: 20px;
+}
+
 .transaction_item_summary {
     flex-basis: calc(30% - 50px);
     white-space: nowrap;
@@ -193,4 +216,22 @@
     left: calc(50% - 150px);
     position: absolute;
     font-size: 1.3rem;
+}
+
+.revealed_item {
+    position: absolute;
+    font-size: 0.7rem;
+    background-color: #1d2127;
+    color: white;
+    width: 10%;
+    min-width: 200px;
+    height: fit-content;
+    min-height: 100px;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.hided_item {
+    display: none;
 }
