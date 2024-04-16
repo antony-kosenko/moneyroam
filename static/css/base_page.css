@@ -44,6 +44,13 @@ html, body {
     text-align: center;
 }
 
+.page_content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
 
 .page_content h2 {
     font-size: 1.2rem;
@@ -153,7 +160,49 @@ html, body {
     -webkit-animation-fill-mode: both;
   }
   
-  @keyframes fadeInUp {
+#messages_container {
+    position: fixed;
+    width: calc(100% - 165px);
+    min-height: 25px;
+    height: fit-content;
+    top: 74px;
+    left: 0;
+    color: black;
+    box-sizing: border-box;
+    margin-right: 45px;
+    margin-left: 120px;
+    font-size: 0.8rem;
+    text-align: center;
+
+    animation-name: fadeInUp;
+    animation-duration: 0.4s;
+    animation-fill-mode: both;
+}
+
+.message {
+  display: block;
+  width: 100%;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.message.success {
+  border-color:#0f0;
+  background-color:#00ff003b;
+}
+
+.message.warning, .message.error {
+  border-color:#f00;
+  background-color:#ff00003b;
+}
+
+#messages_container.hide {
+    animation-name: fadeInDown;
+    animation-duration: 0.35s;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeInUp {
     from {
       transform: translate3d(0, 30px, 0);
     }
@@ -161,8 +210,8 @@ html, body {
       transform: translate3d(0, 0, 0);
       opacity: 1;
     }
-  }
-  @keyframes fadeInDown {
+}
+@keyframes fadeInDown {
     from {
       transform: translate3d(0, 0, 0);
       opacity: 1;
@@ -171,4 +220,4 @@ html, body {
       transform: translate3d(0, 20px, 0);
       opacity: 0;
     }
-  }
+}

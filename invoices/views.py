@@ -1,8 +1,10 @@
 import logging
 from typing import Any
+
 from django.db.models.query import QuerySet
 from django.db.models import Sum
-
+from django.contrib import messages
+from django.contrib.messages import get_messages
 from django_filters.views import FilterView
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DeleteView, UpdateView
@@ -29,7 +31,10 @@ def create_transaction_view(request):
             new_invoice = Transaction(**form.cleaned_data)      
             new_invoice.user = request.user
             new_invoice.save()
-            # TODO Add success/error messages
+            messages.success(request, f"Transaction '{new_invoice.title}' created successfully!")
+        else:
+            messages.error(request, "Error occured during the transaction creation.")
+
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', "/"))
 
 
