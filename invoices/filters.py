@@ -2,7 +2,6 @@ import datetime
 from django.db.models import Q
 
 import django_filters
-from django_filters.widgets import DateRangeWidget
 from mptt.forms import TreeNodeChoiceField
 
 from invoices.models import Transaction, Category
