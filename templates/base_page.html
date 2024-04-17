@@ -32,7 +32,7 @@
             </span>
         {% endfor %}
     </div>
-    {% comment %} <script>
+    <script>
       // Glow up messages with timer set.
       var message_container = document.getElementById('messages_container');
       setTimeout(function(){
@@ -41,7 +41,7 @@
             message_container.remove();
         });
       }, 5000);
-    </script> {% endcomment %}
+    </script>
     {% endif %}
 
     {% comment %} Page content {% endcomment %}
@@ -55,8 +55,8 @@
                 {% comment %} Profile bar {% endcomment %}
                 <div class="select-menu active">
                     <div class="select-btn">
-                      {% if user.profile.avatar_thumbnail.url %}
-                        <img src={{user.profile.avatar_thumbnail.url}} alt="avatar">
+                      {% if user.profile.avatar_thumbnail %}
+                        <img src={{user.profile.avatar_thumbnail.url}} alt="user_avatar">
                       {% else %}
                         <img src={% static "accounts/img/default_profile_avatar.svg" %} alt="user_avatar">
                       {% endif %}

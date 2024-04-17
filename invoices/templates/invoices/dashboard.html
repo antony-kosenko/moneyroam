@@ -3,8 +3,8 @@
 
 {% comment %} Head tags {% endcomment %}
 {% block extra_head_tags %}
-    <link rel="stylesheet" href={% static "invoices/css/dashboard.css" %}>
     <link rel="stylesheet" href={% static "invoices/css/transactions.css" %}>
+    <link rel="stylesheet" href={% static "invoices/css/dashboard.css" %}>
     <link rel="stylesheet" href={% static "invoices/css/edit_delete_buttons.css" %}>
     <script src={% static "invoices/js/transaction_edit_update_modal.js" %} defer></script>
     <script src={% static "invoices/js/comment_expand_on_hover.js" %} defer></script>
@@ -139,8 +139,9 @@
         </section>
     </section>
 
-    <section class="page_bottom_content">
-        {% if categories_summary_stats and categories_summary_stats|length > 1 %} 
+    
+        {% if categories_summary_stats and categories_summary_stats|length > 1 %}
+            <section class="page_bottom_content">
                 {% for category in categories_summary_stats %}
                     <div class="category_stats">
                         <span> {{ category.stats_header }}</span>
@@ -167,13 +168,13 @@
                             {% endif %}
                     </div>
                 {% endfor %}
-            
+            </section>        
         {% else %}
             <section class="no_content">
                 <span>No data for this month.</span>
             </section>
         {% endif %}
-    </section>
+    
 
 
 {% endblock page_content %}

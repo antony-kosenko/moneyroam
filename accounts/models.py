@@ -75,7 +75,6 @@ class Profile(models.Model):
         size=[500, 500],
         crop=["middle", "center"],
         upload_to=profile_avatar_path,
-        default="accounts/img/default_profile_avatar.svg",
         blank=True,
         null=True,
         max_length=500,
@@ -86,7 +85,6 @@ class Profile(models.Model):
         size=[100, 100],
         crop=["middle", "center"],
         upload_to=profile_avatar_thumbnail_path,
-        default="accounts/img/default_profile_avatar.svg",
         blank=True,
         null=True,
         storage=OverwriteStorage()
@@ -103,10 +101,3 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"username": self.username})
-    
-    def delete(self, using=None, keep_parents=False):
-        fields_to_cleanup = (self.avatar, self.avatar_thumbnail)
-        map(lambda field: field.delete(), fields_to_cleanup)
-        # TODO To test bulk fields delete
-        return super().delete(using, keep_parents)
-    

@@ -17,7 +17,7 @@
             {% if user.profile.avatar %}
               <img src={{ user.profile.avatar.url }} alt="avatar">
             {% else %}
-              <img src={% static "img/default_profile_avatar.svg" %} alt="avatar">
+              <img src={% static "accounts/img/default_profile_avatar.svg" %} alt="user_avatar">
             {% endif %}
             
             <div class="base_info">

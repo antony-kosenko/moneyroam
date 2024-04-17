@@ -1,5 +1,5 @@
 .transaction_filters {
-    margin: 36px 0 0 20px;
+    margin: 36px 0 20px 20px;
     width: calc(100% - 40px);
     height: 52px;
     display: flex;
@@ -202,23 +202,6 @@
 .transaction_item_description span:nth-of-type(2n), .transaction_item_summary span:last-of-type {
     color: #c3c5ca;
     font-size: 0.8rem;
-}
-
-.no_content {
-    position: relative;
-    height: 100%;
-    border-radius: 10px;
-    margin: 15px 0 0 20px;
-    box-sizing: border-box;
-    background: #f5f6f8;
-    z-index: -1;
-}
-
-.no_content span {
-    top: calc(50% - 20px);
-    left: calc(50% - 150px);
-    position: absolute;
-    font-size: 1.3rem;
 }
 
 .revealed_item {
