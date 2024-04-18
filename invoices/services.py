@@ -159,7 +159,6 @@ class CategoryServices:
                 .annotate(
                     expenses_sum=Sum('transactions__value')
                 )
-                # TODO is there a better way to avoid 'zero devision'?
                 .annotate(
                     percentage=Round(
                         ExpressionWrapper(

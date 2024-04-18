@@ -22,6 +22,29 @@
 <body>
     {% comment %} Navbar {% endcomment %}
     {% include "navbar.html" %}
+
+    {% comment %} Backend messages {% endcomment %}
+    {% if messages %}
+    <div id="messages_container">
+        {% for message in messages %}
+            <span class="message {{ message.tags }}">
+                {{ message | safe }}
+            </span>
+        {% endfor %}
+    </div>
+    <script>
+      // Glow up messages with timer set.
+      var message_container = document.getElementById('messages_container');
+      setTimeout(function(){
+        message_container.classList.add("hide");
+        message_container.addEventListener('animationend', function() {
+            message_container.remove();
+        });
+      }, 5000);
+    </script>
+    {% endif %}
+
+    {% comment %} Page content {% endcomment %}
     <div class="page">
 
         <section class="page_header">
@@ -32,8 +55,8 @@
                 {% comment %} Profile bar {% endcomment %}
                 <div class="select-menu active">
                     <div class="select-btn">
-                      {% if user.profile.avatar_thumbnail.url %}
-                        <img src={{user.profile.avatar_thumbnail.url}} alt="avatar">
+                      {% if user.profile.avatar_thumbnail %}
+                        <img src={{user.profile.avatar_thumbnail.url}} alt="user_avatar">
                       {% else %}
                         <img src={% static "accounts/img/default_profile_avatar.svg" %} alt="user_avatar">
                       {% endif %}

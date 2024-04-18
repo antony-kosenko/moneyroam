@@ -1,11 +1,7 @@
-.page_content {
-    flex-direction: column;
-}
-
 .transaction_filters {
-    margin: 20px 0 0 20px;
+    margin: 36px 0 20px 20px;
     width: calc(100% - 40px);
-    height: 52px;
+    height: 45px;
     display: flex;
     background-color: #f5f6f8;
     border-radius: 10px;
@@ -97,12 +93,14 @@
 
 .transaction_item {
     display: flex;
+    height: 90px;
     flex-grow: 1;
     background-color: #f5f6f8;
     justify-content: space-between;
     border-radius: 10px;
     padding: 10px 10px 10px 10px;
     gap: 10px;
+    box-sizing: border-box;
 }
 
 .transaction_item > a {
@@ -143,7 +141,10 @@
 }
 
 .transaction_item_description {
+    display: flex;
+    flex-direction: column;
     flex-basis: 70%;
+    justify-content: space-evenly;
     padding: 5px 10px;
 }
 
@@ -155,6 +156,8 @@
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 10px;
+    word-break: break-word;
+    overflow: hidden;
 }
 
 .transaction_extra_data {
@@ -199,23 +202,6 @@
 .transaction_item_description span:nth-of-type(2n), .transaction_item_summary span:last-of-type {
     color: #c3c5ca;
     font-size: 0.8rem;
-}
-
-.no_content {
-    position: relative;
-    height: 100%;
-    border-radius: 10px;
-    margin: 15px 0 0 20px;
-    box-sizing: border-box;
-    background: #f5f6f8;
-    z-index: -1;
-}
-
-.no_content span {
-    top: calc(50% - 20px);
-    left: calc(50% - 150px);
-    position: absolute;
-    font-size: 1.3rem;
 }
 
 .revealed_item {

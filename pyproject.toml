@@ -20,6 +20,7 @@ requests = "^2.31.0"
 django-filter = "^23.5"
 django-resized = "^1.0.2"
 django-debug-toolbar = "^4.3.0"
+django-cleanup = "^8.1.0"
 
 
 [build-system]
