@@ -13,6 +13,7 @@ from invoices.models import Transaction
 from invoices.services import TransactionServices, CategoryServices
 from invoices.filters import TransactionsFilter, TransactionsListFilter
 from invoices.forms import NewInvoiceForm, InvoiceUpdateForm
+from invoices.utils import category_image_picker
 
 
 logger = logging.getLogger(__name__)
@@ -119,13 +120,31 @@ class DashboardView(ListView):
         )
 
         category_summary_stats = [
-                {"stats_header": "Top spends this month", "stats": top_expense_category},
-                {"stats_header": "Less spends this month", "stats": less_expense_category},
-                {"stats_header": "Most expensive purchase", "stats": most_expensive_purchase_this_month},
-                {"stats_header": "Highest income", "stats": highest_income_this_month}
+                {
+                    "stats_header": "Top spends this month",
+                    "instance": top_expense_category,
+                    "icon": category_image_picker(top_expense_category.name)
+                    },
+                {
+                    "stats_header": "Less spends this month",
+                    "instance": less_expense_category,
+                    "icon": category_image_picker(less_expense_category.name)
+                    },
+                {
+                    "stats_header": "Most expensive purchase",
+                    "instance": most_expensive_purchase_this_month,
+                    "icon": category_image_picker(
+                        most_expensive_purchase_this_month.category.name
+                        )},
+                {
+                    "stats_header": "Highest income",
+                    "instance": highest_income_this_month,
+                    "icon": category_image_picker(
+                        highest_income_this_month.category.name
+                        )}
             ]
         # filtering None value data
-        category_summary_stats = [stats for stats in category_summary_stats if stats["stats"] is not None]
+        category_summary_stats = [instance for instance in category_summary_stats if instance["instance"] is not None]
 
         # updating context with new variables
         data_to_context = {
@@ -179,3 +198,4 @@ class TransactionUpdateView(UpdateView):
     def get_success_url(self):
         if 'HTTP_REFERER' in self.request.META:
             return self.request.META['HTTP_REFERER']
+        

@@ -147,24 +147,35 @@
                         <span> {{ category.stats_header }}</span>
                             {% if category.stats_header == "Top spends this month" or category.stats_header == "Less spends this month" %}
                                 <div class="stats_category_name">
-                                    {% if category.stats.parent.name is not None %}
-                                        <span>{{ category.stats.parent.name }} <br></span>
+                                    {% if category.instance.parent.name is not None %}
+                                        <span>{{ category.instance.parent.name }} <br></span>
                                     {% endif %}
-                                    <span>{{ category.stats.name }}</span>
+                                    <span>{{ category.instance.name }}</span>
                                 </div>
-                                <img src={{ category.stats.image.url }}>
-                                <span>{{ category.stats.percentage }} %</span>
-                                <span>{{ category.stats.expenses_sum }} {{ user.config.currency }}</span>
+                                {% if category.instance.image %}
+                                    <img src={{ category.instance.image.url }}>
+                                {% else %}
+                                    <img src="{% static "invoices/img/category/category_default_img/" %}{{ category.icon }}" 
+                                    alt="{{ category.instance.name }}-image">
+                                {% endif %}
+                                
+                                <span>{{ category.instance.percentage }} %</span>
+                                <span>{{ category.instance.expenses_sum }} {{ user.config.currency }}</span>
                             {% else %}
                                 <div class="stats_category_name">
-                                    <span>{{ category.stats.category.name }}</span>
-                                    {% if category.stats.category.parent.name is not None %}
-                                        <br><span>{{ category.stats.category.parent.name }}</span>
+                                    <span>{{ category.instance.category.name }}</span>
+                                    {% if category.instance.category.parent.name is not None %}
+                                        <br><span>{{ category.instance.category.parent.name }}</span>
                                     {% endif %}
                                 </div>
-                                <img src={{ category.stats.category.image.url }}>
-                                <span>{{ category.stats.title }}</span>
-                                <span>{{ category.stats.value }} {{ user.config.currency }}</span>
+                                {% if category.instance.image %}
+                                    <img src={{ category.instance.image.url }}>
+                                {% else %}
+                                <img src="{% static "invoices/img/category/category_default_img/" %}{{ category.icon }}"
+                                    alt="{{ category.instance.name }}-image">
+                                {% endif %}
+                                <span>{{ category.instance.title }}</span>
+                                <span>{{ category.instance.value }} {{ user.config.currency }}</span>
                             {% endif %}
                     </div>
                 {% endfor %}
