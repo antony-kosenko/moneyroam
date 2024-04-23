@@ -1,15 +1,11 @@
 from pathlib import Path
 from environs import Env
 
-import dj_database_url
 
 # ENVS -----------------------------------------------
 # initialization of config's environmental variables
 conf= Env()
 conf.read_env("environs/.env.settings")
-# initialization of database's environmental variables
-db_config = Env()
-db_config.read_env("environs/.env.database")
 # ----------------------------------------------------
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,7 +17,9 @@ SECRET_KEY = conf("KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 # Application definition
 
@@ -84,25 +82,6 @@ TEMPLATES = [
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = 'moneyroam.wsgi.application'
-
-
-# DATABASE
-
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': db_config("NAME"),
-            'USER': db_config("USER"),
-            'PASSWORD': db_config("PASSWORD"),
-            'HOST': db_config("HOST"),
-            'PORT': db_config("PORT")
-        }
-    }
-else:
-    DATABASES = {
-	"default": dj_database_url.parse(db_config("DB_URL"))
-}
 
 # Logging config 
 
@@ -198,3 +177,9 @@ DJANGORESIZED_DEFAULT_KEEP_META = True
 DJANGORESIZED_DEFAULT_FORCE_FORMAT = "WEBP"
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg", "WEBP": ".webp"}
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
+
+
+if DEBUG:
+    from settings.dev_settings import *
+else:
+    from settings.prod_settings import *

@@ -142,40 +142,38 @@
     
         {% if categories_summary_stats and categories_summary_stats|length > 1 %}
             <section class="page_bottom_content">
-                {% for category in categories_summary_stats %}
+                {% for object in categories_summary_stats %}
                     <div class="category_stats">
-                        <span> {{ category.stats_header }}</span>
-                            {% if category.stats_header == "Top spends this month" or category.stats_header == "Less spends this month" %}
+                        <span> {{ object.stats_header }}</span>
+                            {% if object.stats_header == "Top spends this month" or object.stats_header == "Less spends this month" %}
                                 <div class="stats_category_name">
-                                    {% if category.instance.parent.name is not None %}
-                                        <span>{{ category.instance.parent.name }} <br></span>
+                                    {% if object.instance.parent.name is not None %}
+                                        <span>{{ object.instance.parent.name }} <br></span>
                                     {% endif %}
-                                    <span>{{ category.instance.name }}</span>
+                                    <span>{{ object.instance.name }}</span>
                                 </div>
-                                {% if category.instance.image %}
-                                    <img src={{ category.instance.image.url }}>
+                                {% if object.instance.is_default %}
+                                    <img src="{% static "" %}{{ object.instance.image }}" alt="{{ object.instance.name }}-image">
                                 {% else %}
-                                    <img src="{% static "invoices/img/category/category_default_img/" %}{{ category.icon }}" 
-                                    alt="{{ category.instance.name }}-image">
+                                    <img src={{ object.instance.image.url }}>
                                 {% endif %}
                                 
-                                <span>{{ category.instance.percentage }} %</span>
-                                <span>{{ category.instance.expenses_sum }} {{ user.config.currency }}</span>
+                                <span>{{ object.instance.percentage }} %</span>
+                                <span>{{ object.instance.expenses_sum }} {{ user.config.currency }}</span>
                             {% else %}
                                 <div class="stats_category_name">
-                                    <span>{{ category.instance.category.name }}</span>
-                                    {% if category.instance.category.parent.name is not None %}
-                                        <br><span>{{ category.instance.category.parent.name }}</span>
+                                    <span>{{ object.instance.category.name }}</span>
+                                    {% if object.instance.category.parent.name is not None %}
+                                        <br><span>{{ object.instance.category.parent.name }}</span>
                                     {% endif %}
                                 </div>
-                                {% if category.instance.image %}
-                                    <img src={{ category.instance.image.url }}>
+                                {% if object.instance.category.is_default %}
+                                    <img src="{% static "" %}{{ object.instance.category.image }}" alt="{{ object.name }}-image">
                                 {% else %}
-                                <img src="{% static "invoices/img/category/category_default_img/" %}{{ category.icon }}"
-                                    alt="{{ category.instance.name }}-image">
+                                    <img src={{ object.instance.category.image.url }} alt="{{ object.instance.category.name }}-image">
                                 {% endif %}
-                                <span>{{ category.instance.title }}</span>
-                                <span>{{ category.instance.value }} {{ user.config.currency }}</span>
+                                <span>{{ object.instance.title }}</span>
+                                <span>{{ object.instance.value }} {{ user.config.currency }}</span>
                             {% endif %}
                     </div>
                 {% endfor %}

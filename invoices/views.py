@@ -2,9 +2,9 @@ import logging
 from typing import Any
 
 from django.db.models.query import QuerySet
-from django.db.models import Sum
+from django.db.models import Sum, F, Value, CharField, ExpressionWrapper, Func
+from django.db.models.functions import Cast
 from django.contrib import messages
-from django.contrib.messages import get_messages
 from django_filters.views import FilterView
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DeleteView, UpdateView
@@ -123,25 +123,19 @@ class DashboardView(ListView):
                 {
                     "stats_header": "Top spends this month",
                     "instance": top_expense_category,
-                    "icon": category_image_picker(top_expense_category.name)
                     },
                 {
                     "stats_header": "Less spends this month",
                     "instance": less_expense_category,
-                    "icon": category_image_picker(less_expense_category.name)
                     },
                 {
                     "stats_header": "Most expensive purchase",
                     "instance": most_expensive_purchase_this_month,
-                    "icon": category_image_picker(
-                        most_expensive_purchase_this_month.category.name
-                        )},
+                },
                 {
                     "stats_header": "Highest income",
                     "instance": highest_income_this_month,
-                    "icon": category_image_picker(
-                        highest_income_this_month.category.name
-                        )}
+                }
             ]
         # filtering None value data
         category_summary_stats = [instance for instance in category_summary_stats if instance["instance"] is not None]
@@ -172,9 +166,10 @@ class TransactionsListView(FilterView):
     filterset_class = TransactionsListFilter
 
     def get_queryset(self) -> QuerySet[Any]:
-        queryset = super().get_queryset()
-        return (queryset.filter(user=self.request.user)
-                        .select_related("category__parent"))
+        transactions_queryset = super().get_queryset()
+        return (transactions_queryset.filter(user=self.request.user)
+                        .select_related("category__parent")
+        )
 
 
 class TransactionDeleteView(DeleteView):

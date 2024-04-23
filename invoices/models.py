@@ -39,6 +39,7 @@ class Category(MPTTModel):
     )
     parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     slug = models.SlugField(unique=True, max_length=54, blank=True)
+    is_default = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
