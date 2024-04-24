@@ -85,80 +85,80 @@ WSGI_APPLICATION = 'moneyroam.wsgi.application'
 
 # Logging config 
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
 
-    # Filters
-    "filters": {
-        "info_only": {
-            "()": "logger.filters.InfoLogsOnlyFilter"
-        },
-        "exclude_django_logs": {
-            "()": "logger.filters.ExcludeDjangoLogs"
-        }
-    },
+#     # Filters
+#     "filters": {
+#         "info_only": {
+#             "()": "logger.filters.InfoLogsOnlyFilter"
+#         },
+#         "exclude_django_logs": {
+#             "()": "logger.filters.ExcludeDjangoLogs"
+#         }
+#     },
 
-    # Formatters
-    "formatters": {
-        "base": {
-            "format": "[{asctime}][{levelname}] {name} -> {funcName} :: {message} [line {lineno}]",
-            "datefmt": "%d/%m/%Y | %H:%M:%S",
-            "style": "{",
-        },
-        "info": {
-            "format": "[{asctime} ] {name} -> {funcName} :: {message} [line {lineno}]",
-            "datefmt": "%d/%m/%Y | %H:%M:%S",
-            "style": "{",
-        }
-    },
+#     # Formatters
+#     "formatters": {
+#         "base": {
+#             "format": "[{asctime}][{levelname}] {name} -> {funcName} :: {message} [line {lineno}]",
+#             "datefmt": "%d/%m/%Y | %H:%M:%S",
+#             "style": "{",
+#         },
+#         "info": {
+#             "format": "[{asctime} ] {name} -> {funcName} :: {message} [line {lineno}]",
+#             "datefmt": "%d/%m/%Y | %H:%M:%S",
+#             "style": "{",
+#         }
+#     },
 
-    # Handlers
-    "handlers": {
-        "important_to_file": {
-            "level": "WARNING",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": BASE_DIR / "logger/logs/important/important.log",
-            "maxBytes": 5 * 1024 * 1024,  # 5 MB log file size to rotate
-            "backupCount": 3,
-            "filters": ["exclude_django_logs"],
-            "formatter": "base",
-        },
+#     # Handlers
+#     "handlers": {
+#         "important_to_file": {
+#             "level": "WARNING",
+#             "class": "logging.handlers.RotatingFileHandler",
+#             "filename": BASE_DIR / "logger/logs/important/important.log",
+#             "maxBytes": 5 * 1024 * 1024,  # 5 MB log file size to rotate
+#             "backupCount": 3,
+#             "filters": ["exclude_django_logs"],
+#             "formatter": "base",
+#         },
 
-        "base_info_to_file": {
-            "level": "INFO",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": BASE_DIR / "logger/logs/info/base_info.log",
-            "filters": ["info_only", "exclude_django_logs"],
-            "maxBytes": 5 * 1024 * 1024,  # 5 MB log file size to rotate
-            "backupCount": 3,
-            "formatter": "info"
-        },
+#         "base_info_to_file": {
+#             "level": "INFO",
+#             "class": "logging.handlers.RotatingFileHandler",
+#             "filename": BASE_DIR / "logger/logs/info/base_info.log",
+#             "filters": ["info_only", "exclude_django_logs"],
+#             "maxBytes": 5 * 1024 * 1024,  # 5 MB log file size to rotate
+#             "backupCount": 3,
+#             "formatter": "info"
+#         },
 
-        "django_to_file": {
-            "level": "INFO",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": BASE_DIR / "logger/logs/info/django_logs.log",
-            "maxBytes": 5 * 1024 * 1024,  # 5 MB log file size to rotate
-            "backupCount": 3,
-            "formatter": "base"
-        }
-    },
+#         "django_to_file": {
+#             "level": "INFO",
+#             "class": "logging.handlers.RotatingFileHandler",
+#             "filename": BASE_DIR / "logger/logs/info/django_logs.log",
+#             "maxBytes": 5 * 1024 * 1024,  # 5 MB log file size to rotate
+#             "backupCount": 3,
+#             "formatter": "base"
+#         }
+#     },
 
-    # Loggers
-    "loggers": {
-        "root": {
-            "handlers": ["important_to_file", "base_info_to_file"],
-            "level": "INFO",
-            "propagate": True
-        },
-        "django": {
-            "handlers": ["django_to_file"],
-            "level": "INFO",
-            "propagate": True
-        }
-    }
-}
+#     # Loggers
+#     "loggers": {
+#         "root": {
+#             "handlers": ["important_to_file", "base_info_to_file"],
+#             "level": "INFO",
+#             "propagate": True
+#         },
+#         "django": {
+#             "handlers": ["django_to_file"],
+#             "level": "INFO",
+#             "propagate": True
+#         }
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
