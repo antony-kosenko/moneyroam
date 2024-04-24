@@ -1,18 +1,22 @@
+import os
+
 from pathlib import Path
-from environs import Env
+from dotenv import load_dotenv
 
 
 # ENVS -----------------------------------------------
 # initialization of config's environmental variables
-conf= Env()
-conf.read_env("environs/.env.settings")
+# conf= Env()
+# conf.read_env("environs/.env.settings")
+
+load_dotenv()
 # ----------------------------------------------------
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = conf("KEY")
+SECRET_KEY = os.getenv("KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False

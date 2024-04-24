@@ -1,14 +1,16 @@
-import dj_database_url
-from environs import Env
+import os
 
+from dotenv import load_dotenv
+import dj_database_url
+
+load_dotenv()
 
 # initialization of database's environmental variables
-db_config = Env()
-db_config.read_env("environs/.env.database")
+
 
 
 ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
-	"default": dj_database_url.parse(db_config("DB_URL"))
+	"default": dj_database_url.parse(os.getenv("DB_URL"))
 }
