@@ -12,7 +12,6 @@ from invoices.models import Transaction
 from invoices.services import TransactionServices, CategoryServices
 from invoices.filters import TransactionsFilter, TransactionsListFilter
 from invoices.forms import NewInvoiceForm, InvoiceUpdateForm
-from invoices.utils import category_image_picker
 
 
 logger = logging.getLogger(__name__)
