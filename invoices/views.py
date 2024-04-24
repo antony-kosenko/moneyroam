@@ -31,6 +31,7 @@ def create_transaction_view(request):
             new_invoice.user = request.user
             new_invoice.save()
             messages.success(request, f"Transaction '{new_invoice.title}' created successfully!")
+            logger.warning("Test writing to log file.")
         else:
             messages.error(request, "Error occured during the transaction creation.")
 

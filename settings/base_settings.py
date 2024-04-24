@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 
 # ENVS -----------------------------------------------
-load_dotenv()
+load_dotenv("environs/.env.settings")
 # ----------------------------------------------------
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -89,33 +89,72 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
 
-    # Formatters:
-
-    "formatters": {
-        "base": {
-            "format": "[{asctime}][{levelname}] {message}",
-            "datefmt": "%d/%m/%Y %H:%M",
-            "style": "{"
+    # Filters
+    "filters": {
+        "info_only": {
+            "()": "logger.filters.InfoLogsOnlyFilter"
+        },
+        "exclude_django_logs": {
+            "()": "logger.filters.ExcludeDjangoLogs"
         }
     },
 
-    # Handlers:
-
-    "handlers": {
-        "file": {
-            "level": "WARNING",
-            "class": "logging.FileHandler",
-            "formatter": "base",           
-            "filename": BASE_DIR / "logs/general.log"
+    # Formatters
+    "formatters": {
+        "base": {
+            "format": "[{asctime}][{levelname}] {name} -> {funcName} :: {message} [line {lineno}]",
+            "datefmt": "%d/%m/%Y | %H:%M:%S",
+            "style": "{",
         },
+        "info": {
+            "format": "[{asctime} ] {name} -> {funcName} :: {message} [line {lineno}]",
+            "datefmt": "%d/%m/%Y | %H:%M:%S",
+            "style": "{",
+        }
     },
 
-    # loggers:
-
-    "loggers": {
-        "standard": {
-            "handlers": ["file"],
+    # Handlers
+    "handlers": {
+        "important_to_file": {
             "level": "WARNING",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": BASE_DIR / "logger/logs/important/important.log",
+            "maxBytes": 5 * 1024 * 1024,  # 5 MB log file size to rotate
+            "backupCount": 3,
+            "filters": ["exclude_django_logs"],
+            "formatter": "base",
+        },
+
+        "base_info_to_file": {
+            "level": "INFO",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": BASE_DIR / "logger/logs/info/base_info.log",
+            "filters": ["info_only", "exclude_django_logs"],
+            "maxBytes": 5 * 1024 * 1024,  # 5 MB log file size to rotate
+            "backupCount": 3,
+            "formatter": "info"
+        },
+
+        "django_to_file": {
+            "level": "INFO",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": BASE_DIR / "logger/logs/info/django_logs.log",
+            "maxBytes": 5 * 1024 * 1024,  # 5 MB log file size to rotate
+            "backupCount": 3,
+            "formatter": "base"
+        }
+    },
+
+    # Loggers
+    "loggers": {
+        "root": {
+            "handlers": ["important_to_file", "base_info_to_file"],
+            "level": "INFO",
+            "propagate": True
+        },
+        "django": {
+            "handlers": ["django_to_file"],
+            "level": "INFO",
             "propagate": True
         }
     }
