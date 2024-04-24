@@ -5,10 +5,6 @@ from dotenv import load_dotenv
 
 
 # ENVS -----------------------------------------------
-# initialization of config's environmental variables
-# conf= Env()
-# conf.read_env("environs/.env.settings")
-
 load_dotenv()
 # ----------------------------------------------------
 
