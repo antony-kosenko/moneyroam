@@ -2,8 +2,7 @@ import logging
 from typing import Any
 
 from django.db.models.query import QuerySet
-from django.db.models import Sum, F, Value, CharField, ExpressionWrapper, Func
-from django.db.models.functions import Cast
+from django.db.models import Sum
 from django.contrib import messages
 from django_filters.views import FilterView
 from django.http import HttpResponseRedirect
