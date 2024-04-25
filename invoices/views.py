@@ -4,7 +4,6 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.db.models import Sum
 from django.contrib import messages
-from django.contrib.messages import get_messages
 from django_filters.views import FilterView
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DeleteView, UpdateView
@@ -32,6 +31,7 @@ def create_transaction_view(request):
             new_invoice.user = request.user
             new_invoice.save()
             messages.success(request, f"Transaction '{new_invoice.title}' created successfully!")
+            logger.warning("Test writing to log file.")
         else:
             messages.error(request, "Error occured during the transaction creation.")
 
@@ -119,13 +119,25 @@ class DashboardView(ListView):
         )
 
         category_summary_stats = [
-                {"stats_header": "Top spends this month", "stats": top_expense_category},
-                {"stats_header": "Less spends this month", "stats": less_expense_category},
-                {"stats_header": "Most expensive purchase", "stats": most_expensive_purchase_this_month},
-                {"stats_header": "Highest income", "stats": highest_income_this_month}
+                {
+                    "stats_header": "Top spends this month",
+                    "instance": top_expense_category,
+                    },
+                {
+                    "stats_header": "Less spends this month",
+                    "instance": less_expense_category,
+                    },
+                {
+                    "stats_header": "Most expensive purchase",
+                    "instance": most_expensive_purchase_this_month,
+                },
+                {
+                    "stats_header": "Highest income",
+                    "instance": highest_income_this_month,
+                }
             ]
         # filtering None value data
-        category_summary_stats = [stats for stats in category_summary_stats if stats["stats"] is not None]
+        category_summary_stats = [instance for instance in category_summary_stats if instance["instance"] is not None]
 
         # updating context with new variables
         data_to_context = {
@@ -153,9 +165,10 @@ class TransactionsListView(FilterView):
     filterset_class = TransactionsListFilter
 
     def get_queryset(self) -> QuerySet[Any]:
-        queryset = super().get_queryset()
-        return (queryset.filter(user=self.request.user)
-                        .select_related("category__parent"))
+        transactions_queryset = super().get_queryset()
+        return (transactions_queryset.filter(user=self.request.user)
+                        .select_related("category__parent")
+        )
 
 
 class TransactionDeleteView(DeleteView):
@@ -179,3 +192,4 @@ class TransactionUpdateView(UpdateView):
     def get_success_url(self):
         if 'HTTP_REFERER' in self.request.META:
             return self.request.META['HTTP_REFERER']
+        

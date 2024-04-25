@@ -159,7 +159,7 @@
 .transaction_item .edit_block {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     height: 100%;
     width: 30px;
     gap: 5px;

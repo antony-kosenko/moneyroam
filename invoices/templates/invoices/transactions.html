@@ -43,7 +43,12 @@
             <h5>{{ date.grouper }}</h5>
                 {% for transaction in date.list %}
                     <div class="transaction_item">
-                        <img src={{ transaction.category.image.url }}>
+                        {% if transaction.category.is_default %}
+                            <img src="{% static "" %}{{ transaction.category.image }}" alt="{{ transaction.category.name }}-image">
+                        {% else %}
+                            <img src={{ transaction.category.image.url }} alt="{{ transaction.category.name }}-image">
+                        {% endif %}
+                        
                         <div class="transaction_item_description">
 
                             <span>{{ transaction.title }}</span>

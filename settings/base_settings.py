@@ -1,23 +1,25 @@
-from pathlib import Path
-from environs import Env
+import os
 
-# initialization of config's environmental variables
-conf= Env()
-conf.read_env("environs/.env.settings")
-# initialization of database's environmental variables
-db_config = Env()
-db_config.read_env("environs/.env.database")
+from pathlib import Path
+from dotenv import load_dotenv
+
+
+# ENVS -----------------------------------------------
+load_dotenv("environs/.env.settings")
+# ----------------------------------------------------
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = conf("KEY")
+SECRET_KEY = os.getenv("KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 # Application definition
 
@@ -81,57 +83,82 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = 'moneyroam.wsgi.application'
 
-
-# Database
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': db_config("NAME"),
-        'USER': db_config("USER"),
-        'PASSWORD': db_config("PASSWORD"),
-        'HOST': db_config("HOST"),
-        'PORT': db_config("PORT")
-    }
-}
-
 # Logging config 
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
 
-    # Formatters:
+#     # Filters
+#     "filters": {
+#         "info_only": {
+#             "()": "logger.filters.InfoLogsOnlyFilter"
+#         },
+#         "exclude_django_logs": {
+#             "()": "logger.filters.ExcludeDjangoLogs"
+#         }
+#     },
 
-    "formatters": {
-        "base": {
-            "format": "[{asctime}][{levelname}] {message}",
-            "datefmt": "%d/%m/%Y %H:%M",
-            "style": "{"
-        }
-    },
+#     # Formatters
+#     "formatters": {
+#         "base": {
+#             "format": "[{asctime}][{levelname}] {name} -> {funcName} :: {message} [line {lineno}]",
+#             "datefmt": "%d/%m/%Y | %H:%M:%S",
+#             "style": "{",
+#         },
+#         "info": {
+#             "format": "[{asctime} ] {name} -> {funcName} :: {message} [line {lineno}]",
+#             "datefmt": "%d/%m/%Y | %H:%M:%S",
+#             "style": "{",
+#         }
+#     },
 
-    # Handlers:
+#     # Handlers
+#     "handlers": {
+#         "important_to_file": {
+#             "level": "WARNING",
+#             "class": "logging.handlers.RotatingFileHandler",
+#             "filename": BASE_DIR / "logger/logs/important/important.log",
+#             "maxBytes": 5 * 1024 * 1024,  # 5 MB log file size to rotate
+#             "backupCount": 3,
+#             "filters": ["exclude_django_logs"],
+#             "formatter": "base",
+#         },
 
-    "handlers": {
-        "file": {
-            "level": "WARNING",
-            "class": "logging.FileHandler",
-            "formatter": "base",           
-            "filename": BASE_DIR / "logs/general.log"
-        },
-    },
+#         "base_info_to_file": {
+#             "level": "INFO",
+#             "class": "logging.handlers.RotatingFileHandler",
+#             "filename": BASE_DIR / "logger/logs/info/base_info.log",
+#             "filters": ["info_only", "exclude_django_logs"],
+#             "maxBytes": 5 * 1024 * 1024,  # 5 MB log file size to rotate
+#             "backupCount": 3,
+#             "formatter": "info"
+#         },
 
-    # loggers:
+#         "django_to_file": {
+#             "level": "INFO",
+#             "class": "logging.handlers.RotatingFileHandler",
+#             "filename": BASE_DIR / "logger/logs/info/django_logs.log",
+#             "maxBytes": 5 * 1024 * 1024,  # 5 MB log file size to rotate
+#             "backupCount": 3,
+#             "formatter": "base"
+#         }
+#     },
 
-    "loggers": {
-        "standard": {
-            "handlers": ["file"],
-            "level": "WARNING",
-            "propagate": True
-        }
-    }
-}
+#     # Loggers
+#     "loggers": {
+#         "root": {
+#             "handlers": ["important_to_file", "base_info_to_file"],
+#             "level": "INFO",
+#             "propagate": True
+#         },
+#         "django": {
+#             "handlers": ["django_to_file"],
+#             "level": "INFO",
+#             "propagate": True
+#         }
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -189,3 +216,9 @@ DJANGORESIZED_DEFAULT_KEEP_META = True
 DJANGORESIZED_DEFAULT_FORCE_FORMAT = "WEBP"
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg", "WEBP": ".webp"}
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
+
+
+if DEBUG:
+    from settings.dev_settings import *
+else:
+    from settings.prod_settings import *

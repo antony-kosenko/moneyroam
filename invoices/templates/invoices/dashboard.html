@@ -142,29 +142,38 @@
     
         {% if categories_summary_stats and categories_summary_stats|length > 1 %}
             <section class="page_bottom_content">
-                {% for category in categories_summary_stats %}
+                {% for object in categories_summary_stats %}
                     <div class="category_stats">
-                        <span> {{ category.stats_header }}</span>
-                            {% if category.stats_header == "Top spends this month" or category.stats_header == "Less spends this month" %}
+                        <span> {{ object.stats_header }}</span>
+                            {% if object.stats_header == "Top spends this month" or object.stats_header == "Less spends this month" %}
                                 <div class="stats_category_name">
-                                    {% if category.stats.parent.name is not None %}
-                                        <span>{{ category.stats.parent.name }} <br></span>
+                                    {% if object.instance.parent.name is not None %}
+                                        <span>{{ object.instance.parent.name }} <br></span>
                                     {% endif %}
-                                    <span>{{ category.stats.name }}</span>
+                                    <span>{{ object.instance.name }}</span>
                                 </div>
-                                <img src={{ category.stats.image.url }}>
-                                <span>{{ category.stats.percentage }} %</span>
-                                <span>{{ category.stats.expenses_sum }} {{ user.config.currency }}</span>
+                                {% if object.instance.is_default %}
+                                    <img src="{% static "" %}{{ object.instance.image }}" alt="{{ object.instance.name }}-image">
+                                {% else %}
+                                    <img src={{ object.instance.image.url }}>
+                                {% endif %}
+                                
+                                <span>{{ object.instance.percentage }} %</span>
+                                <span>{{ object.instance.expenses_sum }} {{ user.config.currency }}</span>
                             {% else %}
                                 <div class="stats_category_name">
-                                    <span>{{ category.stats.category.name }}</span>
-                                    {% if category.stats.category.parent.name is not None %}
-                                        <br><span>{{ category.stats.category.parent.name }}</span>
+                                    <span>{{ object.instance.category.name }}</span>
+                                    {% if object.instance.category.parent.name is not None %}
+                                        <br><span>{{ object.instance.category.parent.name }}</span>
                                     {% endif %}
                                 </div>
-                                <img src={{ category.stats.category.image.url }}>
-                                <span>{{ category.stats.title }}</span>
-                                <span>{{ category.stats.value }} {{ user.config.currency }}</span>
+                                {% if object.instance.category.is_default %}
+                                    <img src="{% static "" %}{{ object.instance.category.image }}" alt="{{ object.name }}-image">
+                                {% else %}
+                                    <img src={{ object.instance.category.image.url }} alt="{{ object.instance.category.name }}-image">
+                                {% endif %}
+                                <span>{{ object.instance.title }}</span>
+                                <span>{{ object.instance.value }} {{ user.config.currency }}</span>
                             {% endif %}
                     </div>
                 {% endfor %}

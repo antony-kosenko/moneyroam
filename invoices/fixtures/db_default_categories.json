@@ -1,0 +1,287 @@
+[
+{
+  "model": "invoices.category",
+  "pk": 1,
+  "fields": {
+    "name": "Entertainment",
+    "image": "invoices/img/category/category_default_img/entertainment_default.svg",
+    "parent": null,
+    "slug": "entertainment",
+    "is_default": true,
+    "lft": 1,
+    "rght": 6,
+    "tree_id": 3,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 2,
+  "fields": {
+    "name": "Salary & Wages",
+    "image": "invoices/img/category/category_default_img/salary_default.svg",
+    "parent": null,
+    "slug": "salary_n_wages",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 10,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 4,
+  "fields": {
+    "name": "Education",
+    "image": "invoices/img/category/category_default_img/education_default.svg",
+    "parent": null,
+    "slug": "education",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 2,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 5,
+  "fields": {
+    "name": "Insurance",
+    "image": "invoices/img/category/category_default_img/insurance_default.svg",
+    "parent": null,
+    "slug": "insurance",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 8,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 6,
+  "fields": {
+    "name": "Rent",
+    "image": "invoices/img/category/category_default_img/rent_default.svg",
+    "parent": null,
+    "slug": "rent",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 9,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 7,
+  "fields": {
+    "name": "Health Care",
+    "image": "invoices/img/category/category_default_img/health_care_default.svg",
+    "parent": null,
+    "slug": "health_care",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 7,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 8,
+  "fields": {
+    "name": "Traveling",
+    "image": "invoices/img/category/category_default_img/traveling_default.svg",
+    "parent": null,
+    "slug": "traveling",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 18,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 9,
+  "fields": {
+    "name": "Style",
+    "image": "invoices/img/category/category_default_img/style_default.svg",
+    "parent": null,
+    "slug": "style",
+    "is_default": true,
+    "lft": 1,
+    "rght": 6,
+    "tree_id": 12,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 10,
+  "fields": {
+    "name": "Subscriptions",
+    "image": "invoices/img/category/category_default_img/subscriptions_default.svg",
+    "parent": null,
+    "slug": "subscriptions",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 13,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 11,
+  "fields": {
+    "name": "Bank Charges",
+    "image": "invoices/img/category/category_default_img/bank_charges_default.svg",
+    "parent": null,
+    "slug": "bank_charges",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 1,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 12,
+  "fields": {
+    "name": "Taxation",
+    "image": "invoices/img/category/category_default_img/taxation_default.svg",
+    "parent": null,
+    "slug": "taxation",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 14,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 13,
+  "fields": {
+    "name": "Utilities",
+    "image": "invoices/img/category/category_default_img/utilities_default.svg",
+    "parent": null,
+    "slug": "utilities",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 19,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 14,
+  "fields": {
+    "name": "Transportation",
+    "image": "invoices/img/category/category_default_img/transportation_default.svg",
+    "parent": null,
+    "slug": "transportation",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 17,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 15,
+  "fields": {
+    "name": "Gifts & Donations",
+    "image": "invoices/img/category/category_default_img/gifts_n_donations_default.svg",
+    "parent": null,
+    "slug": "gifts_n_donations",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 6,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 17,
+  "fields": {
+    "name": "Food",
+    "image": "invoices/img/category/category_default_img/food_default.svg",
+    "parent": null,
+    "slug": "food",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 4,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 18,
+  "fields": {
+    "name": "Accessories",
+    "image": "invoices/img/category/category_default_img/accessories_default.svg",
+    "parent": 9,
+    "slug": "accessories",
+    "is_default": true,
+    "lft": 2,
+    "rght": 3,
+    "tree_id": 12,
+    "level": 1
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 19,
+  "fields": {
+    "name": "Clothes and Shoes",
+    "image": "invoices/img/category/category_default_img/clothes_n_shoes_default.svg",
+    "parent": 9,
+    "slug": "clothes_n_shoes",
+    "is_default": true,
+    "lft": 4,
+    "rght": 5,
+    "tree_id": 12,
+    "level": 1
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 20,
+  "fields": {
+    "name": "Savings",
+    "image": "invoices/img/category/category_default_img/savings_default.svg",
+    "parent": null,
+    "slug": "savings",
+    "is_default": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 11,
+    "level": 0
+  }
+},
+{
+  "model": "invoices.category",
+  "pk": 21,
+  "fields": {
+    "name": "Dinning Out",
+    "image": "invoices/img/category/category_default_img/dinning_out_default.svg",
+    "parent": 1,
+    "slug": "dinning_out",
+    "is_default": true,
+    "lft": 4,
+    "rght": 5,
+    "tree_id": 3,
+    "level": 1
+  }
+}
+]
