@@ -12,4 +12,4 @@ python manage.py collectstatic --no-input
 python manage.py migrate
 
 # loading initial data to DB (fixteres)
-django-admin loaddata db_default_categories.json
+python manage.py loaddata db_default_categories.json
