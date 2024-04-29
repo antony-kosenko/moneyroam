@@ -1,0 +1,7 @@
+<form action={% url "preferences:preferences_update" %} method="post">
+
+    {% csrf_token %}
+    {{ preferences_form }}
+
+    <button type="submit" id="applyPreferencesUpdated">Apply</button>
+</form>

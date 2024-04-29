@@ -3,7 +3,12 @@
 
 {% comment %} Head tags {% endcomment %}
 {% block extra_head_tags %}
+    <link rel="stylesheet" href={% static "invoices/css/transactions.css" %}>
     <link rel="stylesheet" href={% static "invoices/css/dashboard.css" %}>
+    <link rel="stylesheet" href={% static "invoices/css/edit_delete_buttons.css" %}>
+    <script src={% static "invoices/js/transaction_edit_update_modal.js" %} defer></script>
+    <script src={% static "invoices/js/comment_expand_on_hover.js" %} defer></script>
+    <script src={% static "invoices/js/receipt_expand_on_hover.js" %} defer></script>
 {% endblock extra_head_tags %}
 
 {% comment %} Tab title {% endcomment %}
@@ -14,142 +19,171 @@
 
 {% comment %} Page core content {% endcomment %}
 {% block page_content %}
-<section class="page_top_content">
-    <section class="summary_data">
-        <h2>Balance</h2>
-        {% comment %} Summary value for expenses/incomes in separate blocks {% endcomment %}
-        <div class="summary_block">
-            {% if balance_summary < 0 %}
-            <span class="balance_text" style="color: #fe3f70">{{ balance_summary }} {{ user.config.currency}}</span>
+    <section class="page_top_content">
+        <section class="summary_data">
+            <h2>Balance</h2>
+            {% comment %} Summary value for expenses/incomes in separate blocks {% endcomment %}
+            <div class="summary_block">
+                {% if balance_summary < 0 %}
+                <span class="balance_text" style="color: #fe3f70">{{ balance_summary }} {{ user.config.currency}}</span>
+                {% else %}
+                <span class="balance_text">{{ balance_summary }} {{ user.config.currency}}</span>
+                {% endif %}
+                
+                <div class="summary_data_label">
+                    <div class="transactions_marker" id="incomes_marker"></div>
+                    <div class="label_content">
+                        <span>Total incomes</span>
+                        <div class="label_detail_data">
+                            <div class="label_detail_container">
+                                <span>Last month</span>
+                                {% if last_month_incomes_total is None %}
+                                    <span>0 {{ user.config.currency}}</span>
+                                {% else %}
+                                    <span>{{ last_month_incomes_total }} {{ user.config.currency}}</span>
+                                {% endif %}
+                            </div>
+                            <div class="label_detail_container">
+                                <span>This month</span>
+                                {% if this_month_incomes_total is None %}
+                                    <span>0 {{ user.config.currency}}</span>
+                                {% else %}
+                                    <span>{{ this_month_incomes_total }} {{ user.config.currency}}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?operation=incomes">
+                        <img src={% static "invoices/img/arrow-right-icon.svg" %} alt="arrow_right_icon">
+                    </a>
+                </div>
+
+                <div class="summary_data_label">
+                    <div class="transactions_marker" id="expenses_marker"></div>
+                    <div class="label_content">
+                        <span>Total expenses</span>
+                        <div class="label_detail_data">
+                            <div class="label_detail_container">
+                                <span>Last month</span>
+                                {% if last_month_expenses_total is None %}
+                                    <span>0 {{ user.config.currency}}</span>
+                                {% else %}
+                                <span>{{ last_month_expenses_total }} {{ user.config.currency}}</span>
+                                {% endif %}
+                            </div>
+                            <div class="label_detail_container">
+                                <span>This month</span>
+                                {% if this_month_expenses_total is None %}
+                                    <span>0 {{ user.config.currency}}</span>
+                                {% else %}
+                                    <span>{{ this_month_expenses_total }} {{ user.config.currency}}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?operation=expenses">
+                        <img src={% static "invoices/img/arrow-right-icon.svg" %} alt="arrow_right_icon">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="last_transactions_list_block">
+            <div class="last_transactions_header">
+                <h2>Transaction history</h2>
+                <a href={% url "invoices:transactions" %}><span>View all</span></a>
+            </div>
+            {% if object_list %}
+                <div class="transaction_list">
+                    {% for transaction in object_list|slice:":3" %}
+                    <div class="transaction_item">
+                        {% if transaction.operation == "expenses" %}
+                        <img class="category_image" src={% static "invoices/img/category/base_category_icons/expense_transaction_default_icon.svg" %} alt="expense-transaction">
+                        {% else %}
+                        <img class="category_image" src={% static "invoices/img/category/base_category_icons/income_transaction_default_icon.svg" %} alt="inncome-transaction">
+                        {% endif %}
+                        <div class="transaction_item_description">
+                            <span>{{ transaction.title }}</span>
+                            {% if not transaction.category  %}
+                            {% elif  transaction.category.parent%}
+                                <span>{{ transaction.category.parent }} /  {{ transaction.category }}</span>
+                            {% else %}
+                                <span>{{ transaction.category }}</span>
+                            {% endif %}
+                            
+                        </div>
+
+                        {% include "invoices/extra_data_block.html" %}
+
+                        <div class="transaction_item_summary">
+                            {% if transaction.operation == "incomes" %}
+                                <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
+                            {% else %}
+                                <span>- {{ transaction.value }} {{ transaction.currency }}</span>
+                            {% endif %}
+                            <span>{{ transaction.date_created | date }}</span>
+                        </div>
+                        
+                        {% comment %} Div container with Delete / Edit buttons. {% endcomment %}
+                        {% include "invoices/edit_block.html" %}
+                        
+                    </div>
+                    {% endfor %}
+                </div>
             {% else %}
-            <span class="balance_text">{{ balance_summary }} {{ user.config.currency}}</span>
+                <div class="no_content">
+                    <span>No data for this month.</span>
+                </div>
             {% endif %}
             
-            <div class="summary_data_label">
-                <div class="radial_progress_bar"><span>100%</span></div>
-                <div class="label_content">
-                    <span>Total incomes</span>
-                    <div class="label_detail_data">
-                        <div class="label_detail_container">
-                            <span>Last month</span>
-                            {% if last_month_incomes_total is None %}
-                                <span>0 {{ user.config.currency}}</span>
-                            {% else %}
-                                <span>{{ last_month_incomes_total }} {{ user.config.currency}}</span>
-                            {% endif %}
-                        </div>
-                        <div class="label_detail_container">
-                            <span>This month</span>
-                            {% if this_month_incomes_total is None %}
-                                <span>0 {{ user.config.currency}}</span>
-                            {% else %}
-                                <span>{{ this_month_incomes_total }} {{ user.config.currency}}</span>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?transaction=incomes">
-                    <img src={% static "invoices/img/arrow-right-icon.svg" %} alt="arrow_right_icon">
-                </a>
-            </div>
-
-            <div class="summary_data_label">
-                <div class="radial_progress_bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"><span>40%</span></div>
-                <div class="label_content">
-                    <span>Total expenses</span>
-                    <div class="label_detail_data">
-                        <div class="label_detail_container">
-                            <span>Last month</span>
-                            {% if last_month_expenses_total is None %}
-                                <span>0 {{ user.config.currency}}</span>
-                            {% else %}
-                            <span>{{ last_month_expenses_total }} {{ user.config.currency}}</span>
-                            {% endif %}
-                        </div>
-                        <div class="label_detail_container">
-                            <span>This month</span>
-                            {% if this_month_expenses_total is None %}
-                                <span>0 {{ user.config.currency}}</span>
-                            {% else %}
-                                <span>{{ this_month_expenses_total }} {{ user.config.currency}}</span>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                <a class="transactions_list_button" href="{% url 'invoices:transactions' %}?transaction=expenses">
-                    <img src={% static "invoices/img/arrow-right-icon.svg" %} alt="arrow_right_icon">
-                </a>
-            </div>
-        </div>
+        </section>
     </section>
 
-    <section class="last_transactions_list_block">
-        <div class="last_transactions_header">
-            <h2>Transaction history</h2>
-            <a href={% url "invoices:transactions" %}><span>View all</span></a>
-        </div>
-        
-        <div class="transaction_list">
-            {% for transaction in object_list|slice:":3" %}
-            <div class="transaction_item">
-                {% if transaction.operation == "expenses" %}
-                <a href="#"><img src={% static "invoices/img/category/base_category_icons/expense_transaction_default_icon.svg" %} alt=""></a>
-                {% else %}
-                <a href="#"><img src={% static "invoices/img/category/base_category_icons/income_transaction_default_icon.svg" %} alt=""></a>
-                {% endif %}
-                <div class="transaction_item_description">
-                    <span>{{ transaction.title }}</span>
-                    {% if not transaction.category  %}
-                    {% else %}
-                    <span>{{ transaction.category }}</span>
-                    {% endif %}
-                    
-                </div>
-                <div class="transaction_item_summary">
-                    {% if transaction.operation == "incomes" %}
-                        <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
-                    {% else %}
-                        <span>- {{ transaction.value }} {{ transaction.currency }}</span>
-                    {% endif %}
-                    <span>{{ transaction.date_created }}</span>
-                </div>
-
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-</section>
-<section class="page_bottom_content">
-    {% for category in categories_summary_stats %}
-        {% if category.stats.percentage is not None or category.stats.value is not None %}
-            <div class="category_stats">
-                <span> {{ category.stats_header }}</span>
-
-                {% if category.stats_header == "Top expends this month" or category.stats_header == "Less spends this month" %}
-                    <div class="stats_category_name">
-                        <span>{{ category.stats.name }}</span>
-                        {% if category.stats.parent.name is not None %}
-                            <br><span>{{ category.stats.parent.name }}</span>
-                        {% endif %}
+    
+        {% if categories_summary_stats and categories_summary_stats|length > 1 %}
+            <section class="page_bottom_content">
+                {% for object in categories_summary_stats %}
+                    <div class="category_stats">
+                        <span> {{ object.stats_header }}</span>
+                            {% if object.stats_header == "Top spends this month" or object.stats_header == "Less spends this month" %}
+                                <div class="stats_category_name">
+                                    {% if object.instance.parent.name is not None %}
+                                        <span>{{ object.instance.parent.name }} <br></span>
+                                    {% endif %}
+                                    <span>{{ object.instance.name }}</span>
+                                </div>
+                                {% if object.instance.is_default %}
+                                    <img src="{% static "" %}{{ object.instance.image }}" alt="{{ object.instance.name }}-image">
+                                {% else %}
+                                    <img src={{ object.instance.image.url }}>
+                                {% endif %}
+                                
+                                <span>{{ object.instance.percentage }} %</span>
+                                <span>{{ object.instance.expenses_sum }} {{ user.config.currency }}</span>
+                            {% else %}
+                                <div class="stats_category_name">
+                                    <span>{{ object.instance.category.name }}</span>
+                                    {% if object.instance.category.parent.name is not None %}
+                                        <br><span>{{ object.instance.category.parent.name }}</span>
+                                    {% endif %}
+                                </div>
+                                {% if object.instance.category.is_default %}
+                                    <img src="{% static "" %}{{ object.instance.category.image }}" alt="{{ object.name }}-image">
+                                {% else %}
+                                    <img src={{ object.instance.category.image.url }} alt="{{ object.instance.category.name }}-image">
+                                {% endif %}
+                                <span>{{ object.instance.title }}</span>
+                                <span>{{ object.instance.value }} {{ user.config.currency }}</span>
+                            {% endif %}
                     </div>
-                    <img src={{ category.stats.image.url }}>
-                    <span>{{ category.stats.percentage }} %</span>
-                    <span>{{ category.stats.expenses_sum }} {{ user.config.currency }}</span>
-                {% else %}
-                    <div class="stats_category_name">
-                        <span>{{ category.stats.category.name }}</span>
-                        {% if category.stats.category.parent.name is not None %}
-                            <br><span>{{ category.stats.category.parent.name }}</span>
-                        {% endif %}
-                    </div>
-                    <img src={{ category.stats.category.image.url }}>
-                    <span>{{ category.stats.title }}</span>
-                    <span>{{ category.stats.value }} {{ user.config.currency }}</span>
-                {% endif %}
-            </div>
+                {% endfor %}
+            </section>        
+        {% else %}
+            <section class="no_content">
+                <span>No data for this month.</span>
+            </section>
         {% endif %}
-    {% endfor %}
+    
 
-</section>
 
 {% endblock page_content %}

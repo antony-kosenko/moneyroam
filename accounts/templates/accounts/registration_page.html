@@ -1,0 +1,79 @@
+{% extends "root_page_base.html" %}
+{% load static %}
+
+{% comment %} Head tags {% endcomment %}
+{% block root_page_head %}
+    <link rel="stylesheet" href={% static "accounts/css/registration_page.css" %}>
+{% endblock root_page_head %}
+
+{% block tab_title %}Registration{% endblock tab_title %}
+
+
+{% comment %} Core content {% endcomment %}
+{% block root_content %}
+
+    <section class="info_block">
+
+    </section>
+
+    <section class="registration_block">
+        
+        <form class="reg_form" action="{% url 'accounts:registration' %}" method="post">
+            <h2>Create your account.</h2>
+            {% csrf_token %}
+            <div class="user_creation_form_section">
+                <div class="form_field">
+                    {{ user_form.email.label_tag }}
+                    {{ user_form.email }}
+
+                    {% if user_form.email.errors %}
+                        <ul class="field_error_list">
+                            {% for error in user_form.email.errors %}                
+                                <li class="field_error_element">
+                                    {{ error }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                </div>
+                <div class="form_field">
+                    {{ user_form.password1.label_tag }}
+                    {{ user_form.password1 }}
+
+                    {% if user_form.password1.errors %}
+                        <ul class="field_error_list">
+                            {% for error in user_form.password1.errors %}                
+                                <li class="field_error_element">
+                                    {{ error }}
+                                </li>     
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                </div>             
+                <div class="form_field">
+                    {{ user_form.password2.label_tag }}
+                    {{ user_form.password2 }}
+
+                    {% if user_form.password2.errors %}
+                        <ul class="field_error_list">
+                            {% for error in user_form.password2.errors %}                
+                                <li class="field_error_element">
+                                    {{ error }}
+                                </li>     
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                </div>
+            </div>
+            {{ profile_form.as_p }}
+            <button type="submit">Sign up</button>
+        </form>
+
+        <div class="extra_links">
+            <span>Already have an account? <a href={% url "accounts:login" %}>Sign in</a></span>
+        </div>
+    </section>
+{% endblock root_content %}

@@ -1,18 +1,13 @@
-.page_content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
 .page_top_content {
+    box-sizing: border-box;
     display: flex;
+    padding: 20px 0 20px 20px;
 }
 
 .summary_data {
     display: flex;
     flex-direction: column;
-    flex-basis: 35%;
-    padding: 10px 20px 20px 20px;
+    flex-basis: 40%;
 }
 
 
@@ -20,11 +15,11 @@
 .summary_block {
     display: flex;
     flex-direction: column;
-    flex-basis: 35%;
     gap: 10px;
     padding: 20px;
     border-radius: 10px;
     background-color: #f5f6f8;
+    height: 100%;
 }
 
 .summary_block .balance_text {
@@ -42,56 +37,46 @@
     border-radius: 10px;
     flex-basis: 25%;
     padding: 10px;
+    min-width: 350px;
 }
 
 .summary_data_label a {
     background-color: #f5f6f8;
-    flex-basis: 10%;
-    min-width: 39px;
     border-radius: 10px;
+    height: 100%;
+    width: 40px;
 }
 
-.summary_data_label .radial_progress_bar{
-    height: 50px;
-    min-width: 50px;
-    border-radius: 50%;
-    align-self: center;
-    background: 
-      radial-gradient(closest-side, #1d2127 79%, transparent 80% 100%),
-      conic-gradient(rgb(16,168,130) 75%, #3e434a 0);    
-  }
-
-.summary_data_label:nth-of-type(2n) .radial_progress_bar {
-    background: 
-      radial-gradient(closest-side, #1d2127 79%, transparent 80% 100%),
-      conic-gradient(rgb(248,63,112) 75%, #3e434a 0);
+.transactions_marker {
+    width: 10px;
+    height: 100%;
 }
+
+#incomes_marker {
+    background-color: #10A882;
+}
+
+#expenses_marker {
+    background-color: #B90E0A;
+}
+
 
 .transactions_list_button img {
-    width: 30%;
-    margin: 50% 0 0 35%;
-}
-
-.radial_progress_bar span {
-    display: block;
-    height: calc(100% - 50px);
-    font-size: 0.9rem;
-    color: #f5f6f8;
-    margin: 16px 0;
-    text-align: center;
+    width: 10px;
+    margin: 75% 0 0 35%;
+    box-sizing: border-box;
 }
 
 .label_detail_data {
     display: flex;
-    gap: 30px;
-    justify-content: space-between;
+    gap: 10px;
 }
 
 .label_content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    flex-basis: 60%;
+    flex-basis: 100%;
     padding: 0 20px;
     gap: 5px;
 }
@@ -104,6 +89,7 @@
 .label_detail_container {
     display: flex;
     flex-direction: column;
+    flex-basis: 50%;
 }
 
 .label_detail_container span:first-child {
@@ -120,36 +106,36 @@
 .last_transactions_list_block {
     display: flex;
     flex-direction: column;
-    flex-basis: 65%;
-    padding: 10px 20px 20px 20px;
+    flex-basis: 60%;
+    margin-left: 20px;
 }
 
 .last_transactions_header {
     display: flex;
     justify-content: space-between;
+    gap: 10px;
 }
 
 .last_transactions_header a {
     background-color: #1d2127;
     border-radius: 7px;
     align-self: center;
-    margin-right: 10px;
-    height: calc(35px - 20px);
+    height: 30px;
+    min-width: fit-content;
     flex-basis: 80px;
     text-decoration: none;
     color: #d3d4d5;
     font-size: 0.8rem;
     padding: 8px;
     text-align: center;
-
 }
 
 .transaction_list {
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    border-radius: 10px;
-    gap: 10px;
+    gap: 13px;
+    justify-content: start;
 }
 
 .transaction_item {
@@ -161,7 +147,7 @@
     gap: 10px;
 }
 
-.transaction_item a {
+.transaction_item .category_image {
     flex-basis: 60px;
     height: 60px;
     min-width: 60px;
@@ -170,47 +156,33 @@
     border-radius: 10px;
 }
 
-.transaction_item a img {
-    height: 80%;
-    width: 80%;
-    margin: 5px;
+.transaction_item .edit_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 30px;
+    gap: 5px;
+    box-sizing: border-box;
 }
 
-.transaction_item_description {
-    flex-basis: 70%;
-    padding: 5px;
+.transaction_item .edit_block .edit-object-button {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
-.transaction_item_description span {
-    display: block;
+.transaction_item .edit_block .edit-object-button:first-of-type {
+    border: 1px solid #D11A2A;
 }
 
-.transaction_item_description span:first-of-type {
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.transaction_item_summary {
-    flex-basis: calc(30% - 50px);
-    white-space: nowrap;
-    padding: 5px;
-    text-align: end;
-}
-
-.transaction_item_summary span {
-    display: block;
-}
-
-.transaction_item_summary span:first-of-type {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.transaction_item_description span:nth-of-type(2n), .transaction_item_summary span:last-of-type {
-    color: #c3c5ca;
-    font-size: 0.8rem;
+.transaction_item .edit_block img {
+    width: 20px;
+    margin-top: 1px;
 }
 
 /* Dashboard bottom content */
@@ -219,7 +191,7 @@
     display: flex;
     gap: 20px;
     height: 100%;
-    padding: 20px;
+    padding: 20px 0 0 20px;
 }
 
 .category_stats {
@@ -229,9 +201,9 @@
     gap: 10px;
     flex-direction: column;
     flex: 1 1 0;
-    background-color: #f5f6f8;
     border-radius: 10px;
     justify-content: space-evenly;
+    background: repeating-linear-gradient(45deg, #f5f6f8, #f5f6f8 10px, #f5f6f8 10px, #eaebeb 20px);
 }
 
 .category_stats img {
@@ -247,7 +219,17 @@
     font-size: 0.8rem;
 }
 
+.stats_category_name :first-of-type {
+    font-weight: bold;
+}
+
 .stats_category_name :nth-of-type(2n) {
     font-size: 0.8rem;
-    font-weight: bold;
+}
+
+.no_content span {
+    top: calc(50% - 20px);
+    left: calc(50% - 130px);
+    position: absolute;
+    font-size: 1.3rem;
 }

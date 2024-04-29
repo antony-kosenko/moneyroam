@@ -1,7 +1,7 @@
 .transaction_filters {
-    margin: 20px 0 0 20px;
+    margin: 36px 0 20px 20px;
     width: calc(100% - 40px);
-    height: 52px;
+    height: 45px;
     display: flex;
     background-color: #f5f6f8;
     border-radius: 10px;
@@ -51,18 +51,16 @@
     border: 2px solid black;
     box-sizing: border-box;
     background-color: #1d2127;
-    color: #f5f6f8;
+    color: #d3d4d5;
     cursor: pointer;
     display: inline-block;
-    font-size: 14px;
-    font-weight: 500;
-    height: 40px;
-    width: 80px;
+    font-size: 0.8rem;
+    height: 30px;
+    width: 78px;
     line-height: 20px;
     list-style: none;
     margin: 0;
     outline: none;
-    padding: 10px 16px;
     position: relative;
     text-align: center;
     text-decoration: none;
@@ -70,6 +68,7 @@
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #filter-form .transaction_filter_apply_button:hover,
@@ -88,17 +87,23 @@
     gap: 10px;
 }
 
+.transactions_list h5 {
+    text-align: center;
+}
+
 .transaction_item {
     display: flex;
+    height: 90px;
     flex-grow: 1;
     background-color: #f5f6f8;
     justify-content: space-between;
     border-radius: 10px;
     padding: 10px 10px 10px 10px;
     gap: 10px;
+    box-sizing: border-box;
 }
 
-.transaction_item a {
+.transaction_item > a {
     flex-basis: 60px;
     height: 60px;
     align-self: center;
@@ -106,13 +111,43 @@
     border-radius: 10px;
 }
 
-.transaction_item img {
-    width: 40px;
-    margin: 5px;
+.transaction_item > img {
+    width: 50px;
+    padding: 5px;
+    align-self: center;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.transaction_item .edit_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 30px;
+    gap: 5px;
+    box-sizing: border-box;
+}
+
+.transaction_item .edit_block > a {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.transaction_item .edit_block .edit-object-button:first-of-type {
+    border: 1px solid #D11A2A;
 }
 
 .transaction_item_description {
+    display: flex;
+    flex-direction: column;
     flex-basis: 70%;
+    justify-content: space-evenly;
     padding: 5px 10px;
 }
 
@@ -124,13 +159,41 @@
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 10px;
+    word-break: break-word;
+    overflow: hidden;
+}
+
+.transaction_extra_data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.transaction_extra_data .invoice_extra {
+    width: 20px;
+    height: 20px;
+}
+
+.comment-icon {
+    cursor: help;
+}
+
+.receipt-img {
+    position: fixed;
+    display: none;
+    top: 15vh;
+    left: 35vw;
+    border-radius: 20px;
 }
 
 .transaction_item_summary {
+    display: flex;
+    flex-direction: column;
     flex-basis: calc(30% - 50px);
     white-space: nowrap;
     padding: 5px;
     text-align: end;
+    justify-content: space-evenly;
 }
 
 .transaction_item_summary span {
@@ -145,4 +208,22 @@
 .transaction_item_description span:nth-of-type(2n), .transaction_item_summary span:last-of-type {
     color: #c3c5ca;
     font-size: 0.8rem;
+}
+
+.revealed_item {
+    position: absolute;
+    font-size: 0.7rem;
+    background-color: #1d2127;
+    color: white;
+    width: 10%;
+    min-width: 200px;
+    height: fit-content;
+    min-height: 100px;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.hided_item {
+    display: none;
 }

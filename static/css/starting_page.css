@@ -1,0 +1,25 @@
+body {
+    background-image: url("../img/starting_page_image.jpg");
+    background-size: cover;
+}
+
+.quote_text {
+    position: absolute;
+    right: 15%;
+    top: 35%;
+    width: 30%;
+    height: fit-content;
+    min-height: 20%;
+    border-radius: 10px;
+    font-size: 2rem;
+}
+
+footer {
+    position: absolute;
+    background-color: #1d2127fa;
+    bottom: 0;
+    height: 10%;
+    width: 100%;
+    color: white;
+    text-align: center;
+}

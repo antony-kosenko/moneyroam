@@ -1,16 +1,18 @@
 import logging
 from typing import Any
 
-import django_filters.views
+from django.db.models.query import QuerySet
+from django.db.models import Sum
+from django.contrib import messages
+from django_filters.views import FilterView
 from django.http import HttpResponseRedirect
-from django.views.generic import ListView
+from django.views.generic import ListView, DeleteView, UpdateView
 
 from invoices.models import Transaction
 from invoices.services import TransactionServices, CategoryServices
 from invoices.filters import TransactionsFilter, TransactionsListFilter
-from invoices.forms import NewInvoiceForm
+from invoices.forms import NewInvoiceForm, InvoiceUpdateForm
 
-from utils.currency_manager import CurrencyExchangeManager
 
 logger = logging.getLogger(__name__)
 
@@ -23,21 +25,16 @@ def create_transaction_view(request):
     """ View to handle creation of new Transaction object. """
     # !!! Form for transaction creation (GET) initials in context processor to be available globally.
     if request.method == "POST":
-        form = NewInvoiceForm(request.POST)
+        form = NewInvoiceForm(request.POST, request.FILES)
         if form.is_valid():
-            new_invoice = Transaction(**form.cleaned_data)
-            # retrieving user's currency preference for further converting if income is different from base currency
-            user_currency = request.user.config.currency
-            # performing currency conversion to maintain consistent data for statistic and analyse
-            if user_currency != new_invoice.currency:
-                transaction_converted_value = CurrencyExchangeManager.currency_converter(
-                    value=new_invoice.value,
-                    exchange_to=user_currency,
-                    base=new_invoice.currency
-                )
-                new_invoice.value = transaction_converted_value
-                new_invoice.currency = user_currency
+            new_invoice = Transaction(**form.cleaned_data)      
+            new_invoice.user = request.user
             new_invoice.save()
+            messages.success(request, f"Transaction '{new_invoice.title}' created successfully!")
+            logger.warning("Test writing to log file.")
+        else:
+            messages.error(request, "Error occured during the transaction creation.")
+
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', "/"))
 
 
@@ -46,59 +43,117 @@ class DashboardView(ListView):
     logger.debug("DashboardView requested.")
     model = Transaction
     template_name = "invoices/dashboard.html"
+    ordering = "-date_created"
+
+
+    def get_queryset(self) -> QuerySet[Any]:
+        queryset = super().get_queryset()
+        queryset = queryset.filter(user=self.request.user)
+        return queryset.select_related("category__parent")
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         data = super().get_context_data(**kwargs)
+        user = self.request.user
 
         # retrieving incomes/expenses summary for current month
-        incomes_this_month = transaction_service.transactions_this_month("incomes", summary=True)
-        expenses_this_month = transaction_service.transactions_this_month("expenses", summary=True)
+        incomes_this_month = transaction_service.transactions_this_month(
+            user=user,
+            operation="incomes"
+            )
+        
+        incomes_this_month_sum = incomes_this_month.aggregate(
+            Sum("value")
+            ).get("value__sum")
 
-        # retrieving incomes/expenses summary for previous month
-        incomes_previous_month = transaction_service.transactions_previous_month(operation="incomes", summary=True)
-        expenses_previous_month = transaction_service.transactions_previous_month(operation="expenses", summary=True)
+        expenses_this_month = transaction_service.transactions_this_month(
+            user=user,
+            operation="expenses"
+            )       
+        expenses_this_month_sum = expenses_this_month.aggregate(
+            Sum("value")
+            ).get("value__sum", 0)
+        
+        # retrieving incomes/expenses summary for previous month      
+        incomes_previous_month_sum = transaction_service.transactions_previous_month(
+            user=user,
+            operation="incomes",
+            sum=True
+            )
+
+        expenses_previous_month_sum = transaction_service.transactions_previous_month(
+            user=user,
+            operation="expenses",
+            sum=True
+            )
 
         # retrieving final balance
-        balance = transaction_service.get_final_balance()
+        balance = transaction_service.get_final_balance(
+            user=self.request.user
+            )
 
         # retrieving category stats
-        category_expenses_stats = category_service.expenses_in_categories_this_month()
-        top_expense_category = category_expenses_stats.first()
-        less_expense_category = category_expenses_stats.last()
+        category_expenses_stats = category_service.expenses_this_month(
+            user=self.request.user
+            )
+        
+        if category_expenses_stats is None :
+            top_expense_category, less_expense_category = None, None
+        elif category_expenses_stats.count() == 1:
+            top_expense_category, less_expense_category = category_expenses_stats.first(), None
+        else:
+            top_expense_category = category_expenses_stats.first()
+            less_expense_category = category_expenses_stats.last()
 
         # getting most expensive purchase this month
         most_expensive_purchase_this_month = (
-            transaction_service.get_all_transactions(operation="expenses")
-            .filter(transaction_filter.transaction_date_filter(month="current"))
+            expenses_this_month
             .order_by("-value")
             .first()
         )
+
+        # getting teh highest income
         highest_income_this_month = (
-            transaction_service.get_all_transactions(operation="incomes")
-            .filter(transaction_filter.transaction_date_filter(month="current"))
+            incomes_this_month
             .order_by("-value")
             .first()
         )
+
+        category_summary_stats = [
+                {
+                    "stats_header": "Top spends this month",
+                    "instance": top_expense_category,
+                    },
+                {
+                    "stats_header": "Less spends this month",
+                    "instance": less_expense_category,
+                    },
+                {
+                    "stats_header": "Most expensive purchase",
+                    "instance": most_expensive_purchase_this_month,
+                },
+                {
+                    "stats_header": "Highest income",
+                    "instance": highest_income_this_month,
+                }
+            ]
+        # filtering None value data
+        category_summary_stats = [instance for instance in category_summary_stats if instance["instance"] is not None]
+
         # updating context with new variables
         data_to_context = {
-            "this_month_incomes_total": incomes_this_month,
-            "this_month_expenses_total": expenses_this_month,
-            "last_month_incomes_total": incomes_previous_month,
-            "last_month_expenses_total": expenses_previous_month,
-            "categories_summary_stats": [
-                {"stats_header": "Top expends this month", "stats": top_expense_category},
-                {"stats_header": "Less spends this month", "stats": less_expense_category},
-                {"stats_header": "Most expensive purchase", "stats": most_expensive_purchase_this_month},
-                {"stats_header": "Highest income", "stats": highest_income_this_month}
-            ],
+            "this_month_incomes_total": incomes_this_month_sum,
+            "this_month_expenses_total": expenses_this_month_sum,
+            "last_month_incomes_total": incomes_previous_month_sum,
+            "last_month_expenses_total": expenses_previous_month_sum,
+            "categories_summary_stats": category_summary_stats,
             "balance_summary": balance
         }
-        logger.info(f"Context data providing along with DashboardView: {data_to_context}.")
+        logger.debug(f"Context data providing along with DashboardView: {data_to_context}.")
         data.update(data_to_context)
         return data
 
 
-class TransactionsListView(django_filters.views.FilterView):
+class TransactionsListView(FilterView):
     """ Lists all transactions """
     logger.debug("DashboardView requested.")
 
@@ -108,3 +163,33 @@ class TransactionsListView(django_filters.views.FilterView):
     context_object_name = "transactions"
     paginate_by = 20
     filterset_class = TransactionsListFilter
+
+    def get_queryset(self) -> QuerySet[Any]:
+        transactions_queryset = super().get_queryset()
+        return (transactions_queryset.filter(user=self.request.user)
+                        .select_related("category__parent")
+        )
+
+
+class TransactionDeleteView(DeleteView):
+    """ Deletes an existing instance. """
+    model = Transaction
+    template_name = 'invoices/transaction_confirm_delete.html'
+    context_object_name = "transaction"
+
+    def get_success_url(self):
+        if 'HTTP_REFERER' in self.request.META:
+            return self.request.META['HTTP_REFERER']
+
+
+class TransactionUpdateView(UpdateView):
+    """ Updates an existing model. """
+    model = Transaction
+    form_class = InvoiceUpdateForm
+    context_object_name = "transaction"
+    template_name = "invoices/transaction_update.html"
+
+    def get_success_url(self):
+        if 'HTTP_REFERER' in self.request.META:
+            return self.request.META['HTTP_REFERER']
+        

@@ -7,10 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href={% static "css/base_page.css" %}>
     <link rel="stylesheet" href={% static "css/navbar.css" %}>
+    <link rel="stylesheet" href={% static "preferences/css/settings_menu_base.css" %}>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <script src={% static "invoices/js/create_new_transaction_modal.js" %} defer></script>
+    <script src={% static "js/profile_dropdown_menu.js" %} defer></script>
+    <script src={% static "preferences/js/open_preference_modal.js" %} defer></script>
     {% comment %} May be extended with additional tags in block below.{% endcomment %}
     {% block extra_head_tags %}{% endblock extra_head_tags %}
     <title>{% block tab_title %}{% endblock tab_title %}</title>
@@ -19,27 +22,57 @@
 <body>
     {% comment %} Navbar {% endcomment %}
     {% include "navbar.html" %}
+
+    {% comment %} Backend messages {% endcomment %}
+    {% if messages %}
+    <div id="messages_container">
+        {% for message in messages %}
+            <span class="message {{ message.tags }}">
+                {{ message | safe }}
+            </span>
+        {% endfor %}
+    </div>
+    <script>
+      // Glow up messages with timer set.
+      var message_container = document.getElementById('messages_container');
+      setTimeout(function(){
+        message_container.classList.add("hide");
+        message_container.addEventListener('animationend', function() {
+            message_container.remove();
+        });
+      }, 5000);
+    </script>
+    {% endif %}
+
+    {% comment %} Page content {% endcomment %}
     <div class="page">
 
         <section class="page_header">
             <h1>{% block page_title %}{% endblock page_title %}</h1>
-            <span class="current_time"><b>{{ current_date }}</b></span>
+            <span class="current_time">{{ current_date }}</span>
 
             <div class="page_header_interactors">                
-                {% comment %} Profile dropdown menu {% endcomment %}
-                <nav class="profile_navigation_block">
-
-                    <label for="touch"><span><img src="{% static "img/base_page_icons/default_profile_image.svg" %}" alt="default_profile"></span></label>               
-                    <input type="checkbox" id="touch"> 
-                  
-                    <ul class="dropdown_list">
-                      <li><a href="#">Profile</a></li> 
-                      <li><a href={% url "preferences:preferences_general" %}>Settings</a></li>
-                      <hr style="margin: 0px;">
-                      <li><a href="#">Logout</a></li>
+                {% comment %} Profile bar {% endcomment %}
+                <div class="select-menu active">
+                    <div class="select-btn">
+                      {% if user.profile.avatar_thumbnail %}
+                        <img src={{user.profile.avatar_thumbnail.url}} alt="user_avatar">
+                      {% else %}
+                        <img src={% static "accounts/img/default_profile_avatar.svg" %} alt="user_avatar">
+                      {% endif %}
+                      <span class="sBtn-text">{{user.profile.username}}</span>
+                    </div>
+                    <ul class="options">
+                      <li class="option">
+                        <a class="option-text" id="openPreferencesModal" href={% url "preferences:preferences_update" %}>Settings</a>
+                      </li>
+                      <hr>
+                      <li class="option">
+                        <a class="option-text" href={% url "accounts:logout" %} >Log out</a>
+                      </li>
                     </ul>
-                  
-                </nav> 
+                </div>
+                {% include "preferences/settings_menu_base.html" %}
             </div>
         </section>
     

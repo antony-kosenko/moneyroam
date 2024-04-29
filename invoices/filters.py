@@ -2,7 +2,6 @@ import datetime
 from django.db.models import Q
 
 import django_filters
-from django_filters.widgets import DateRangeWidget
 from mptt.forms import TreeNodeChoiceField
 
 from invoices.models import Transaction, Category
@@ -62,8 +61,6 @@ class TransactionsListFilter(django_filters.FilterSet):
 
     title = django_filters.CharFilter(lookup_expr="icontains", label="Transaction title")
     date_created = django_filters.DateFromToRangeFilter()
-    # TODO find out how to build a MPTT tree choice field
-    category = TreeNodeChoiceField(queryset=Category.objects.all())
 
     class Meta:
         model = Transaction

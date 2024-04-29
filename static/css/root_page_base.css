@@ -1,0 +1,79 @@
+html, body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.messages {
+    position: fixed;
+    width: 100%;
+    top: 70px;
+    height: 50px;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.error-background {
+    background-color: rgba(255, 0, 0, 0.35);
+}
+
+.success-background {
+    background-color: rgba(0, 255, 0, 0.35);
+}
+
+.default-background {
+    background-color: rgba(253, 253, 3, 0.35);
+}
+
+.root_page_content {
+    margin-top: 130px;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    gap: 20px;
+    flex: 1 1 0;
+}
+
+.start_page_nav {
+    position: fixed;
+    width: 100%;
+    padding: 10px 30px;
+    box-sizing: border-box;
+    background-color: #d3d4d560;
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+    align-items: center;
+    flex-basis: 70px;
+}
+
+.start_page_nav .login_registr_block {
+    display: flex;
+    background-color: #1d2127;
+    box-sizing: border-box;
+    height: 100%;
+    padding: 15px 15px;
+    border-radius: 10px;
+    gap: 15px;
+}
+
+.start_page_nav a {
+    text-decoration: none;
+    color: #1d2127;
+}
+
+.start_page_nav a:hover {
+    font-weight: bold;
+}
+
+.login_registr_block a {
+    color: white!important;
+}
+
+

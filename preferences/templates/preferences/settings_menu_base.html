@@ -1,28 +1,49 @@
-{% extends "base_page.html" %}
 {% load static %}
 
-{% comment %} Extra head lines {% endcomment %}
-{% block extra_head_tags %}
-    <link rel="stylesheet" href={% static "preferences/css/settings_menu_base.css" %}>
-{% endblock extra_head_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="preferencesModal" class="preferences_modal">
+    <!-- Modal content -->
+    <div class="preferences_modal_content">
+      <span class="close">&times;</span>
+        <section class="profile_info">
 
-{% comment %} Tab title {% endcomment %}
-{% block tab_title %}Preferences{% endblock tab_title %}
+            {% if user.profile.avatar %}
+              <img src={{ user.profile.avatar.url }} alt="avatar">
+            {% else %}
+              <img src={% static "accounts/img/default_profile_avatar.svg" %} alt="user_avatar">
+            {% endif %}
+            
+            <div class="base_info">
+              <span>{{ user.profile.username }}</span>
+              <span>{{ user.email }}</span>
+              {% if user.profile.first_name and user.profile.last_name %}
+                <span>{{ user.profile.first_name}}, {{user.profile.last_name}}</span>
+              {% endif %}
+              <a href="">Edit</a>
+            </div>
 
-{% comment %} Page title {% endcomment %}
-{% block page_title %}Preferences{% endblock page_title %}
+        </section>
 
-{% comment %} Page core content {% endcomment %}
-{% block page_content %}
-    <div class="preferences_options">
-        <a>General</a>
+        <section class="preferences_data">
+            <div class="preferences_tabs">
+                {% comment %} Tabs {% endcomment %}
+                <a href="#preferences" class="tab" data-url="{% url 'preferences:preferences_update' %}">Preferences</a>
+                <a href="#profile" class="tab" data-url="{% url 'accounts:profile_update' %}">Profile</a>
+            </div>
+            
+            <div class="preferences_content">
+              {% comment %} JS generated dynamic content depends on tab pressed. {% endcomment %}
+            </div>
+        </section>
+        
     </div>
-
-    <div class="preferences_details">
-        <form action={% url "preferences:preferences_general" %} method="post">
-            {% csrf_token %}
-            {{ base_config_form.as_p }}
-            <button type="submit">Apply</button>
-        </form>
-    </div>
-{% endblock page_content %}
+  </div>
+</body>
+</html>
