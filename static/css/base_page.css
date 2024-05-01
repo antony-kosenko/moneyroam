@@ -256,8 +256,8 @@ html, body {
   }
 
   .page_header > span {
-      margin: 20px;
-      text-align: center;
+    margin: 20px 0;
+    text-align: center;
   }
 
   .page_header_interactors {

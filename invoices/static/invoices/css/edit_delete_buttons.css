@@ -143,3 +143,24 @@
     background-color: #1d2127;
     color: white;
 }
+
+
+@media screen and (max-width: 1000px) {
+    
+    .confirm_modal{
+        min-width: unset;
+        width: 90%;
+        left: 5%;
+        min-height: fit-content;
+    }
+
+    .edit_modal {
+        box-sizing: border-box;
+        width: 90%;
+        max-width: unset;
+        min-width: unset;
+        left: 5%;
+        height: fit-content;
+    }
+    
+}
