@@ -9,6 +9,7 @@
     <script src={% static "invoices/js/transaction_edit_update_modal.js" %} defer></script>
     <script src={% static "invoices/js/comment_expand_on_hover.js" %} defer></script>
     <script src={% static "invoices/js/receipt_expand_on_hover.js" %} defer></script>
+    <script src={% static "invoices/js/dashboard_responsive.js" %} defer></script>
 {% endblock extra_head_tags %}
 
 {% comment %} Tab title {% endcomment %}
@@ -25,9 +26,9 @@
             {% comment %} Summary value for expenses/incomes in separate blocks {% endcomment %}
             <div class="summary_block">
                 {% if balance_summary < 0 %}
-                <span class="balance_text" style="color: #fe3f70">{{ balance_summary }} {{ user.config.currency}}</span>
+                <span class="balance_text" style="color: #fe3f70">{{ balance_summary }} <span class="currency">{{ user.config.currency}}</span></span>
                 {% else %}
-                <span class="balance_text">{{ balance_summary }} {{ user.config.currency}}</span>
+                <span class="balance_text">{{ balance_summary }} <span class="currency">{{ user.config.currency}}</span></span>
                 {% endif %}
                 
                 <div class="summary_data_label">
@@ -116,16 +117,18 @@
                         {% include "invoices/extra_data_block.html" %}
 
                         <div class="transaction_item_summary">
-                            {% if transaction.operation == "incomes" %}
-                                <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
-                            {% else %}
-                                <span>- {{ transaction.value }} {{ transaction.currency }}</span>
-                            {% endif %}
+                            <div class="transaction_values">
+                                {% if transaction.operation == "incomes" %}
+                                    <span style="color: #10a882;">{{ transaction.value }} {{ transaction.currency }}</span>
+                                {% else %}
+                                    <span>- {{ transaction.value }} {{ transaction.currency }}</span>
+                                {% endif %}
                             <span>{{ transaction.date_created | date }}</span>
+                            </div>
                         </div>
                         
                         {% comment %} Div container with Delete / Edit buttons. {% endcomment %}
-                        {% include "invoices/edit_block.html" %}
+                        {% include "invoices/edit_block.html" %} 
                         
                     </div>
                     {% endfor %}

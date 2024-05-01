@@ -63,7 +63,6 @@ def login_view(request):
 
     else:
         user_form = UserLoginForm()
-        print("here3")
         return render(request, "accounts/login_page.html", context={"user_form": user_form})
 
 

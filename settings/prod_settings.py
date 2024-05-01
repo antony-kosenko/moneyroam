@@ -8,7 +8,6 @@ load_dotenv()
 # initialization of database's environmental variables
 
 
-
 ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
