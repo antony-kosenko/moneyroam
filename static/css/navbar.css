@@ -228,7 +228,7 @@
     }
   
     .nav_menu a {
-        height: 90%;
+        height: 100%;
         width: fit-content;
     }
   
@@ -238,14 +238,20 @@
     }
 
     #openModalBtn {
-        width: 85px;
-        height: 80px;
-        background-color: #1d2127;
+        width: 100px;
+        height: 100%;
         border-radius: 15px;
         padding: 6px;
         cursor: pointer;
         box-sizing: border-box;
-        margin: 5px;
-        margin-bottom: 20px;
+
     }
+
+    .modal-content {
+        box-sizing: border-box;
+        width: 90%;
+        left: 50%;
+        height: fit-content;
+    }
+
 }
