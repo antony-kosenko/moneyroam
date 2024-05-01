@@ -26,7 +26,7 @@
             {% comment %} Summary value for expenses/incomes in separate blocks {% endcomment %}
             <div class="summary_block">
                 {% if balance_summary < 0 %}
-                <span class="balance_text" style="color: #fe3f70">{{ balance_summary }} <span class="currency">{{ user.config.currency}}</span></span>
+                <span class="balance_text" style="color: #fe3f70">{{ balance_summary }} <span class="currency" style="background-color: #fe3f70">{{ user.config.currency}}</span></span>
                 {% else %}
                 <span class="balance_text">{{ balance_summary }} <span class="currency">{{ user.config.currency}}</span></span>
                 {% endif %}

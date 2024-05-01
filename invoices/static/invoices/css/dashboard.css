@@ -296,6 +296,12 @@
         flex-direction: column;
         flex-basis: 60%;
         margin: 0;
+        min-height: 200px;
+    }
+
+    .last_transactions_list_block > .no_content {
+        flex-grow: 2;
+        margin: 0;
     }
 
     .category_stats {
@@ -327,13 +333,16 @@
         padding-top: 5px;
     }
 
-    .transaction_item > .edit_block a {
-        flex-basis: 50%;
-    }
-
     .transaction_responsive_head {
         display: flex;
     }
 
+    .edit_block > .edit-object-button {
+        flex-basis: 50%;
+    }
+
+    .transaction_extra_data {
+        flex-direction: row;
+    }
 
 }   

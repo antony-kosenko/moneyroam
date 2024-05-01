@@ -151,7 +151,9 @@
         min-width: unset;
         width: 90%;
         left: 5%;
-        min-height: fit-content;
+        top: 20%;
+        min-height: 40%;
+        height: fit-content;
     }
 
     .edit_modal {
