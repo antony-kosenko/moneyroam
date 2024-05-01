@@ -1,5 +1,5 @@
 import os
-import dj_database_url
+
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 INTERNAL_IPS = [
     "127.0.0.1",
