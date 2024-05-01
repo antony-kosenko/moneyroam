@@ -80,7 +80,6 @@
 .transactions_list {
     display: flex;
     margin: 15px 0 0 20px;
-    flex-grow: 1;
     flex-direction: column;
     border-radius: 10px;
     border-radius: 10px;
@@ -115,8 +114,8 @@
     width: 50px;
     padding: 5px;
     align-self: center;
-    border: 1px solid black;
     border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .transaction_item .edit_block {
@@ -286,7 +285,6 @@
         width: 35px;
         padding: 5px;
         align-self: center;
-        border: 1px solid black;
         border-radius: 10px;
     }
 

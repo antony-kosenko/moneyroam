@@ -230,6 +230,10 @@
 
 .category_stats > *:first-child {
     font-size: 0.8rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    padding: 3px;
 }
 
 .stats_category_name :first-of-type {
@@ -286,9 +290,12 @@
 
     .summary_data_label a {
         width: 70px;
-        height: calc(100% - 30px);
+        min-width: 45px;
+        height: 100%;
         margin: 15px 10px 15px 0;
         align-self: center;
+        min-height: 80px;
+        padding: 20px 0;
     }
 
     .last_transactions_list_block {
@@ -306,6 +313,7 @@
 
     .category_stats {
         flex-basis: 25%;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     }
 
     .transaction_list {
@@ -319,15 +327,30 @@
         height: unset;
         align-self: stretch;
         justify-content: end;
+        gap: 7px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     }
 
     .transaction_item_summary {
         flex-direction: column;
         align-self: center;
+        width: 100%;
+    }
+
+    .transaction_item_summary > .transaction_values {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    div.transaction_item_summary > .transaction_values > span:nth-child(1) {
+        border-radius: 5px;
+        padding: 2px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     }
 
     .transaction_item > .edit_block {
-        flex-direction: row;
+        flex-direction: row-reverse;
         width: 100%;
         height: fit-content;
         padding-top: 5px;

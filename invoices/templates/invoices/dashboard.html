@@ -148,7 +148,7 @@
                 {% for object in categories_summary_stats %}
                     <div class="category_stats">
                         <span> {{ object.stats_header }}</span>
-                            {% if object.stats_header == "Top spends this month" or object.stats_header == "Less spends this month" %}
+                            {% if object.stats_header == "Top spends this month" or object.stats_header == "Least spends this month" %}
                                 <div class="stats_category_name">
                                     {% if object.instance.parent.name is not None %}
                                         <span>{{ object.instance.parent.name }} <br></span>

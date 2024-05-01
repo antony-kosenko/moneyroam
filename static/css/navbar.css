@@ -249,7 +249,6 @@
 
     .modal-content {
         box-sizing: border-box;
-        width: 90%;
         left: 50%;
         height: fit-content;
     }
