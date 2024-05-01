@@ -1,5 +1,5 @@
 import os
-
+import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -219,11 +219,17 @@ DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg", "WEBP": ".webp"}
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
 
-if DEBUG:
-    from settings.dev_settings import *
-else:
-    from settings.prod_settings import *
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
-    # and renames the files with unique names for each version to support long-term caching
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# if DEBUG:
+#     from settings.dev_settings import *
+# else:
+#     from settings.prod_settings import *
+#     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+#     # and renames the files with unique names for each version to support long-term caching
+#     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+ALLOWED_HOSTS = ["*"]
+
+DATABASES = {
+	"default": dj_database_url.parse(os.getenv("DB_URL"))
+}
