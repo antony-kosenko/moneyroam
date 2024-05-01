@@ -3,7 +3,6 @@ import os
 def category_image_picker(category_name: str | None) -> str | None:
     """ Takes base category title and picks correct image from base icons statics. """
     category_default_imgs_path = "invoices/static/invoices/img/category/category_default_img"
-    print(category_name)
     if category_name is None:
         return None
     else:
