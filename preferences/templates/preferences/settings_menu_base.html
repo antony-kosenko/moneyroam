@@ -1,4 +1,4 @@
-{% load static %}
+{% comment %} {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<body>
-  <div id="preferencesModal" class="preferences_modal">
+<body> {% endcomment %}
+  {% comment %} <div id="preferencesModal" class="preferences_modal">
     <!-- Modal content -->
     <div class="preferences_modal_content">
       <span class="close">&times;</span>
@@ -34,16 +34,16 @@
         <section class="preferences_data">
             <div class="preferences_tabs">
                 {% comment %} Tabs {% endcomment %}
-                <a href="#preferences" class="tab" data-url="{% url 'preferences:preferences_update' %}">Preferences</a>
+                {% comment %} <a href="#preferences" class="tab" data-url="{% url 'preferences:preferences_update' %}">Preferences</a>
                 <a href="#profile" class="tab" data-url="{% url 'accounts:profile_update' %}">Profile</a>
             </div>
             
-            <div class="preferences_content">
+            <div class="preferences_content"> {% endcomment %}
               {% comment %} JS generated dynamic content depends on tab pressed. {% endcomment %}
-            </div>
+            {% comment %} </div>
         </section>
         
     </div>
-  </div>
-</body>
-</html>
+  </div> {% endcomment %}
+{% comment %} </body>
+</html> {% endcomment %}

@@ -14,6 +14,3 @@ def preferences_view(request):
         if preferences_form.is_valid():
             preferences_form.save()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', "/"))
-    else:
-        preferences_form = PreferencesGeneral(instance=config_to_update)
-        return render(request, "preferences/preferences_config.html", context={"preferences_form": preferences_form})

@@ -85,7 +85,4 @@ def profile_update_view(request):
         else:
             profile_form = ProfileUpdateForm()
             return render(request, "accounts/profile_settings.html", {'profile_form': profile_form})
-    else:
-        profile_form = ProfileUpdateForm()
-        return render(request, "accounts/profile_settings.html", {'profile_form': profile_form})
     

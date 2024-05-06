@@ -67,6 +67,10 @@
     flex-basis: 5%;
 }
 
+.nav_menu_bottom > .preferences-trigger {
+    display: none;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -211,34 +215,41 @@
         background-color: #1d2127;
         height: 100%;
         box-sizing: border-box;
-        flex-basis: 45%;
+        flex-basis: 42.5%;
     }
   
     .nav_menu .nav_menu_bottom {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: row-reverse;
         flex-basis: 46%;
+        gap: 20px;
         justify-content: start;
         border-radius: 15px 0 0 0;
         background-color: #1d2127;
         padding: 10px;
         height: 100%;
         box-sizing: border-box;
-        flex-basis: 45%;
+        flex-basis: 42.5%;
     }
-  
+
     .nav_menu a {
         height: 100%;
         width: fit-content;
+        flex-basis: 50%;
+        text-align: center;
     }
-  
+    
+    .nav_menu_bottom > #settings {
+        display: block;
+    }
+
     .nav_menu img {
         height: 100%;
         filter: invert(100%) sepia(56%) saturate(1503%) hue-rotate(179deg) brightness(105%) contrast(102%);
     }
 
     #openModalBtn {
-        width: 100px;
+        flex-basis: 15%;
         height: 100%;
         border-radius: 15px;
         padding: 6px;
@@ -251,6 +262,10 @@
         box-sizing: border-box;
         left: 50%;
         height: fit-content;
+    }
+
+    .nav_menu_bottom > .preferences-trigger {
+        display: block;
     }
 
 }

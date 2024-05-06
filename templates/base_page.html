@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <script src={% static "invoices/js/create_new_transaction_modal.js" %} defer></script>
     <script src={% static "js/profile_dropdown_menu.js" %} defer></script>
-    <script src={% static "preferences/js/open_preference_modal.js" %} defer></script>
+    <script src={% static "preferences/js/preference_modal.js" %} defer></script>
     {% comment %} May be extended with additional tags in block below.{% endcomment %}
     {% block extra_head_tags %}{% endblock extra_head_tags %}
     <title>{% block tab_title %}{% endblock tab_title %}</title>
@@ -53,7 +53,7 @@
 
             <div class="page_header_interactors">                
                 {% comment %} Profile bar {% endcomment %}
-                <div class="select-menu active">
+                <div class="select-menu">
                     <div class="select-btn">
                       {% if user.profile.avatar_thumbnail %}
                         <img src={{user.profile.avatar_thumbnail.url}} alt="user_avatar">
@@ -64,7 +64,7 @@
                     </div>
                     <ul class="options">
                       <li class="option">
-                        <a class="option-text" id="openPreferencesModal" href={% url "preferences:preferences_update" %}>Settings</a>
+                        <a class="option-text preferences-trigger" id="openPreferencesModal">Settings</a>
                       </li>
                       <hr>
                       <li class="option">
@@ -72,7 +72,6 @@
                       </li>
                     </ul>
                 </div>
-                {% include "preferences/settings_menu_base.html" %}
             </div>
         </section>
     
@@ -80,7 +79,9 @@
     <section class="page_content">
     {% block page_content %}{% endblock page_content %}
     </section>
-    </div>    
+    </div>   
+    
+    {% comment %} Preferences modal {% endcomment %}
+    {% include "preferences/preferences_modal.html" %}
 </body>
-
 </html>
