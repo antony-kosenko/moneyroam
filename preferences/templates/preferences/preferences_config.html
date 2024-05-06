@@ -1,4 +1,4 @@
-<form action={% url "preferences:preferences_update" %} method="post">
+<form id="preferencesUpdateForm" action={% url "preferences:preferences_update" %} method="post">
 
     {% csrf_token %}
     {{ preferences_form }}

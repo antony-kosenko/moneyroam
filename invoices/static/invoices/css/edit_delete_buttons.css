@@ -149,18 +149,25 @@
     
     .confirm_modal{
         min-width: unset;
-        width: 90%;
-        left: 5%;
-        min-height: fit-content;
+        max-width: 90%;
+        width: 70%;
+        left: 15%;
+        top: 20%;
+        min-height: 35%;
+        height: fit-content;
     }
 
     .edit_modal {
-        box-sizing: border-box;
-        width: 90%;
-        max-width: unset;
-        min-width: unset;
-        left: 5%;
-        height: fit-content;
+        position: absolute;
+    background-color: #f5f6f8;
+    left: 35%;
+    top: 10%;
+    min-height: 450px;
+    min-width: 370px;
+    max-width: 450px;
+    padding: 30px;
+    box-sizing: border-box;
+    border-radius: 10px;
     }
     
 }

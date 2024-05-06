@@ -64,7 +64,14 @@
   padding-top: 10px;
 }
 
-.base_info a {
+.base_info > .profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.base_info > a {
   margin-top: auto;
   background-color: #1d2127;
   color: white;
@@ -100,7 +107,7 @@
   box-sizing: border-box;
 }
 
-.preferences_tabs .tab {
+.preferences_tabs > .setting-tab {
   height: 100%;
   flex: 1 1 0;
   text-decoration: none;
@@ -115,7 +122,7 @@
   font-weight: bold;
 }
 
-.preferences_tabs .tab.active {
+.preferences_tabs > .setting-tab.active {
   background-color: #1d2127;
   color: white;
   border: 1px solid #1d2127;
@@ -131,12 +138,14 @@
   padding: 15px;
 }
 
-.preferences_content form {
-  display: flex;
+.preferences_content > form {
+  display: none;
   flex-direction: column;
   flex-basis: 100%;
   gap: 10px;
 }
+
+
 
 .preferences_content form label {
   font-size: 0.9rem;
@@ -166,3 +175,53 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+
+@media screen and (max-width: 1000px) {
+
+  .preferences_modal_content {
+    flex-direction: column;
+    background-color: #fefefe;
+    box-sizing: border-box;
+    border-radius: 15px;
+    top: 5%;
+    left: 5%;
+    padding: 40px;
+    width: 90%;
+    height: 85%;
+  }
+
+  .preferences_modal_content > .preferences_data {
+    border: 2px solid black;
+    border-top: none;
+  }
+
+  .preferences_modal_content > .profile_info {
+    width: 100%;
+    flex-basis: 30%;
+    border: 2px solid black;
+    border-bottom: 2px dashed black;
+  }
+
+  .preferences_modal_content > .profile_info > img {
+    max-width: 70px;
+    max-height: 70px;
+    flex-basis: 30%;
+  }
+
+  .preferences_tabs {
+    flex-wrap: wrap;
+    height: 100%;
+    padding: 5px 0 0 5px;
+    flex-basis: 10%;
+  }
+
+  .preferences_tabs > .setting-tab {
+    all:unset;
+    border: 1px solid black;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    padding: 2px 5px;
+    font-size: 0.8rem;
+  }
+}

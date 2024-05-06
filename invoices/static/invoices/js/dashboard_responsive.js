@@ -15,3 +15,4 @@ if (window.innerWidth <= 1000) {
         transactionResponsiveHead.appendChild(transactionItemDescription)
     }
 }
+

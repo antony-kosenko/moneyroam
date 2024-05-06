@@ -20,6 +20,7 @@
     border-radius: 10px;
     background-color: #f5f6f8;
     height: 100%;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
 .summary_block > .balance_text {
@@ -217,6 +218,7 @@
     border-radius: 10px;
     justify-content: space-evenly;
     background: repeating-linear-gradient(45deg, #f5f6f8, #f5f6f8 10px, #f5f6f8 10px, #eaebeb 20px);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 }
 
 .category_stats img {
@@ -230,6 +232,11 @@
 
 .category_stats > *:first-child {
     font-size: 0.8rem;
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+    padding: 3px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .stats_category_name :first-of-type {
@@ -286,9 +293,12 @@
 
     .summary_data_label a {
         width: 70px;
-        height: calc(100% - 30px);
+        min-width: 45px;
+        height: 100%;
         margin: 15px 10px 15px 0;
         align-self: center;
+        min-height: 80px;
+        padding: 20px 0;
     }
 
     .last_transactions_list_block {
@@ -296,10 +306,17 @@
         flex-direction: column;
         flex-basis: 60%;
         margin: 0;
+        min-height: 200px;
+    }
+
+    .last_transactions_list_block > .no_content {
+        flex-grow: 2;
+        margin: 0;
     }
 
     .category_stats {
         flex-basis: 25%;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     }
 
     .transaction_list {
@@ -313,27 +330,44 @@
         height: unset;
         align-self: stretch;
         justify-content: end;
+        gap: 7px;
     }
 
     .transaction_item_summary {
         flex-direction: column;
         align-self: center;
+        width: 100%;
+    }
+
+    .transaction_item_summary > .transaction_values {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    div.transaction_item_summary > .transaction_values > span:nth-child(1) {
+        border-radius: 5px;
+        padding: 2px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     }
 
     .transaction_item > .edit_block {
-        flex-direction: row;
+        flex-direction: row-reverse;
         width: 100%;
         height: fit-content;
         padding-top: 5px;
-    }
-
-    .transaction_item > .edit_block a {
-        flex-basis: 50%;
     }
 
     .transaction_responsive_head {
         display: flex;
     }
 
+    .edit_block > .edit-object-button {
+        flex-basis: 50%;
+    }
+
+    .transaction_extra_data {
+        flex-direction: row;
+    }
 
 }   

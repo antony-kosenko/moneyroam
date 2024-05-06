@@ -75,6 +75,7 @@ TEMPLATES = [
                 'moneyroam.context_processors.current_date_context',
                 'accounts.context_processors.profile_update_form',
                 'invoices.context_processors.create_transaction_form',
+                'preferences.context_processors.preferences_update_form',
             ],
         },
     },

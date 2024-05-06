@@ -1,0 +1,40 @@
+{% load static %}
+
+<div id="preferencesModal" class="preferences_modal">
+    <!-- Modal content -->
+    <div class="preferences_modal_content">
+      <span class="close">&times;</span>
+        <section class="profile_info">
+
+            {% if user.profile.avatar %}
+              <img src={{ user.profile.avatar.url }} alt="avatar">
+            {% else %}
+              <img src={% static "accounts/img/default_profile_avatar.svg" %} alt="user_avatar">
+            {% endif %}
+            
+            <div class="base_info">
+              <div class="profile-info">
+                <span>{{ user.profile.username }}</span>
+                <span>{{ user.email }}</span>
+                {% if user.profile.first_name and user.profile.last_name %}
+                <span>{{ user.profile.first_name}}, {{user.profile.last_name}}</span>
+                {% endif %}
+              </div>
+              <a id="profileEditButton">Edit</a>
+            </div>
+
+        </section>
+
+        <section class="preferences_data">
+            <div class="preferences_tabs">
+                {% comment %} Tabs {% endcomment %}
+                <a class="setting-tab" id="preferences-tab">Preferences</a>
+                <a class="setting-tab" id="profile-tab">Profile</a>
+            </div>
+            <div class="preferences_content">
+                {% include "accounts/profile_settings.html" %}
+                {% include "preferences/preferences_config.html" %}
+            </div>
+        </section>   
+    </div>
+</div>
