@@ -1,47 +1,29 @@
 // Selecting elements
-const optionMenu = document.querySelector(".select-menu");
-const selectBtn = optionMenu.querySelector(".select-btn");
-const options = optionMenu.querySelectorAll(".option");
-const optionList = optionMenu.querySelector(".options");
-
-// Function to close the dropdown menu and hide options list
-function closeDropdown() {
-  optionMenu.classList.remove("active");
-  optionList.classList.remove("show");
-}
-
-// Adding event listener to close dropdown menu when clicking outside of it
-document.addEventListener("click", (event) => {
-  if (!optionMenu.contains(event.target)) {
-    closeDropdown();
-  }
-});
-
-// Adding event listener to toggle dropdown menu on button click
-selectBtn.addEventListener("click", () => {
-  optionMenu.classList.toggle("active");
-  if (optionMenu.classList.contains("active")) {
-    optionList.classList.add("show");
-  } else {
-    optionList.classList.remove("show");
-  }
-});
-
-// Adding event listener to handle option selection
-options.forEach((option) => {
-  option.addEventListener("click", () => {
-    closeDropdown();
-  });
-});
+const selectMenu = document.getElementsByClassName("select-menu")[0]
+const dropdownOptions = selectMenu.querySelector(".options");
 
 // Ensure dropdown menu is closed and options list is hidden on page load
 document.addEventListener("DOMContentLoaded", () => {
   closeDropdown();
 });
 
+// Function to close the dropdown menu and hide options list
+function closeDropdown() {
+  dropdownOptions.classList.remove("active")
+  dropdownOptions.classList.add("hidden")
+}
 
+// Function to toggle dropdown menu
+function toggleDropdown() {
+  
+  if (dropdownOptions.classList.contains("active")) {
+    dropdownOptions.classList.remove("active");
+    dropdownOptions.classList.add("hidden");
+  } else if (dropdownOptions.classList.contains("hidden")){
+    dropdownOptions.classList.remove("hidden");
+    dropdownOptions.classList.add("active")   
+  }
+}
 
-
-
-
-{/* <div class="adsbox ads ad adsbox doubleclick ad-placement carbon-ads" id="google_ads_iframe_/6355419/Travel/Europe/France/Paris_0__container__" bis_skin_checked="1">&nbsp;</div> */}
+// Adding eventlistener to toggle dropdown menu
+selectMenu.addEventListener("click", toggleDropdown)

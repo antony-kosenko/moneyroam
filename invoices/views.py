@@ -124,7 +124,7 @@ class DashboardView(ListView):
                     "instance": top_expense_category,
                     },
                 {
-                    "stats_header": "Less spends this month",
+                    "stats_header": "Least spends this month",
                     "instance": less_expense_category,
                     },
                 {
