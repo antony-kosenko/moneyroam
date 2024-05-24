@@ -1,7 +1,6 @@
 import os
 
 from dotenv import load_dotenv
-import dj_database_url
 
 load_dotenv()
 
@@ -11,5 +10,12 @@ load_dotenv()
 ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
-	"default": dj_database_url.parse(os.getenv("DB_URL"))
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+		"NAME": "moneyroam",
+        "USER": "admin",
+        "PASSWORD": "kosya523422",
+        "HOST": "localhost",
+        "PORT": ""
+    }
 }
