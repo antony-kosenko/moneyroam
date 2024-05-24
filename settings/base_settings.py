@@ -3,6 +3,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
+from moneyroam.utils import get_django_token
+
 
 # ENVS -----------------------------------------------
 load_dotenv("environs/.env.settings")
@@ -12,12 +14,11 @@ load_dotenv("environs/.env.settings")
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("KEY")
+SECRET_KEY = get_django_token()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["51.21.27.112"]
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
