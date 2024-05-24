@@ -20,9 +20,7 @@ django-resized = "^1.0.2"
 django-debug-toolbar = "^4.3.0"
 django-cleanup = "^8.1.0"
 gunicorn = "^22.0.0"
-dj-database-url = "^2.1.0"
 environs = "^11.0.0"
-whitenoise = {extras = ["brotli"], version = "^6.6.0"}
 uvicorn = "^0.29.0"
 
 
