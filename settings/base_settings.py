@@ -17,6 +17,7 @@ SECRET_KEY = os.getenv("KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+ALLOWED_HOSTS = ["51.21.27.112"]
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
