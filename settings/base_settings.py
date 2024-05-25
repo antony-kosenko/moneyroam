@@ -17,11 +17,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = get_django_token()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+INTERNAL_IPS = ["*"]
 
 # Application definition
 
@@ -223,6 +221,6 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
 
 if DEBUG:
-    from settings.dev_settings import *
-else:
+#     from settings.dev_settings import *
+# else:
     from settings.prod_settings import *
