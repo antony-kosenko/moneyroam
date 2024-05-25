@@ -6,4 +6,6 @@ def preferences_update_form(request):
     if not request.user.is_anonymous:
         config_to_update = Config.objects.filter(user=request.user).first()
         preferences_update_form = PreferencesGeneral(instance=config_to_update)
-    return {"preferences_form": preferences_update_form}
+        return {"preferences_form": preferences_update_form}
+    else:
+        return {}

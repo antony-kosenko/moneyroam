@@ -13,11 +13,8 @@ load_dotenv("environs/.env.settings")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_django_token()
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 INTERNAL_IPS = ["*"]
 
@@ -221,6 +218,8 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
 
 if DEBUG:
-#     from settings.dev_settings import *
-# else:
+    from settings.dev_settings import *
+    SECRET_KEY = os.environ.get("KEY")
+else:
+    SECRET_KEY = get_django_token() 
     from settings.prod_settings import *
