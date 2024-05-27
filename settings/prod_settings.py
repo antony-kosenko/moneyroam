@@ -10,7 +10,7 @@ load_dotenv()
 ALLOWED_HOSTS = ["51.21.27.112"]
 
 STATIC_ROOT = "/var/www/moneyroam/staticfiles/"
-MEDIA_ROOT = "/media/"
+MEDIA_ROOT = "/var/www/moneyroam/media/"
 
 
 DATABASES = {
