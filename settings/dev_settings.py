@@ -5,8 +5,6 @@ from dotenv import load_dotenv
 load_dotenv("environs/.env.database")
 
 
-MEDIA_ROOT = "/media/"
-
 # initialization of database's environmental variables
 
 DATABASES = {

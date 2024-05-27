@@ -9,6 +9,9 @@ load_dotenv()
 
 ALLOWED_HOSTS = ["51.21.27.112"]
 
+MEDIA_ROOT = "/media/"
+
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
