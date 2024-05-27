@@ -14,7 +14,7 @@ load_dotenv("environs/.env.settings")
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 INTERNAL_IPS = ["*"]
 
