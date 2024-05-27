@@ -1,6 +1,5 @@
 from django.db import models
 
-from accounts.models import CustomUser
 
 DEFAULT_SETTINGS = {
     "currency": "USD",
@@ -22,7 +21,7 @@ LANGUAGE_CHOICE = (
 class Config(models.Model):
     """ Represents user's preferences. """
     
-    user = models.OneToOneField(CustomUser, related_name="config", on_delete=models.CASCADE)
+    user = models.OneToOneField("accounts.CustomUser", related_name="config", on_delete=models.CASCADE)
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICE, default=DEFAULT_SETTINGS["currency"])
     language = models.CharField(max_length=56, choices=LANGUAGE_CHOICE, default=DEFAULT_SETTINGS["language"])
 
