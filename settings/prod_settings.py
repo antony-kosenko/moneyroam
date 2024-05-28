@@ -7,7 +7,7 @@ load_dotenv()
 # initialization of database's environmental variables
 
 
-ALLOWED_HOSTS = ["51.21.27.112"]
+ALLOWED_HOSTS = ["*"]
 
 STATIC_ROOT = "/var/www/moneyroam/staticfiles/"
 MEDIA_ROOT = "/var/www/moneyroam/media/"
