@@ -14,7 +14,7 @@ load_dotenv("environs/.env.settings")
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 INTERNAL_IPS = ["*"]
 
@@ -217,8 +217,8 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
 
 if DEBUG:
-#     from settings.dev_settings import *
-#     SECRET_KEY = os.environ.get("KEY")
-# else:
+    from settings.dev_settings import *
+    SECRET_KEY = os.environ.get("KEY")
+else:
     SECRET_KEY = get_django_token() 
     from settings.prod_settings import *
