@@ -1,9 +1,9 @@
 from django.db import models
+from django.conf import settings
 
 from mptt.models import MPTTModel, TreeForeignKey
 from django_resized import ResizedImageField
 
-from accounts.models import CustomUser
 
 from preferences.models import CURRENCY_CHOICE
 
@@ -55,7 +55,7 @@ class Transaction(models.Model):
     """ Invoice model.
      Represents a basic income/outcome transaction. """
     
-    user = models.ForeignKey(CustomUser, related_name="transactions", on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="transactions", on_delete=models.CASCADE)
     title = models.CharField(max_length=32, verbose_name="Title")
     category = models.ForeignKey(Category, related_name="transactions", on_delete=models.CASCADE, null=True, blank=True)
     operation = models.CharField(max_length=8, choices=OPERATION_TYPE, verbose_name="operation")

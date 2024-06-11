@@ -3,6 +3,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
+from moneyroam.utils import get_django_token
+
 
 # ENVS -----------------------------------------------
 load_dotenv("environs/.env.settings")
@@ -11,16 +13,10 @@ load_dotenv("environs/.env.settings")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("KEY")
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["51.21.27.112"]
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+INTERNAL_IPS = ["*"]
 
 # Application definition
 
@@ -198,12 +194,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = 'media/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -223,5 +218,7 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
 if DEBUG:
     from settings.dev_settings import *
+    SECRET_KEY = os.environ.get("KEY")
 else:
+    SECRET_KEY = get_django_token() 
     from settings.prod_settings import *

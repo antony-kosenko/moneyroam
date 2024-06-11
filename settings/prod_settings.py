@@ -9,6 +9,10 @@ load_dotenv()
 
 ALLOWED_HOSTS = ["*"]
 
+STATIC_ROOT = "/var/www/moneyroam/staticfiles/"
+MEDIA_ROOT = "/var/www/moneyroam/media/"
+
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",

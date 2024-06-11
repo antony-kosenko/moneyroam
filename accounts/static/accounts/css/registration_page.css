@@ -99,3 +99,15 @@
     content: " *";
     color: #9b0f0f;
 }
+
+@media screen and (max-width: 1000px) {
+    
+    .root_page_content > .info_block {
+        display: none;
+    }
+
+    .root_page_content > .registration_block {
+        width: 100%;
+        flex-basis: unset;
+    }
+}

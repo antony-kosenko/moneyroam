@@ -76,4 +76,8 @@ html, body {
     color: white!important;
 }
 
-
+@media screen and (max-width: 1000px) {
+    .error-background {
+        height: fit-content;
+    }
+} 

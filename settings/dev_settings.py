@@ -1,7 +1,9 @@
 import os
 from dotenv import load_dotenv
 
+
 load_dotenv("environs/.env.database")
+
 
 # initialization of database's environmental variables
 
