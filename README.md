@@ -29,3 +29,10 @@ Page contains useful information with recent purchases, summary statistic by cat
 Lists all transaction ordered by date. Filters available for handy search among all transaction.
 
 ![alt text](https://github.com/antony-kosenko/moneyroam/blob/dev/.app_preview_imgs/app_preview_all.png)
+
+<hr>
+
+<h3>Supports mobile devices screens.</h3>
+
+![alt text](https://github.com/antony-kosenko/moneyroam/blob/dev/.app_preview_imgs/mobile_screen_demo.png)
+![alt text](https://github.com/antony-kosenko/moneyroam/blob/dev/.app_preview_imgs/mobile_screen_demo2.png)
