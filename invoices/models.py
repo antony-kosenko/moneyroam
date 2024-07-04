@@ -80,7 +80,7 @@ class Transaction(models.Model):
         return f"[{self.date_created}] {self.title} [{self.operation}]"
         
     def __repr__(self) -> str:
-        return f"{self.operation} | {self.title}"
+        return f"{self.__class__}: {self.operation} | {self.title}"
     
     def delete(self, using=None, keep_parents=False):
         self.receipt.delete()
