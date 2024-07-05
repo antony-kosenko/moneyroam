@@ -13,7 +13,6 @@ from invoices.filters import TransactionsFilter
 logger = logging.getLogger(__name__)
 
 
-
 transaction_filter = TransactionsFilter()
 
 

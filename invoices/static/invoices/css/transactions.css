@@ -293,6 +293,7 @@
     .transaction_item_description {
         flex-basis: unset;
         padding: 5px;
+        text-align: center;
     }
 
     .transaction_item_summary {

@@ -329,7 +329,6 @@
         flex-direction: column;
         height: unset;
         align-self: stretch;
-        justify-content: end;
         gap: 7px;
     }
 
@@ -348,7 +347,7 @@
     div.transaction_item_summary > .transaction_values > span:nth-child(1) {
         border-radius: 5px;
         padding: 2px;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     }
 
     .transaction_item > .edit_block {
@@ -360,6 +359,7 @@
 
     .transaction_responsive_head {
         display: flex;
+        gap: 10px;
     }
 
     .edit_block > .edit-object-button {
