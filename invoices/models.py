@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from django.conf import settings
 
 from mptt.models import MPTTModel, TreeForeignKey
@@ -42,6 +43,10 @@ class Category(MPTTModel):
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
     
     class MPTTMeta:
         order_insertion_by = ('name',)
