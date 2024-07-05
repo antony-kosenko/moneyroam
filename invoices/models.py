@@ -67,7 +67,7 @@ class Transaction(models.Model):
     value = models.DecimalField(max_digits=14, decimal_places=2, verbose_name="value")
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICE, verbose_name="currency")
     comment = models.CharField(max_length=255, null=True, blank=True)
-    date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    date_purchased = models.DateTimeField(blank=True, null=True)
     receipt = ResizedImageField(
         force_format="WEBP",
         size=[None, 500],
@@ -79,10 +79,10 @@ class Transaction(models.Model):
 
     class Meta:
         verbose_name_plural = "Transactions"
-        ordering = ["-date_created"]
+        ordering = ["-date_purchased"]
 
     def __str__(self):
-        return f"[{self.date_created}] {self.title} [{self.operation}]"
+        return f"[{self.date_purchased}] {self.title} [{self.operation}]"
         
     def __repr__(self) -> str:
         return f"{self.__class__}: {self.operation} | {self.title}"

@@ -43,7 +43,7 @@ class DashboardView(ListView):
     logger.debug("DashboardView requested.")
     model = Transaction
     template_name = "invoices/dashboard.html"
-    ordering = "-date_created"
+    ordering = "-date_purchased"
 
 
     def get_queryset(self) -> QuerySet[Any]:
@@ -158,7 +158,7 @@ class TransactionsListView(FilterView):
     logger.debug("DashboardView requested.")
 
     model = Transaction
-    ordering = "-date_created"
+    ordering = "-date_purchased"
     template_name = "invoices/transactions.html"
     context_object_name = "transactions"
     paginate_by = 20
