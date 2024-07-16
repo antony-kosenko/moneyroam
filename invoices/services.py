@@ -148,9 +148,9 @@ class CategoryServices:
             expenses_category_this_month = (
                 Category.objects.filter(
                     Q(
-                        transactions__date_created__month=datetime.date.today().month
+                        transactions__date_purchased__month=datetime.date.today().month
                         ) & Q(
-                        transactions__date_created__year=datetime.date.today().year
+                        transactions__date_purchased__year=datetime.date.today().year
                         ),
                         transactions__user=user,
                         transactions__operation="expenses"

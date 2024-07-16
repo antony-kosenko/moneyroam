@@ -37,7 +37,7 @@
     
         <section class="transactions_list">
 
-            {% regroup transactions by date_created|date as transactions_date %}
+            {% regroup transactions by date_purchased|date as transactions_date %}
 
             {% for date in transactions_date %}
             <h5>{{ date.grouper }}</h5>
@@ -71,7 +71,7 @@
                             {% else %}
                                 <span>{{ transaction.value }} {{ transaction.currency }}</span>
                             {% endif %}
-                            <span>{{ transaction.date_created | date }}</span>
+                            <span>{{ transaction.date_purchased | date }}</span>
                         </div>
                         {% comment %} Div container with Delete / Edit buttons. {% endcomment %}
                         {% include "invoices/edit_block.html" %}

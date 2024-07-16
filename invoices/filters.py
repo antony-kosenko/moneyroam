@@ -2,9 +2,8 @@ import datetime
 from django.db.models import Q
 
 import django_filters
-from mptt.forms import TreeNodeChoiceField
 
-from invoices.models import Transaction, Category
+from invoices.models import Transaction
 from moneyroam.utils import clear_none_values
 
 
@@ -27,24 +26,24 @@ class TransactionsFilter:
             match month:
                 case "current":
                     return Q(
-                        date_created__year=datetime.datetime.today().year,
-                        date_created__month=datetime.datetime.today().month
+                        date_purchased__year=datetime.datetime.today().year,
+                        date_purchased__month=datetime.datetime.today().month
                     )
                 case "previous":
                     return Q(**self._previous_month())
                 case _:
                     raise ValueError(f"Not valid value provided for month. Valid values are: {__ALLOWED_MONTH_VALUES}")
         else:
-            filter_parameters_requested = {"date_created__year": year,
-                                           "date_created__month": month,
-                                           "date_created__day": day
+            filter_parameters_requested = {"date_purchased__year": year,
+                                           "date_purchased__month": month,
+                                           "date_purchased__day": day
                                            }
 
             # removing parameters with None value
             not_none_parameters = clear_none_values(filter_parameters_requested)
 
             # checking if parameters provided then filter will be applied with these parameters.
-            date_requested = {f"date_created__{k}": v for k, v in not_none_parameters.items()}
+            date_requested = {f"date_purchased__{k}": v for k, v in not_none_parameters.items()}
             return Q(**date_requested)
 
     @staticmethod
@@ -53,15 +52,21 @@ class TransactionsFilter:
         # getting previous month data
         current_month_first_day = datetime.datetime.today().replace(day=1)
         previous_month = current_month_first_day - datetime.timedelta(days=1)
-        return {"date_created__month": previous_month.month, "date_created__year": previous_month.year}
+        return {
+            "date_purchased__month": previous_month.month,
+            "date_purchased__year": previous_month.year
+            }
 
 
 class TransactionsListFilter(django_filters.FilterSet):
     """ Filters for Transaction list. """
 
-    title = django_filters.CharFilter(lookup_expr="icontains", label="Transaction title")
-    date_created = django_filters.DateFromToRangeFilter()
+    title = django_filters.CharFilter(
+        lookup_expr="icontains",
+        label="Transaction title"
+        )
+    date_purchased = django_filters.DateFromToRangeFilter()
 
     class Meta:
         model = Transaction
-        fields = ["title", "category", "operation", "date_created"]
+        fields = ["title", "category", "operation", "date_purchased"]

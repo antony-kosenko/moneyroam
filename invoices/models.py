@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from django.conf import settings
 
 from mptt.models import MPTTModel, TreeForeignKey
@@ -22,7 +23,7 @@ def receipt_image_path(instance, filename):
     # uploading receipt img to dynamic PATH
     extension = filename.split(".")[-1]
     profile_name = f"transactions/{instance.user.pk}"
-    return f"{profile_name}/receipts/{instance.date_created.year}/{instance.date_created.month}/{instance.date_created.day}_{instance.title}.{extension}"
+    return f"{profile_name}/receipts/{instance.date_purchased.year}/{instance.date_purchased.month}/{instance.date_purchased.day}_{instance.title}.{extension}"
 
 
 class Category(MPTTModel):
@@ -43,6 +44,10 @@ class Category(MPTTModel):
     def __str__(self):
         return self.name
     
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
+    
     class MPTTMeta:
         order_insertion_by = ('name',)
     
@@ -62,7 +67,7 @@ class Transaction(models.Model):
     value = models.DecimalField(max_digits=14, decimal_places=2, verbose_name="value")
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICE, verbose_name="currency")
     comment = models.CharField(max_length=255, null=True, blank=True)
-    date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    date_purchased = models.DateTimeField(blank=True, null=True)
     receipt = ResizedImageField(
         force_format="WEBP",
         size=[None, 500],
@@ -74,10 +79,10 @@ class Transaction(models.Model):
 
     class Meta:
         verbose_name_plural = "Transactions"
-        ordering = ["-date_created"]
+        ordering = ["-date_purchased"]
 
     def __str__(self):
-        return f"[{self.date_created}] {self.title} [{self.operation}]"
+        return f"[{self.date_purchased}] {self.title} [{self.operation}]"
         
     def __repr__(self) -> str:
         return f"{self.__class__}: {self.operation} | {self.title}"

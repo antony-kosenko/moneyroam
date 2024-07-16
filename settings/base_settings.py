@@ -198,12 +198,21 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = 'media/'
-
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# SMTP
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS")
 
 # Image resizing 
 
@@ -219,7 +228,6 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 if DEBUG:
     from settings.dev_settings import *
     SECRET_KEY = os.environ.get("KEY")
-    print(SECRET_KEY)
 else:
     SECRET_KEY = get_django_token() 
     from settings.prod_settings import *
