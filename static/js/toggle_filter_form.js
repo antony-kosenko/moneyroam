@@ -33,8 +33,8 @@ $(function() {
         opens: 'left'
     },
     function(start, end, label) {
-        $('#id_date_created_0').val(start.format('YYYY-MM-DD'))
-        $('#id_date_created_1').val(end.format('YYYY-MM-DD'))
+        $('#id_date_purchased_0').val(start.format('YYYY-MM-DD'))
+        $('#id_date_purchased_1').val(end.format('YYYY-MM-DD'))
     });
     $('#datePicker').removeAttr('name');
 });

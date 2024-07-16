@@ -23,7 +23,7 @@ def receipt_image_path(instance, filename):
     # uploading receipt img to dynamic PATH
     extension = filename.split(".")[-1]
     profile_name = f"transactions/{instance.user.pk}"
-    return f"{profile_name}/receipts/{instance.date_created.year}/{instance.date_created.month}/{instance.date_created.day}_{instance.title}.{extension}"
+    return f"{profile_name}/receipts/{instance.date_purchased.year}/{instance.date_purchased.month}/{instance.date_purchased.day}_{instance.title}.{extension}"
 
 
 class Category(MPTTModel):
