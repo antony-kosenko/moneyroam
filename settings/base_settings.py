@@ -228,7 +228,6 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 if DEBUG:
     from settings.dev_settings import *
     SECRET_KEY = os.environ.get("KEY")
-    print(SECRET_KEY)
 else:
     SECRET_KEY = get_django_token() 
     from settings.prod_settings import *
